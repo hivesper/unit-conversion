@@ -1,5 +1,7 @@
 <?php
 
+namespace Conversion;
+
 class Unit
 {
     protected array $parts;

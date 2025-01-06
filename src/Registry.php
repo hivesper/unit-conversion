@@ -1,5 +1,7 @@
 <?php
 
+namespace Conversion;
+
 class Registry {
     private static array $registry = [];
 

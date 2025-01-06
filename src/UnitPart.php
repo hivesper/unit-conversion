@@ -1,8 +1,10 @@
 <?php
 
+namespace Conversion;
+
 readonly class UnitPart
 {
-    public function __construct(protected string $name, protected \Type $type, protected float $scale)
+    public function __construct(protected string $name, protected Type $type, protected float $scale)
     {
     }
 
@@ -11,7 +13,7 @@ readonly class UnitPart
         return $this->name;
     }
 
-    public function getType(): \Type
+    public function getType(): Type
     {
         return $this->type;
     }

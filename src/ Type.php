@@ -1,5 +1,7 @@
 <?php
 
+namespace Conversion;
+
 enum Type: string
 {
     case AREA = 'meter^2';

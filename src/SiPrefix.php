@@ -1,5 +1,7 @@
 <?php
 
+namespace Conversion;
+
 enum SiPrefix: int {
     case YOTTA = 24;
     case ZETTA = 21;

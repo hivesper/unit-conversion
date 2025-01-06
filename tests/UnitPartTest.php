@@ -1,4 +1,7 @@
 <?php declare(strict_types=1);
+
+use Conversion\Type;
+use Conversion\UnitPart;
 use PHPUnit\Framework\TestCase;
 
 final class UnitPartTest extends TestCase

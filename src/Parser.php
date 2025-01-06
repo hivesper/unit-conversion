@@ -1,5 +1,7 @@
 <?php
 
+namespace Conversion;
+
 class Parser
 {
     public function __construct(protected Registry $registry)

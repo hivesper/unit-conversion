@@ -1,5 +1,8 @@
 <?php declare(strict_types=1);
 
+use Conversion\Parser;
+use Conversion\Registry;
+use Conversion\Type;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
