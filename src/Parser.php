@@ -25,6 +25,6 @@ class Parser
             throw new \InvalidArgumentException("Unknown unit: $part");
         }
 
-        return new UnitPart($unit['name'], $unit['type'], $unit['scale']);
+        return $unit;
     }
 }

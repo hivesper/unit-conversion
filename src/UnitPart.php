@@ -4,7 +4,7 @@ namespace Conversion;
 
 readonly class UnitPart
 {
-    public function __construct(protected string $name, protected Type $type, protected float $scale)
+    public function __construct(protected string $name, protected Type $type, protected float $ratio)
     {
     }
 
@@ -18,9 +18,9 @@ readonly class UnitPart
         return $this->type;
     }
 
-    public function getScale(): float
+    public function getRatio(): float
     {
-        return $this->scale;
+        return $this->ratio;
     }
 
     public function canConvertTo(UnitPart $unit): bool

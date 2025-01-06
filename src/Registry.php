@@ -5,12 +5,12 @@ namespace Conversion;
 class Registry {
     private static array $registry = [];
 
-    public static function register(string $name, Type $type, float $scale): void {
-        self::$registry[$name] = new UnitPart($name, $type, $scale);
+    public static function register(string $name, Type $type, float $ratio): void {
+        self::$registry[$name] = new UnitPart($name, $type, $ratio);
     }
 
-    public static function get(string $key): UnitPart {
-        return self::$registry[$key];
+    public static function get(string $key): ?UnitPart {
+        return self::$registry[$key] ?? null;
     }
 
     public function registerSiUnit(string $name, Type $type): void
@@ -19,7 +19,7 @@ class Registry {
 
         foreach (SiPrefix::cases() as $prefix) {
             $prefixedName = sprintf("%s%s", strtolower($prefix->name), $name);
-            self::register($prefixedName, $type, $prefix->value);
+            self::register($prefixedName, $type, 10 ** $prefix->value);
         }
     }
 
@@ -28,9 +28,11 @@ class Registry {
         $this->registerSiUnit(Type::AREA->value, Type::AREA);
         $this->registerSiUnit(Type::ENERGY->value, Type::ENERGY);
         $this->registerSiUnit(Type::LENGTH->value, Type::LENGTH);
-        // The base for mass is kilogram, but kilogram is already prefixed (kilo)
         $this->registerSiUnit('gram', Type::MASS);
+        // Add other time units (hours etc) and relation to base
         $this->registerSiUnit(Type::TIME->value, Type::TIME);
+
+        // Liters
         $this->registerSiUnit(Type::VOLUME->value, Type::VOLUME);
     }
 }
