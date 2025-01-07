@@ -2,7 +2,8 @@
 
 namespace Conversion;
 
-class Converter {
+class Converter
+{
     public function __construct(protected Registry $registry)
     {
 
@@ -14,15 +15,26 @@ class Converter {
             throw new \InvalidArgumentException("Cannot convert from [$from] to [$to]");
         }
 
-        foreach ($from->getParts() as $index => $part) {
-            $value = $this->convertPart($part, $to->getParts()[$index], $value);
+        if ($from->isCompound()) {
+            return $this->convertCompoundUnit($from, $to, $value);
         }
 
-        return $value;
+        return $this->convertPart($from->getPart(0), $to->getPart(0), $value);
     }
 
     protected function convertPart(UnitPart $from, UnitPart $to, float $value = 1): float
     {
         return $value * $from->getRatio() / $to->getRatio();
+    }
+
+    protected function convertCompoundUnit(Unit $from, Unit $to, float $value = 1): float
+    {
+        $ratio = $this->convertPart($from->getPart(0), $to->getPart(0));
+
+        for ($i = 1; $i < count($from->getParts()); $i++) {
+            $ratio /= $this->convertPart($from->getPart($i), $to->getPart($i));
+        }
+
+        return $value / $ratio;
     }
 }

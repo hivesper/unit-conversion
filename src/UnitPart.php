@@ -2,7 +2,7 @@
 
 namespace Conversion;
 
-readonly class UnitPart
+class UnitPart
 {
     public function __construct(protected string $name, protected Type $type, protected float $ratio)
     {

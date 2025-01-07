@@ -35,4 +35,13 @@ final class ParserTest extends TestCase
             $type,
         ], Type::cases());
     }
+
+    public function test_parses_compound_units()
+    {
+        $result = $this->parser->parse('kilometer/hour');
+
+        $this->assertCount(2, $result->getParts());
+        $this->assertEquals('kilometer', (string) $result->getParts()[0]);
+        $this->assertEquals('hour', (string) $result->getParts()[1]);
+    }
 }

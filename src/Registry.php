@@ -29,10 +29,21 @@ class Registry {
         $this->registerSiUnit(Type::ENERGY->value, Type::ENERGY);
         $this->registerSiUnit(Type::LENGTH->value, Type::LENGTH);
         $this->registerSiUnit('gram', Type::MASS);
-        // Add other time units (hours etc) and relation to base
-        $this->registerSiUnit(Type::TIME->value, Type::TIME);
+
+        $this->initTime();
 
         // Liters
         $this->registerSiUnit(Type::VOLUME->value, Type::VOLUME);
+    }
+
+    protected function initTime(): void
+    {
+        $this->registerSiUnit(Type::TIME->value, Type::TIME);
+
+        $this->register('minute', Type::TIME, 60);
+        $this->register('hour', Type::TIME, 3600);
+        $this->register('day', Type::TIME, 86400);
+        $this->register('week', Type::TIME, 604800);
+        $this->register('year', Type::TIME, 31536000);
     }
 }

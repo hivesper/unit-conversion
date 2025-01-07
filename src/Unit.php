@@ -16,6 +16,11 @@ class Unit
         return $this->parts;
     }
 
+    public function getPart(int $index): UnitPart
+    {
+        return $this->parts[$index];
+    }
+
     public function canConvertTo(Unit $part): bool
     {
         $thisParts = $this->getParts();
@@ -32,6 +37,11 @@ class Unit
         }
 
         return true;
+    }
+
+    public function isCompound(): bool
+    {
+        return count($this->parts) > 1;
     }
 
     public function __toString(): string
