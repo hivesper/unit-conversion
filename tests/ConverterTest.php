@@ -27,7 +27,8 @@ final class ConverterTest extends TestCase
         $meter = $this->parser->parse('meter');
         $second = $this->parser->parse('second');
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("Cannot convert from [$meter] to [$second]");
 
         $this->converter->convert($meter, $second);
     }

@@ -12,7 +12,7 @@ class Converter
     public function convert(Unit $from, Unit $to, float $value = 1): float
     {
         if (!$from->canConvertTo($to)) {
-            throw new \InvalidArgumentException("Cannot convert from [$from] to [$to]");
+            throw new \Exception("Cannot convert from [$from] to [$to]");
         }
 
         if ($from->isCompound()) {

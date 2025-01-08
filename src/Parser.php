@@ -22,7 +22,7 @@ class Parser
         $unit = $this->registry->get($part);
 
         if ($unit === null) {
-            throw new \InvalidArgumentException("Unknown unit: $part");
+            throw new \Exception("Unknown unit: $part");
         }
 
         return $unit;
