@@ -5,45 +5,104 @@ namespace Conversion;
 class Registry {
     protected array $registry = [];
 
-    public function register(string $name, Type $type, float $ratio): void {
+    protected array $siPrefixes;
+
+    public function __construct()
+    {
+        $this->siPrefixes = require __DIR__ . '/si-prefixes.php';
+    }
+
+    public function register(string $name, Type $type, float $ratio): self{
         $this->registry[$name] = new UnitPart($name, $type, $ratio);
+
+        return $this;
+    }
+
+    public function alias(string $name, array $aliases): self
+    {
+        $base = $this->get($name);
+
+        if ($base === null) {
+            throw new \Exception("Cannot alias unknown unit [$name]");
+        }
+
+        foreach ($aliases as $alias) {
+            if (isset($this->registry[$alias])) {
+                throw new \Exception("Adding [$alias] for [$name] would overwrite [{$this->registry[$alias]}]");
+            }
+
+            $this->registry[$alias] = $base;
+        }
+
+        return $this;
     }
 
     public function get(string $key): ?UnitPart {
         return $this->registry[$key] ?? null;
     }
 
-    public function registerSiUnit(string $name, Type $type): void
+    public function registerSiUnit(string $name, ?array $symbols, Type $type, float $ratio): self
     {
-        $this->register($name, $type, 1);
+        $this->register($name, $type, $ratio);
 
-        foreach (SiPrefix::cases() as $prefix) {
-            $prefixedName = sprintf("%s%s", strtolower($prefix->name), $name);
-            $this->register($prefixedName, $type, 10 ** $prefix->value);
+        foreach ($this->siPrefixes as $prefix) {
+            $prefixedName = sprintf("%s%s", $prefix['name'], $name);
+
+            $this->register($prefixedName, $type, $ratio * 10 ** $prefix['value']);
+
+            if ($symbols) {
+                $this->alias($prefixedName, array_map(fn($symbol) => $prefix['short_name'] . $symbol, $symbols));
+            }
         }
+
+        return $this;
     }
 
     public function init(): void
     {
-        $this->registerSiUnit(Type::AREA->value, Type::AREA);
-        $this->registerSiUnit(Type::ENERGY->value, Type::ENERGY);
-        $this->registerSiUnit(Type::LENGTH->value, Type::LENGTH);
-        $this->registerSiUnit('gram', Type::MASS);
-
+        $this->initArea();
+        $this->initEnergy();
+        $this->initLength();
+        $this->initMass();
         $this->initTime();
+        $this->initVolume();
+    }
 
-        // Liters
-        $this->registerSiUnit(Type::VOLUME->value, Type::VOLUME);
+    protected function initArea(): void
+    {
+        $this->registerSiUnit(Type::AREA->value, ['m^2', 'm2'], Type::AREA, 1);
+    }
+
+    protected function initEnergy(): void
+    {
+        $this->registerSiUnit(Type::ENERGY->value, ['j', 'J'], Type::ENERGY, 1);
+    }
+
+    protected function initLength(): void
+    {
+        $this->registerSiUnit(Type::LENGTH->value, ['m'], Type::LENGTH, 1);
+    }
+
+    protected function initMass(): void
+    {
+        $this->registerSiUnit('gram', ['g'], Type::MASS, 0.001);
     }
 
     protected function initTime(): void
     {
-        $this->registerSiUnit(Type::TIME->value, Type::TIME);
+        $this->registerSiUnit(Type::TIME->value, ['s'], Type::TIME, 1);
 
         $this->register('minute', Type::TIME, 60);
         $this->register('hour', Type::TIME, 3600);
         $this->register('day', Type::TIME, 86400);
         $this->register('week', Type::TIME, 604800);
         $this->register('year', Type::TIME, 31536000);
+    }
+
+    protected function initVolume(): void
+    {
+        $this
+            ->registerSiUnit(Type::VOLUME->value,  ['m^3', 'm3'], Type::VOLUME, 1)
+            ->alias('decimeter^3', ['l', 'L']);
     }
 }
