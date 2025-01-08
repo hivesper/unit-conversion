@@ -3,23 +3,23 @@
 namespace Conversion;
 
 class Registry {
-    private static array $registry = [];
+    protected array $registry = [];
 
-    public static function register(string $name, Type $type, float $ratio): void {
-        self::$registry[$name] = new UnitPart($name, $type, $ratio);
+    public function register(string $name, Type $type, float $ratio): void {
+        $this->registry[$name] = new UnitPart($name, $type, $ratio);
     }
 
-    public static function get(string $key): ?UnitPart {
-        return self::$registry[$key] ?? null;
+    public function get(string $key): ?UnitPart {
+        return $this->registry[$key] ?? null;
     }
 
     public function registerSiUnit(string $name, Type $type): void
     {
-        self::register($name, $type, 1);
+        $this->register($name, $type, 1);
 
         foreach (SiPrefix::cases() as $prefix) {
             $prefixedName = sprintf("%s%s", strtolower($prefix->name), $name);
-            self::register($prefixedName, $type, 10 ** $prefix->value);
+            $this->register($prefixedName, $type, 10 ** $prefix->value);
         }
     }
 
