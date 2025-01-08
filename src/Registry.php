@@ -18,7 +18,7 @@ class Registry {
         return $this;
     }
 
-    public function alias(string $name, array $aliases): self
+    public function alias(string $name, array|string $aliases): self
     {
         $base = $this->get($name);
 
@@ -26,9 +26,9 @@ class Registry {
             throw new \Exception("Cannot alias unknown unit [$name]");
         }
 
-        foreach ($aliases as $alias) {
+        foreach ((array)$aliases as $alias) {
             if (isset($this->registry[$alias])) {
-                throw new \Exception("Adding [$alias] for [$name] would overwrite [{$this->registry[$alias]}]");
+                throw new \Exception("Adding [$alias] for [$name] would overwrite [{$this->get($alias)}]");
             }
 
             $this->registry[$alias] = $base;
@@ -45,13 +45,17 @@ class Registry {
     {
         $this->register($name, $type, $ratio);
 
-        foreach ($this->siPrefixes as $prefix) {
-            $prefixedName = sprintf("%s%s", $prefix['name'], $name);
+        if ($symbols) {
+            $this->alias($name, $symbols);
+        }
 
+        foreach ($this->siPrefixes as $prefix) {
+            $prefixedName = "{$prefix['name']}$name";
             $this->register($prefixedName, $type, $ratio * 10 ** $prefix['value']);
 
             if ($symbols) {
-                $this->alias($prefixedName, array_map(fn($symbol) => $prefix['short_name'] . $symbol, $symbols));
+                $aliases = array_map(fn($symbol) => "{$prefix['short_name']}$symbol", $symbols);
+                $this->alias($prefixedName, $aliases);
             }
         }
 
