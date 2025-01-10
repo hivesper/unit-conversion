@@ -41,7 +41,7 @@ class Registry {
         return $this->registry[$key] ?? null;
     }
 
-    public function registerSiUnit(string $name, ?array $symbols, Type $type, float $ratio): self
+    public function registerSiUnit(string $name, ?array $symbols, Type $type, float $ratio = 1, float $power = 1): self
     {
         $this->register($name, $type, $ratio);
 
@@ -51,7 +51,7 @@ class Registry {
 
         foreach ($this->siPrefixes as $prefix) {
             $prefixedName = "{$prefix['name']}$name";
-            $this->register($prefixedName, $type, $ratio * 10 ** $prefix['value']);
+            $this->register($prefixedName, $type, $ratio * 10 ** ($prefix['value'] * $power));
 
             if ($symbols) {
                 $aliases = array_map(fn($symbol) => "{$prefix['short_name']}$symbol", $symbols);
@@ -74,17 +74,17 @@ class Registry {
 
     protected function initArea(): void
     {
-        $this->registerSiUnit(Type::AREA->value, ['m^2', 'm2'], Type::AREA, 1);
+        $this->registerSiUnit(Type::AREA->value, ['m^2', 'm2'], Type::AREA, power: 2);
     }
 
     protected function initEnergy(): void
     {
-        $this->registerSiUnit(Type::ENERGY->value, ['j', 'J'], Type::ENERGY, 1);
+        $this->registerSiUnit(Type::ENERGY->value, ['j', 'J'], Type::ENERGY);
     }
 
     protected function initLength(): void
     {
-        $this->registerSiUnit(Type::LENGTH->value, ['m'], Type::LENGTH, 1);
+        $this->registerSiUnit(Type::LENGTH->value, ['m'], Type::LENGTH);
     }
 
     protected function initMass(): void
@@ -106,7 +106,7 @@ class Registry {
     protected function initVolume(): void
     {
         $this
-            ->registerSiUnit(Type::VOLUME->value,  ['m^3', 'm3'], Type::VOLUME, 1)
-            ->alias('decimeter^3', ['l', 'L']);
+            ->registerSiUnit(Type::VOLUME->value,  ['m^3', 'm3'], Type::VOLUME, power: 3)
+            ->alias('decimeter^3', ['l', 'L', 'liter']);
     }
 }

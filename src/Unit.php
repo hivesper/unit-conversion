@@ -21,24 +21,6 @@ class Unit
         return $this->parts[$index];
     }
 
-    public function canConvertTo(Unit $part): bool
-    {
-        $thisParts = $this->getParts();
-        $unitParts = $part->getParts();
-
-        if (count($thisParts) !== count($unitParts)) {
-            return false;
-        }
-
-        foreach ($thisParts as $index => $part) {
-            if (!$part->canConvertTo($unitParts[$index])) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     public function isCompound(): bool
     {
         return count($this->parts) > 1;

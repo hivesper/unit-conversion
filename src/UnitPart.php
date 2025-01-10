@@ -23,11 +23,6 @@ class UnitPart
         return $this->ratio;
     }
 
-    public function canConvertTo(UnitPart $unit): bool
-    {
-        return $this->getType() === $unit->getType();
-    }
-
     public function __toString(): string
     {
         return $this->getName();
