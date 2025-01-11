@@ -2,6 +2,7 @@
 
 use Conversion\Parser;
 use Conversion\Registry;
+use Conversion\RegistryBuilder;
 use Conversion\Type;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -14,9 +15,7 @@ final class ParserTest extends TestCase
     {
         parent::setUp();
 
-        $registry = new Registry();
-        $registry->init();
-
+        $registry = RegistryBuilder::build(new Registry());
         $this->parser = new Parser($registry);
     }
 

@@ -3,6 +3,7 @@
 use Conversion\Converter;
 use Conversion\Parser;
 use Conversion\Registry;
+use Conversion\RegistryBuilder;
 use PHPUnit\Framework\TestCase;
 
 final class ConverterTest extends TestCase
@@ -15,9 +16,7 @@ final class ConverterTest extends TestCase
     {
         parent::setUp();
 
-        $this->registry = new Registry();
-        $this->registry->init();
-
+        $this->registry = RegistryBuilder::build(new Registry());
         $this->parser = new Parser($this->registry);
         $this->converter = new Converter($this->registry);
     }

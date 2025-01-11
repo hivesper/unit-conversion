@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use Conversion\Registry;
+use Conversion\RegistryBuilder;
 use Conversion\Type;
 use PHPUnit\Framework\TestCase;
 
@@ -12,8 +13,7 @@ final class RegistryTest extends TestCase
     {
         parent::setUp();
 
-        $this->registry = new Registry();
-        $this->registry->init();
+        $this->registry = RegistryBuilder::build(new Registry());
     }
 
     public function test_unknown_unit()
