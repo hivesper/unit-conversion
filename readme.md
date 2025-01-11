@@ -4,10 +4,24 @@
 use Conversion\Converter;
 use Conversion\Parser;
 use Conversion\Registry;
+use Conversion\RegistryBuilder;
+use Conversion\Type;
 
 $registry = new Registry();
+
 // Setup basic units
-$registry->init();
+RegistryBuilder::build($registry);
+
+// Register a si unit including all the si prefixes.
+// When specifying symbols, it will also add prefixed symbols.
+RegistryBuilder::registerSiUnit(
+    $registry,
+    Type::ENERGY,
+    'joule', // Full name of the unit
+    ['J'], // Symbols for the unit
+    ratio: 1 // The relation to the base unit
+    power: 1 // The dimension of the unit
+);
 
 $parser = new Parser($registry);
 $converter = new Converter($registry);
