@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
+use Conversion\Dimension;
 use Conversion\Registry;
 use Conversion\RegistryBuilder;
-use Conversion\Type;
 use PHPUnit\Framework\TestCase;
 
 final class RegistryTest extends TestCase
@@ -23,6 +23,24 @@ final class RegistryTest extends TestCase
         $this->assertNull($unitPart);
     }
 
+    public function test_length()
+    {
+        $m = $this->registry->get('meter');
+
+        $this->assertEquals(1, $m->getRatio());
+        $this->assertEquals(Dimension::LENGTH, $m->getDimension());
+        $this->assertEquals(1, $m->getPower());
+    }
+
+    public function test_area()
+    {
+        $m = $this->registry->get('meter^2');
+
+        $this->assertEquals(1, $m->getRatio());
+        $this->assertEquals(Dimension::LENGTH, $m->getDimension());
+        $this->assertEquals(2, $m->getPower());
+    }
+
     public function test_mass_units()
     {
         $g = $this->registry->get('gram');
@@ -30,11 +48,11 @@ final class RegistryTest extends TestCase
 
         $this->assertEquals(0.001, $g->getRatio());
         $this->assertEquals('gram', $g->getName());
-        $this->assertEquals(Type::MASS, $g->getType());
+        $this->assertEquals(Dimension::MASS, $g->getDimension());
 
         $this->assertEquals(1, $kg->getRatio());
         $this->assertEquals('kilogram', $kg->getName());
-        $this->assertEquals(Type::MASS, $kg->getType());
+        $this->assertEquals(Dimension::MASS, $kg->getDimension());
     }
 
     public function test_aliases_are_equal()

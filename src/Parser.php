@@ -9,10 +9,11 @@ class Parser
 
     }
 
+    // todo: this parsing is all wrong
     public function parse(string $input): Unit
     {
         $parts = explode('/', $input);
-        $unitParts = array_map(fn($part) => self::parsePart($part), $parts);
+        $unitParts = array_map(fn($part) => $this->parsePart($part), $parts);
 
         return new Unit(...$unitParts);
     }

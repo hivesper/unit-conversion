@@ -5,8 +5,8 @@ namespace Conversion;
 class Registry {
     protected array $registry = [];
 
-    public function register(string $name, Type $type, float $ratio): self{
-        $this->registry[$name] = new UnitPart($name, $type, $ratio);
+    public function register(string $name, float $ratio, Dimension $dimension, int $power): self {
+        $this->registry[$name] = new UnitPart($name, $ratio, $dimension, $power);
 
         return $this;
     }
@@ -30,7 +30,8 @@ class Registry {
         return $this;
     }
 
-    public function get(string $key): ?UnitPart {
+    public function get(string $key): ?UnitPart
+    {
         return $this->registry[$key] ?? null;
     }
 }

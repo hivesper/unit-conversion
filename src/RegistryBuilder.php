@@ -43,9 +43,9 @@ class RegistryBuilder
         return $registry;
     }
 
-    public static function registerSiUnit(Registry $registry, Type $type, string $name, array $symbols = [], float $ratio = 1, float $power = 1): void
+    public static function registerSiUnit(Registry $registry, string $name, array $symbols, float $ratio, Dimension $dimension, int $power): void
     {
-        $registry->register($name, $type, $ratio);
+        $registry->register($name, $ratio, $dimension, $power);
 
         if ($symbols) {
             $registry->alias($name, $symbols);
@@ -53,7 +53,7 @@ class RegistryBuilder
 
         foreach (static::$siPrefixes as $prefix) {
             $prefixedName = "{$prefix['name']}$name";
-            $registry->register($prefixedName, $type, $ratio * 10 ** ($prefix['factor'] * $power));
+            $registry->register($prefixedName, $ratio * 10 ** ($prefix['factor']), $dimension, $power);
 
             $aliases = array_map(fn($symbol) => "{$prefix['short_name']}$symbol", $symbols);
             $registry->alias($prefixedName, $aliases);
@@ -62,38 +62,35 @@ class RegistryBuilder
 
     protected static function initArea(Registry $registry): void
     {
-        static::registerSiUnit($registry, Type::AREA, Type::AREA->value, ['m^2', 'm2'], ratio: 2, power: 2);
+        static::registerSiUnit($registry, 'meter^2', ['m^2'], 1, Dimension::LENGTH, 2);
     }
 
     protected static function initEnergy(Registry $registry): void
     {
-        static::registerSiUnit($registry, Type::ENERGY, Type::ENERGY->value, ['j', 'J']);
+        // todo: Joule is a compound base unit (kg * m^2 * s^-2)
     }
 
     protected static function initLength(Registry $registry): void
     {
-        static::registerSiUnit($registry, Type::LENGTH, Type::LENGTH->value, ['m']);
+        static::registerSiUnit($registry, 'meter', ['m'], 1, Dimension::LENGTH, 1);
     }
 
     protected static function initMass(Registry $registry): void
     {
-        static::registerSiUnit($registry, Type::MASS, 'gram', ['g'], ratio: 0.001 );
+        static::registerSiUnit($registry, 'gram', ['g'], 0.001, Dimension::MASS, 1);
     }
 
     protected static function initTime(Registry $registry): void
     {
-        static::registerSiUnit($registry, Type::TIME, Type::TIME->value, ['s']);
-
-        $registry->register('minute', Type::TIME, ratio: 60);
-        $registry->register('hour', Type::TIME, ratio: 3600);
-        $registry->register('day', Type::TIME, ratio: 86400);
-        $registry->register('week', Type::TIME, ratio: 604800);
-        $registry->register('year', Type::TIME, ratio: 31536000);
+        $registry->register('second', 1, Dimension::TIME, 1);
+        $registry->register('minute', 60, Dimension::TIME, 1);
+        $registry->register('hour', 3600, Dimension::TIME, 1);
+        $registry->register('day', 86400, Dimension::TIME, 1);
     }
 
     protected static function initVolume(Registry $registry): void
     {
-        static::registerSiUnit($registry, Type::VOLUME, Type::VOLUME->value, ['m^3', 'm3'], power: 3);
+        static::registerSiUnit($registry, 'meter^3', ['m^3'], 1, Dimension::LENGTH, 3);
 
         $registry->alias('decimeter^3', ['l', 'L', 'liter']);
     }

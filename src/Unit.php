@@ -26,6 +26,26 @@ class Unit
         return count($this->parts) > 1;
     }
 
+    public function getDimensions(): array
+    {
+        $dimensions = [
+            Dimension::MASS->name => 0,
+            Dimension::LENGTH->name => 0,
+            Dimension::TIME->name => 0,
+            Dimension::CURRENT->name => 0,
+            Dimension::TEMPERATURE->name => 0,
+            Dimension::LUMINOUS_INTENSITY->name => 0,
+            Dimension::AMOUNT_OF_SUBSTANCE->name => 0,
+            Dimension::ANGLE->name => 0,
+        ];
+
+        foreach ($this->getParts() as $part) {
+            $dimensions[$part->getDimension()->name] += $part->getPower();
+        }
+
+        return $dimensions;
+    }
+
     public function __toString(): string
     {
         return implode('/', $this->parts);
