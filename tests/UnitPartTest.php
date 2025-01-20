@@ -8,14 +8,16 @@ final class UnitPartTest extends TestCase
 {
     public function test_stringifies()
     {
-        $unitPart = new UnitPart('unknown', 1, Dimension::LENGTH, 1);
-
-        $this->assertEquals('unknown', (string) $unitPart);
+        $this->assertEquals('meter^-1', (string) new UnitPart(1, Dimension::LENGTH, -1));
+        $this->assertEquals('meter^0', (string) new UnitPart(1, Dimension::LENGTH, 0));
+        $this->assertEquals('meter', (string) new UnitPart(1, Dimension::LENGTH, 1));
+        $this->assertEquals('meter^2', (string) new UnitPart(1, Dimension::LENGTH, 2));
+        $this->assertEquals('meter^10', (string) new UnitPart(1, Dimension::LENGTH, 10));
     }
 
     public function test_get_dimensions()
     {
-        $unitPart = new UnitPart('meter^2', 1, Dimension::LENGTH, 2);
+        $unitPart = new UnitPart(1, Dimension::LENGTH, 2);
 
         $this->assertEquals(Dimension::LENGTH, $unitPart->getDimension());
         $this->assertEquals(2, $unitPart->getPower());

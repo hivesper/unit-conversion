@@ -7,14 +7,15 @@ use PHPUnit\Framework\TestCase;
 
 final class ParserTest extends TestCase
 {
-    public Parser $parser;
+    protected Registry $registry;
+    protected Parser $parser;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $registry = RegistryBuilder::build(new Registry());
-        $this->parser = new Parser($registry);
+        $this->registry = RegistryBuilder::build(new Registry());
+        $this->parser = new Parser($this->registry);
     }
 
     public function test_parses_compound_units()
@@ -25,10 +26,7 @@ final class ParserTest extends TestCase
 
         [$km, $hour] = $result->getParts();
 
-        $this->assertEquals('kilometer', $km->getName());
-        $this->assertEquals(1, $km->getPower());
-
-        $this->assertEquals('hour', $hour->getName());
-        $this->assertEquals(-1, $hour->getPower());
+        $this->assertEquals($this->registry->get('kilometer')[0], $km);
+        $this->assertEquals($this->registry->get('hour')[0], $hour);
     }
 }

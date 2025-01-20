@@ -15,10 +15,10 @@ class Parser
         $parts = explode('/', $input);
         $unitParts = array_map(fn($part) => $this->parsePart($part), $parts);
 
-        return new Unit(...$unitParts);
+        return new Unit(...array_merge([], ...$unitParts));
     }
 
-    protected function parsePart(string $part): UnitPart
+    protected function parsePart(string $part): array
     {
         $unit = $this->registry->get($part);
 

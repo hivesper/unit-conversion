@@ -51,15 +51,20 @@ final class ConverterTest extends TestCase
     public function test_area_convert()
     {
         $km2 = $this->parser->parse('kilometer^2');
-        $meterMeter = new Unit(
-            new UnitPart('meter', 1, Dimension::LENGTH, 1),
-            new UnitPart('meter', 1, Dimension::LENGTH,  1),
-        );
         $m2 = $this->parser->parse('meter^2');
 
         $this->assertEquals(2, $this->converter->convert($m2, $km2, 2_000_000));
         $this->assertEquals(2_000_000, $this->converter->convert($km2, $m2, 2));
+    }
 
+    public function test_convert_flattens_dimensions()
+    {
+        $km2 = $this->parser->parse('kilometer^2');
+        $m2 = $this->parser->parse('meter^2');
+        $meterMeter = new Unit(
+            new UnitPart(1, Dimension::LENGTH, 1),
+            new UnitPart(1, Dimension::LENGTH, 1),
+        );
         $this->assertEquals(2, $this->converter->convert($m2, $meterMeter, 2));
         $this->assertEquals(2, $this->converter->convert($meterMeter, $km2, 2_000_000));
     }
@@ -89,12 +94,12 @@ final class ConverterTest extends TestCase
     public function test_compound_convert()
     {
         $meterPerSecond = new Unit(
-            new UnitPart('meter', 1, Dimension::LENGTH, 1),
-            new UnitPart('second', 1, Dimension::TIME, -1),
+            new UnitPart( 1, Dimension::LENGTH, 1),
+            new UnitPart( 1, Dimension::TIME, -1),
         );
         $kmPerHour = new Unit(
-            new UnitPart('kilometer', 1000, Dimension::LENGTH, 1),
-            new UnitPart('hour', 3600, Dimension::TIME, -1),
+            new UnitPart( 1000, Dimension::LENGTH, 1),
+            new UnitPart( 3600, Dimension::TIME, -1),
         );
 
         $this->assertEqualsWithDelta(10, $this->converter->convert($kmPerHour, $meterPerSecond, 36), 0.000001);
@@ -111,6 +116,5 @@ final class ConverterTest extends TestCase
 
         $this->assertEquals(2, $converterWithDensity->convert($kg, $m3, 2000));
         $this->assertEquals(2, $converterWithDensity->convert($kg, $liter, 2));
-
     }
 }

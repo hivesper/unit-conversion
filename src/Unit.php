@@ -48,6 +48,13 @@ class Unit
 
     public function __toString(): string
     {
-        return implode('/', $this->parts);
+        return $this->format();
+    }
+
+    public function format(): string
+    {
+        $parts = array_map(fn (UnitPart $part) => $part->format(), $this->getParts());
+
+        return implode('*', $parts);
     }
 }

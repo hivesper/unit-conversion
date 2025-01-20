@@ -45,7 +45,7 @@ class RegistryBuilder
 
     public static function registerSiUnit(Registry $registry, string $name, array $symbols, float $ratio, Dimension $dimension, int $power): void
     {
-        $registry->register($name, $ratio, $dimension, $power);
+        $registry->register($name, [new UnitPart($ratio, $dimension, $power)]);
 
         if ($symbols) {
             $registry->alias($name, $symbols);
@@ -53,7 +53,11 @@ class RegistryBuilder
 
         foreach (static::$siPrefixes as $prefix) {
             $prefixedName = "{$prefix['name']}$name";
-            $registry->register($prefixedName, $ratio * 10 ** ($prefix['factor']), $dimension, $power);
+            $registry->register($prefixedName, [new UnitPart(
+                $ratio * 10 ** ($prefix['factor']),
+                $dimension,
+                $power
+            )]);
 
             $aliases = array_map(fn($symbol) => "{$prefix['short_name']}$symbol", $symbols);
             $registry->alias($prefixedName, $aliases);
@@ -67,7 +71,11 @@ class RegistryBuilder
 
     protected static function initEnergy(Registry $registry): void
     {
-        // todo: Joule is a compound base unit (kg * m^2 * s^-2)
+        $registry->register('joule', [
+            new UnitPart(1, Dimension::MASS, 1),
+            new UnitPart(1, Dimension::LENGTH, 2),
+            new UnitPart(1, Dimension::TIME, -2)
+        ]);
     }
 
     protected static function initLength(Registry $registry): void
@@ -82,10 +90,10 @@ class RegistryBuilder
 
     protected static function initTime(Registry $registry): void
     {
-        $registry->register('second', 1, Dimension::TIME, 1);
-        $registry->register('minute', 60, Dimension::TIME, 1);
-        $registry->register('hour', 3600, Dimension::TIME, 1);
-        $registry->register('day', 86400, Dimension::TIME, 1);
+        $registry->register('second', [new UnitPart(1, Dimension::TIME, 1)]);
+        $registry->register('minute', [new UnitPart(60, Dimension::TIME, 1)]);
+        $registry->register('hour', [new UnitPart(3600, Dimension::TIME, 1)]);
+        $registry->register('day', [new UnitPart(86400, Dimension::TIME, 1)]);
     }
 
     protected static function initVolume(Registry $registry): void

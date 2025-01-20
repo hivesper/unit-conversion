@@ -25,7 +25,7 @@ final class RegistryTest extends TestCase
 
     public function test_length()
     {
-        $m = $this->registry->get('meter');
+        [$m] = $this->registry->get('meter');
 
         $this->assertEquals(1, $m->getRatio());
         $this->assertEquals(Dimension::LENGTH, $m->getDimension());
@@ -34,20 +34,20 @@ final class RegistryTest extends TestCase
 
     public function test_area()
     {
-        $m = $this->registry->get('meter^2');
+        [$m2] = $this->registry->get('meter^2');
 
-        $this->assertEquals(1, $m->getRatio());
-        $this->assertEquals(Dimension::LENGTH, $m->getDimension());
-        $this->assertEquals(2, $m->getPower());
+        $this->assertEquals(1, $m2->getRatio());
+        $this->assertEquals(Dimension::LENGTH, $m2->getDimension());
+        $this->assertEquals(2, $m2->getPower());
     }
 
     public function test_mass_units()
     {
-        $g = $this->registry->get('gram');
-        $kg = $this->registry->get('kilogram');
+        [$g]= $this->registry->get('gram');
+        [$kg] = $this->registry->get('kilogram');
 
         $this->assertEquals(0.001, $g->getRatio());
-        $this->assertEquals('gram', $g->getName());
+        $this->assertEquals('kilogram', $g->getName());
         $this->assertEquals(Dimension::MASS, $g->getDimension());
 
         $this->assertEquals(1, $kg->getRatio());
@@ -57,8 +57,8 @@ final class RegistryTest extends TestCase
 
     public function test_aliases_are_equal()
     {
-        $gram = $this->registry->get('gram');
-        $gramAlias = $this->registry->get('g');
+       [$gram] = $this->registry->get('gram');
+       [$gramAlias] = $this->registry->get('g');
 
         $this->assertNotNull($gram);
         $this->assertNotNull($gramAlias);
@@ -79,7 +79,7 @@ final class RegistryTest extends TestCase
         $this->assertNotNull($this->registry->get('g'));
 
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Adding [g] for [gram] would overwrite [gram]');
+        $this->expectExceptionMessage('Name [g] is already registered');
 
         $this->registry->alias('gram', ['g']);
     }

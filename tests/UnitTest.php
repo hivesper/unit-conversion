@@ -10,18 +10,18 @@ final class UnitTest extends TestCase
     public function test_stringifies()
     {
         $unit = new Unit(
-            new UnitPart('gram', 1, Dimension::MASS, 1),
-            new UnitPart('meter^2', 1, Dimension::LENGTH, 2),
+            new UnitPart(1, Dimension::MASS, 1),
+            new UnitPart( 1, Dimension::LENGTH, -2),
         );
 
-        $this->assertEquals('gram/meter^2', (string) $unit);
+        $this->assertEquals('kilogram*meter^-2', (string) $unit);
     }
 
     public function test_get_dimensions()
     {
         $unit = new Unit(
-            new UnitPart('gram', 1, Dimension::MASS, 1),
-            new UnitPart('meter^2', 1, Dimension::LENGTH, 2),
+            new UnitPart(1, Dimension::MASS, 1),
+            new UnitPart(1, Dimension::LENGTH, 2),
         );
 
         $this->assertEquals([
@@ -39,8 +39,8 @@ final class UnitTest extends TestCase
     public function test_get_dimensions_flatten()
     {
         $unit = new Unit(
-            new UnitPart('meter', 1, Dimension::LENGTH, 1),
-            new UnitPart('meter^2', 1, Dimension::LENGTH, 2),
+            new UnitPart(1, Dimension::LENGTH, 1),
+            new UnitPart(1, Dimension::LENGTH, 2),
         );
 
         $this->assertEquals([

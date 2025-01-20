@@ -5,8 +5,13 @@ namespace Conversion;
 class Registry {
     protected array $registry = [];
 
-    public function register(string $name, float $ratio, Dimension $dimension, int $power): self {
-        $this->registry[$name] = new UnitPart($name, $ratio, $dimension, $power);
+    /**
+     * @param string $name
+     * @param UnitPart[] $parts
+     * @return Registry
+     */
+    public function register(string $name, array $parts): self {
+        $this->registry[$name] = $parts;
 
         return $this;
     }
@@ -21,7 +26,7 @@ class Registry {
 
         foreach ((array)$aliases as $alias) {
             if (isset($this->registry[$alias])) {
-                throw new \Exception("Adding [$alias] for [$name] would overwrite [{$this->get($alias)}]");
+                throw new \Exception("Name [$alias] is already registered");
             }
 
             $this->registry[$alias] = $base;
@@ -30,7 +35,10 @@ class Registry {
         return $this;
     }
 
-    public function get(string $key): ?UnitPart
+    /**
+     * @return UnitPart[]|null
+     */
+    public function get(string $key): ?array
     {
         return $this->registry[$key] ?? null;
     }
