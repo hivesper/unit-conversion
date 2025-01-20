@@ -83,4 +83,10 @@ final class RegistryTest extends TestCase
 
         $this->registry->alias('gram', ['g']);
     }
+
+    public function test_has()
+    {
+        $this->assertTrue($this->registry->has('gram'));
+        $this->assertFalse($this->registry->has('yeet'));
+    }
 }

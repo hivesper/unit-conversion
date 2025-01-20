@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use Conversion\Dimension;
 use Conversion\Parser;
 use Conversion\Registry;
 use Conversion\RegistryBuilder;
@@ -18,7 +19,20 @@ final class ParserTest extends TestCase
         $this->parser = new Parser($this->registry);
     }
 
-    public function test_parses_compound_units()
+    public function test_parses_simple()
+    {
+        $result = $this->parser->parse('kilometer');
+
+        $this->assertCount(1, $result->getParts());
+
+        [$km] = $result->getParts();
+
+        $this->assertEquals(Dimension::LENGTH, $km->getDimension());
+        $this->assertEquals(1000, $km->getRatio());
+        $this->assertEquals(1, $km->getPower());
+    }
+
+    public function test_parses_compound_division()
     {
         $result = $this->parser->parse('kilometer/hour');
 
@@ -26,7 +40,59 @@ final class ParserTest extends TestCase
 
         [$km, $hour] = $result->getParts();
 
-        $this->assertEquals($this->registry->get('kilometer')[0], $km);
-        $this->assertEquals($this->registry->get('hour')[0], $hour);
+        $this->assertEquals(Dimension::LENGTH, $km->getDimension());
+        $this->assertEquals(1000, $km->getRatio());
+        $this->assertEquals(1, $km->getPower());
+
+        $this->assertEquals(Dimension::TIME, $hour->getDimension());
+        $this->assertEquals(3600, $hour->getRatio());
+        $this->assertEquals(-1, $hour->getPower());
+    }
+
+    public function test_parses_compound_multiplication()
+    {
+        $result = $this->parser->parse('kilometer*hour');
+
+        $this->assertCount(2, $result->getParts());
+
+        [$km, $hour] = $result->getParts();
+
+        $this->assertEquals(Dimension::LENGTH, $km->getDimension());
+        $this->assertEquals(1000, $km->getRatio());
+        $this->assertEquals(1, $km->getPower());
+
+        $this->assertEquals(Dimension::TIME, $hour->getDimension());
+        $this->assertEquals(3600, $hour->getRatio());
+        $this->assertEquals(1, $hour->getPower());
+    }
+
+    public function test_parses_powers()
+    {
+        $result = $this->parser->parse('kilometer^3');
+
+        $this->assertCount(1, $result->getParts());
+
+        [$km3] = $result->getParts();
+
+        $this->assertEquals(Dimension::LENGTH, $km3->getDimension());
+        $this->assertEquals(1000, $km3->getRatio());
+        $this->assertEquals(3, $km3->getPower());
+    }
+
+    public function test_ignores_whitespace()
+    {
+        $result = $this->parser->parse('   kilometer ^ 3   /   hour   ');
+
+        $this->assertCount(2, $result->getParts());
+
+        [$km3, $hour] = $result->getParts();
+
+        $this->assertEquals(Dimension::LENGTH, $km3->getDimension());
+        $this->assertEquals(1000, $km3->getRatio());
+        $this->assertEquals(3, $km3->getPower());
+
+        $this->assertEquals(Dimension::TIME, $hour->getDimension());
+        $this->assertEquals(3600, $hour->getRatio());
+        $this->assertEquals(-1, $hour->getPower());
     }
 }

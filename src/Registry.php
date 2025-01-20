@@ -16,6 +16,11 @@ class Registry {
         return $this;
     }
 
+    public function has(string $name): bool
+    {
+        return isset($this->registry[$name]);
+    }
+
     public function alias(string $name, array|string $aliases): self
     {
         $base = $this->get($name);
