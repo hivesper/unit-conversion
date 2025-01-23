@@ -18,26 +18,21 @@ class Parser
             $prevToken = $tokens[$i - 1] ?? null;
 
             if ($token['type'] === 'unit') {
-                $unit = $this->registry->get($token['value']);
+                $unitParts = $this->registry->get($token['value']);
 
-                if ($unit === null) {
+                if ($unitParts === null) {
                     throw new \Exception("Unknown unit: {$token['value']}");
                 }
 
                 $powerSign = $prevToken && $prevToken['type'] === 'operator' && $prevToken['value'] === '/'
                     ? -1
                     : 1;
-                $power = $token['power'] * $powerSign;
 
-                if ($power !== 1) {
-                    $unit = array_map(fn (UnitPart $part) => new UnitPart(
-                        $part->getRatio(),
-                        $part->getDimension(),
-                        $power ** $part->getPower()
-                    ), $unit);
-                }
-
-                $parts[] = $unit;
+                $parts[] = array_map(fn (UnitPart $part) => new UnitPart(
+                    $part->getRatio(),
+                    $part->getDimension(),
+                    ($token['power'] ** $part->getPower()) * $powerSign,
+                ), $unitParts);
             }
         }
 
@@ -50,7 +45,7 @@ class Parser
         $tokens = [];
 
         preg_match_all(
-            '/(?P<unit>\w+)(?:\^(?P<power>\d))?|(?P<operator>[*\/])/',
+            '/(?P<unit>\w+)(?:\^(?P<power>-?\d))?|(?P<operator>[*\/])/',
             preg_replace('/\s+/', '', $input),
             $matches,
             PREG_SET_ORDER
