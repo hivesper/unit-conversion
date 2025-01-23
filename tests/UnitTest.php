@@ -54,4 +54,27 @@ final class UnitTest extends TestCase
             Dimension::ANGLE->name => 0,
         ], $unit->getDimensions());
     }
+
+    public function test_is_compound()
+    {
+        $this->assertFalse((new Unit(
+            new UnitPart(1, Dimension::MASS, 1),
+        ))->isCompound());
+
+        // mass^1 * mass^2 = mass^3
+        $this->assertFalse((new Unit(
+            new UnitPart(1, Dimension::MASS, 1),
+            new UnitPart(1, Dimension::MASS, 2),
+        ))->isCompound());
+
+        $this->assertTrue((new Unit(
+            new UnitPart(1, Dimension::MASS, 1),
+            new UnitPart(1, Dimension::LENGTH, 2),
+        ))->isCompound());
+
+        $this->assertTrue((new Unit(
+            new UnitPart(1, Dimension::MASS, 1),
+            new UnitPart(1, Dimension::LENGTH, -2),
+        ))->isCompound());
+    }
 }

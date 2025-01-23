@@ -23,7 +23,7 @@ class Unit
 
     public function isCompound(): bool
     {
-        return count($this->parts) > 1;
+        return count(array_filter($this->getDimensions())) > 1;
     }
 
     public function getDimensions(): array
