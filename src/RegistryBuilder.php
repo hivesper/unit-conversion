@@ -66,7 +66,7 @@ class RegistryBuilder
 
     protected static function initArea(Registry $registry): void
     {
-        static::registerSiUnit($registry, 'meter^2', ['m^2'], 1, Dimension::LENGTH, 2);
+        // todo: hectare, etc
     }
 
     protected static function initEnergy(Registry $registry): void
@@ -98,8 +98,8 @@ class RegistryBuilder
 
     protected static function initVolume(Registry $registry): void
     {
-        static::registerSiUnit($registry, 'meter^3', ['m^3'], 1, Dimension::LENGTH, 3);
-
-        $registry->alias('decimeter^3', ['l', 'L', 'liter']);
+        $registry->register('liter', [
+            new UnitPart(0.001, Dimension::LENGTH, 3),
+        ]);
     }
 }

@@ -32,15 +32,6 @@ final class RegistryTest extends TestCase
         $this->assertEquals(1, $m->getPower());
     }
 
-    public function test_area()
-    {
-        [$m2] = $this->registry->get('meter^2');
-
-        $this->assertEquals(1, $m2->getRatio());
-        $this->assertEquals(Dimension::LENGTH, $m2->getDimension());
-        $this->assertEquals(2, $m2->getPower());
-    }
-
     public function test_mass_units()
     {
         [$g]= $this->registry->get('gram');
