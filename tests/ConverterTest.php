@@ -64,9 +64,34 @@ final class ConverterTest extends TestCase
         $m2 = new Unit(
             new UnitPart(1, Dimension::LENGTH, 2),
         );
+        $cm2 = new Unit(
+            new UnitPart(0.01, Dimension::LENGTH, 2),
+        );
 
         $this->assertEquals(2, $this->converter->convert($m2, $km2, 2_000_000));
         $this->assertEquals(2_000_000, $this->converter->convert($km2, $m2, 2));
+
+        $this->assertEquals(20_000, $this->converter->convert($m2, $cm2, 2));
+        $this->assertEquals(0.0002, $this->converter->convert($cm2, $m2, 2));
+    }
+
+    public function test_volume_convert()
+    {
+        $km3 = new Unit(
+            new UnitPart(1000, Dimension::LENGTH, 3),
+        );
+        $m3 = new Unit(
+            new UnitPart(1, Dimension::LENGTH, 3),
+        );
+        $cm3 = new Unit(
+            new UnitPart(0.01, Dimension::LENGTH, 3),
+        );
+
+        $this->assertEquals(2, $this->converter->convert($m3, $km3, 2_000_000_000));
+        $this->assertEquals(2_000_000_000, $this->converter->convert($km3, $m3, 2));
+
+        $this->assertEqualsWithDelta(2_000_000, $this->converter->convert($m3, $cm3, 2), 0.000001);
+        $this->assertEqualsWithDelta(0.000002, $this->converter->convert($cm3, $m3, 2), 0.000001);
     }
 
     public function test_convert_flattens_dimensions()
@@ -101,18 +126,6 @@ final class ConverterTest extends TestCase
         $this->assertEquals(2, $this->converter->convert($minute, $hour, 120));
         $this->assertEquals(120, $this->converter->convert($minute, $second, 2));
         $this->assertEquals(7200, $this->converter->convert($hour, $second, 2));
-    }
-
-    public function test_volume_convert()
-    {
-        $dm3 = new Unit(
-            new UnitPart(0.1, Dimension::LENGTH, 3),
-        );
-        $m3 = new Unit(
-            new UnitPart(1, Dimension::LENGTH, 3),
-        );
-
-        $this->assertEqualsWithDelta(2000, $this->converter->convert($m3, $dm3, 2), 0.000001);
     }
 
     public function test_compound_convert()

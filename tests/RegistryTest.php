@@ -23,7 +23,7 @@ final class RegistryTest extends TestCase
         $this->assertNull($unitPart);
     }
 
-    public function test_length()
+    public function test_length_units()
     {
         [$m] = $this->registry->get('meter');
 

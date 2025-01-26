@@ -46,6 +46,11 @@ class Unit
         return $dimensions;
     }
 
+    public function canConvertTo(Unit $unit): bool
+    {
+        return $this->getDimensions() === $unit->getDimensions();
+    }
+
     public function __toString(): string
     {
         return $this->format();

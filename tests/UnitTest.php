@@ -77,4 +77,29 @@ final class UnitTest extends TestCase
             new UnitPart(1, Dimension::LENGTH, -2),
         ))->isCompound());
     }
+
+    public function test_can_convert_to()
+    {
+        $m = new Unit(
+            new UnitPart(1, Dimension::LENGTH, 1),
+        );
+        $km = new Unit(
+            new UnitPart(1000, Dimension::LENGTH, 1),
+        );
+        $km3 = new Unit(
+            new UnitPart(1000, Dimension::LENGTH, 3),
+        );
+        $kg = new Unit(
+            new UnitPart(1, Dimension::MASS, 1),
+        );
+
+        $this->assertTrue($m->canConvertTo($km));
+        $this->assertTrue($km->canConvertTo($m));
+
+        $this->assertFalse($m->canConvertTo($km3));
+        $this->assertFalse($km3->canConvertTo($m));
+
+        $this->assertFalse($m->canConvertTo($kg));
+        $this->assertFalse($kg->canConvertTo($m));
+    }
 }

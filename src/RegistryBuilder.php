@@ -54,7 +54,7 @@ class RegistryBuilder
         foreach (static::$siPrefixes as $prefix) {
             $prefixedName = "{$prefix['name']}$name";
             $registry->register($prefixedName, [new UnitPart(
-                $ratio * 10 ** ($prefix['factor']),
+                $ratio * 10 ** $prefix['factor'],
                 $dimension,
                 $power
             )]);
