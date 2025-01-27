@@ -30,27 +30,26 @@ RegistryBuilder::registerSiUnit(
 );
 
 $parser = new Parser($registry);
-$converter = new Converter($registry);
+$converter = new Converter();
 
 // Simple units
-$converter->convert(
-    $parser->parse('cm'),
-    $parser->parse('m'),
-    100
-);
+$cm = $parser->parse('cm');
+$m = $parser->parse('m');
+
+$converter->convert($cm, $m, 100);
 
 // Compound units
-$converter->convert(
-    $parser->parse('m/s'),
-    $parser->parse('km/h'),
-);
+$ms = $parser->parse('m/s');
+$kmh = $parser->parse('km/h'),
+
+$converter->convert($ms, $kmh);
 
 // Units with ratios
+$kg = $parser->parse('kg');
+$m3 = $parser->parse('m^3');
+
 $converter
-    ->withRatios([
-        // density of gold
-        'kilogram/meter^3' => 19320
-    ])
+    ->withRatio($m3, $kg, fn ($value) => $value / 19320)
     ->convert(
         $parser->parse('g'),
         $parser->parse('cm^3'),

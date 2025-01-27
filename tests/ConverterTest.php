@@ -2,23 +2,19 @@
 
 use Conversion\Converter;
 use Conversion\Dimension;
-use Conversion\Registry;
-use Conversion\RegistryBuilder;
 use Conversion\Unit;
 use Conversion\UnitPart;
 use PHPUnit\Framework\TestCase;
 
 final class ConverterTest extends TestCase
 {
-    protected Registry $registry;
     protected Converter $converter;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->registry = RegistryBuilder::build(new Registry());
-        $this->converter = new Converter($this->registry);
+        $this->converter = new Converter();
     }
 
     public function test_converts_incompatible_throws()
@@ -151,13 +147,28 @@ final class ConverterTest extends TestCase
         $m3 = new Unit(
             new UnitPart(1, Dimension::LENGTH, 3),
         );
-        $liter = new Unit(
-            new UnitPart(0.1, Dimension::LENGTH, 3),
-        );
 
-        $converterWithDensity = $this->converter->withRatios(["$kg/$m3" => 1000]);
+        $converterWithDensity = $this->converter->withRatio($kg, $m3, fn($value) => $value / 1000);
 
         $this->assertEquals(2, $converterWithDensity->convert($kg, $m3, 2000));
-        $this->assertEquals(2, $converterWithDensity->convert($kg, $liter, 2));
+    }
+
+    public function test_with_ratios_related()
+    {
+        $kg = new Unit(
+            new UnitPart(1, Dimension::MASS, 1),
+        );
+        $m3 = new Unit(
+            new UnitPart(1, Dimension::LENGTH, 3),
+        );
+        $liter = new Unit(
+            new UnitPart(0.001, Dimension::LENGTH, 3),
+        );
+
+        $kgToM3 = fn ($value) => $value / 1000;
+
+        $converterWithDensity = $this->converter->withRatio($kg, $m3, $kgToM3);
+
+        $this->assertEquals(2000000, $converterWithDensity->convert($kg, $liter, 2));
     }
 }

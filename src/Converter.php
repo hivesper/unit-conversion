@@ -4,20 +4,32 @@ namespace Conversion;
 
 class Converter
 {
-    public function __construct(protected Registry $registry, protected array $ratios = [])
+    public function __construct(protected ?RatioBag $ratios = null)
     {
 
     }
 
-    public function withRatios(array $ratios): self
+    public function withRatios(RatioBag $ratios): self
     {
-        return new self($this->registry, $ratios);
+        return new self($ratios);
+    }
+
+    public function withRatio(Unit $from, Unit $to, callable $convert): self
+    {
+        $ratios = is_null($this->ratios) ? new RatioBag() : clone $this->ratios;
+        $ratios->add($from, $to, $convert);
+
+        return $this->withRatios($ratios);
     }
 
     public function convert(Unit $from, Unit $to, float $value = 1): float
     {
         if (!$this->canConvert($from, $to)) {
             throw new \Exception("Cannot convert from [$from] to [$to]");
+        }
+
+        if ($convert = $this->ratios?->get($from, $to)) {
+            return $this->convertWithRatio($from, $to, $value, $convert);
         }
 
         return $value * $this->toBase($from) / $this->toBase($to);
@@ -34,22 +46,21 @@ class Converter
         return $value;
     }
 
-    public function canConvert(Unit $from, Unit $to): bool
+    protected function convertWithRatio(Unit $from, Unit $to, float $value, array $ratio): float
     {
-        foreach ($from->getDimensions() as $dimension => $ratio) {
-            if ($to->getDimensions()[$dimension] !== $ratio) {
-                return false;
-            }
+        $value * $this->toBase($from) / $this->toBase($ratio['from']);
 
-            // todo: re-add conversion ratios
-        }
+        $value = $ratio['convert']($value);
 
-        return true;
+        return $value * $this->toBase($ratio['to']) / $this->toBase($to);
     }
 
-    protected function getRatio(UnitPart $from, UnitPart $to): ?float
+    public function canConvert(Unit $from, Unit $to): bool
     {
-        return null;
-//        return $this->ratios["{$from->getType()->value}/{$to->getType()->value}"] ?? null;
+        if ($this->ratios?->get($from, $to) !== null) {
+            return true;
+        }
+
+        return $from->canConvertTo($to);
     }
 }
