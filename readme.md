@@ -44,14 +44,16 @@ $kmh = $parser->parse('km/h'),
 
 $converter->convert($ms, $kmh);
 
-// Units with ratios
+// Convert density
 $kg = $parser->parse('kg');
 $m3 = $parser->parse('m^3');
+$kgm3 = $parser->parse('kg/m^3');
 
-$converter
-    ->withRatio($m3, $kg, fn ($value) => $value / 19320)
-    ->convert(
-        $parser->parse('g'),
-        $parser->parse('cm^3'),
-    )
+[$amount, $volumeUnit] = $converter->multiply(1, $m3, 19320, $kgm3)
+
+$converter->convert(
+    $amount,
+    $volumeUnit,
+    $parser->parse('cm^3'),
+)
 ```

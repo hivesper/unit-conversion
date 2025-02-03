@@ -171,4 +171,38 @@ final class ConverterTest extends TestCase
 
         $this->assertEquals(2000000, $converterWithDensity->convert($kg, $liter, 2));
     }
+
+    public function test_multiply()
+    {
+        $gPerCm3 = new Unit(
+            new UnitPart(0.001, Dimension::MASS, 1),
+            new UnitPart(0.01, Dimension::LENGTH, -3),
+        );
+        $kgPerCm3 = new Unit(
+            new UnitPart(1, Dimension::MASS, 1),
+            new UnitPart(0.01, Dimension::LENGTH, -3),
+        );
+        $cm3 = new Unit(
+            new UnitPart(0.01, Dimension::LENGTH, 3),
+        );
+
+        [$amount, $g] = $this->converter->multiply(240, $cm3, 9, $gPerCm3);
+        [$amount2, $kg] = $this->converter->multiply(240, $cm3, 9, $kgPerCm3);
+
+        $this->assertEquals(2160, $amount);
+        $this->assertFalse($g->isCompound());
+        $this->assertEqualsWithDelta(
+            0.001,
+            array_product(array_map(fn($part) => $part->getRatio() ** $part->getPower(), $g->getParts())),
+            0.000001
+        );
+
+        $this->assertEquals(2160, $amount2);
+        $this->assertFalse($kg->isCompound());
+        $this->assertEqualsWithDelta(
+            1,
+            array_product(array_map(fn($part) => $part->getRatio() ** $part->getPower(), $kg->getParts())),
+            0.000001
+        );
+    }
 }
