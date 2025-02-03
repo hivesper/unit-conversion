@@ -112,4 +112,42 @@ final class UnitTest extends TestCase
         $this->assertFalse($m->canConvertTo($kg));
         $this->assertFalse($kg->canConvertTo($m));
     }
+
+    public function test_multiply()
+    {
+        $m = new Unit(
+            new UnitPart(1, Dimension::LENGTH, 1),
+        );
+        $s = new Unit(
+            new UnitPart(1, Dimension::TIME, 1),
+        );
+
+        $ms = new Unit(
+            new UnitPart(1, Dimension::LENGTH, 1),
+            new UnitPart(1, Dimension::TIME, 1),
+        );
+
+        $meterMultipleSeconds = $m->multiply($s);
+
+        $this->assertEquals($ms->getDimensions(), $meterMultipleSeconds->getDimensions());
+    }
+
+    public function test_divide()
+    {
+        $m = new Unit(
+            new UnitPart(1, Dimension::LENGTH, 1),
+        );
+        $s = new Unit(
+            new UnitPart(1, Dimension::TIME, 1),
+        );
+
+        $ms = new Unit(
+            new UnitPart(1, Dimension::LENGTH, 1),
+            new UnitPart(1, Dimension::TIME, -1),
+        );
+
+        $meterDividedBySeconds = $m->divide($s);
+
+        $this->assertEquals($ms->getDimensions(), $meterDividedBySeconds->getDimensions());
+    }
 }

@@ -172,4 +172,25 @@ final class ConverterTest extends TestCase
             0.000001
         );
     }
+
+    public function test_divide()
+    {
+        $g = new Unit(
+            new UnitPart(0.001, Dimension::MASS, 1),
+        );
+        $cm3 = new Unit(
+            new UnitPart(0.01, Dimension::LENGTH, 3),
+        );
+
+        [$amount, $gPerCm3] = $this->converter->divide(30, $g, 3, $cm3);
+
+        $this->assertEquals(10, $amount);
+        $this->assertTrue($gPerCm3->isCompound());
+        $this->assertEqualsWithDelta(
+            1000,
+            array_product(array_map(fn($part) => $part->getRatio() ** $part->getPower(), $gPerCm3->getParts())),
+            0.000001
+        );
+
+    }
 }

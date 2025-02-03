@@ -45,4 +45,9 @@ class UnitPart
 
         return "$name^$this->power";
     }
+
+    public function invert(): self
+    {
+        return new self($this->ratio, $this->dimension, -$this->power);
+    }
 }

@@ -67,4 +67,19 @@ class Unit
 
         return implode('*', $parts);
     }
+
+    public function multiply(Unit $other): self
+    {
+        return new self(...$this->getParts(), ...$other->getParts());
+    }
+
+    public function divide(Unit $other): self
+    {
+        return new self(...$this->getParts(), ...$other->invert()->getParts());
+    }
+
+    public function invert(): self
+    {
+        return new self(...array_map(fn (UnitPart $part) => $part->invert(), $this->getParts()));
+    }
 }

@@ -22,4 +22,13 @@ final class UnitPartTest extends TestCase
         $this->assertEquals(Dimension::LENGTH, $unitPart->getDimension());
         $this->assertEquals(2, $unitPart->getPower());
     }
+
+    public function test_invert()
+    {
+        $unitPart = (new UnitPart(1, Dimension::LENGTH, 2))->invert();
+
+        $this->assertEquals(1, $unitPart->getRatio());
+        $this->assertEquals(Dimension::LENGTH, $unitPart->getDimension());
+        $this->assertEquals(-2, $unitPart->getPower());
+    }
 }

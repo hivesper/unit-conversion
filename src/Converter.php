@@ -29,8 +29,14 @@ class Converter
      */
     public function multiply(float $multiplicand, Unit $multiplicandUnit, float $multiplier, Unit $multiplierUnit): array
     {
-        $productUnit = new Unit(...$multiplicandUnit->getParts(), ...$multiplierUnit->getParts());
+        return [$multiplicand * $multiplier, $multiplicandUnit->multiply($multiplierUnit)];
+    }
 
-        return [$multiplicand * $multiplier, $productUnit];
+    /**
+     * @return array{0: float, 1: Unit}
+     */
+    public function divide(float $dividend, Unit $dividendUnit, float $divisor, Unit $divisorUnit): array
+    {
+        return [$dividend / $divisor, $dividendUnit->divide($divisorUnit)];
     }
 }
