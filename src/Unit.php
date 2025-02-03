@@ -58,7 +58,12 @@ class Unit
 
     public function format(): string
     {
-        $parts = array_map(fn (UnitPart $part) => $part->format(), $this->getParts());
+        $dimensions = array_filter($this->getDimensions());
+
+        $parts = array_map(function(string $dimension, int $power) {
+            $name = Dimension::{$dimension}->getUnitName();
+            return $power === 1 ? $name : "$name^$power";
+        }, array_keys($dimensions), $dimensions);
 
         return implode('*', $parts);
     }

@@ -17,6 +17,16 @@ final class UnitTest extends TestCase
         $this->assertEquals('kilogram*meter^-2', (string) $unit);
     }
 
+    public function test_stringifies_simplifies()
+    {
+        $unit = new Unit(
+            new UnitPart(1, Dimension::LENGTH, 1),
+            new UnitPart( 1, Dimension::LENGTH, 1),
+        );
+
+        $this->assertEquals('meter^2', (string) $unit);
+    }
+
     public function test_get_dimensions()
     {
         $unit = new Unit(

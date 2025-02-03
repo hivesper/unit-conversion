@@ -11,16 +11,7 @@ class UnitPart
 
     public function getName(): string
     {
-        return match ($this->dimension) {
-            Dimension::MASS => 'kilogram',
-            Dimension::LENGTH => 'meter',
-            Dimension::TIME => 'second',
-            Dimension::CURRENT => 'ampere',
-            Dimension::TEMPERATURE => 'kelvin',
-            Dimension::LUMINOUS_INTENSITY => 'candela',
-            Dimension::AMOUNT_OF_SUBSTANCE => 'mole',
-            Dimension::ANGLE => 'radian',
-        };
+        return $this->dimension->getUnitName();
     }
 
     public function getRatio(): float
