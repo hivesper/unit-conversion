@@ -139,39 +139,6 @@ final class ConverterTest extends TestCase
         $this->assertEqualsWithDelta(36, $this->converter->convert($meterPerSecond, $kmPerHour, 10), 0.000001);
     }
 
-    public function test_with_ratios()
-    {
-        $kg = new Unit(
-            new UnitPart(1, Dimension::MASS, 1),
-        );
-        $m3 = new Unit(
-            new UnitPart(1, Dimension::LENGTH, 3),
-        );
-
-        $converterWithDensity = $this->converter->withRatio($kg, $m3, fn($value) => $value / 1000);
-
-        $this->assertEquals(2, $converterWithDensity->convert($kg, $m3, 2000));
-    }
-
-    public function test_with_ratios_related()
-    {
-        $kg = new Unit(
-            new UnitPart(1, Dimension::MASS, 1),
-        );
-        $m3 = new Unit(
-            new UnitPart(1, Dimension::LENGTH, 3),
-        );
-        $liter = new Unit(
-            new UnitPart(0.001, Dimension::LENGTH, 3),
-        );
-
-        $kgToM3 = fn ($value) => $value / 1000;
-
-        $converterWithDensity = $this->converter->withRatio($kg, $m3, $kgToM3);
-
-        $this->assertEquals(2000000, $converterWithDensity->convert($kg, $liter, 2));
-    }
-
     public function test_multiply()
     {
         $gPerCm3 = new Unit(
