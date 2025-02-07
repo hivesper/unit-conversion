@@ -31,7 +31,7 @@ class Parser
                 $parts[] = array_map(fn (UnitPart $part) => new UnitPart(
                     $part->getRatio(),
                     $part->getDimension(),
-                    ($token['power'] ** $part->getPower()) * $powerSign,
+                    $part->getPower() * $token['power'] * $powerSign,
                 ), $unitParts);
             }
         }

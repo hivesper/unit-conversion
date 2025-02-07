@@ -109,6 +109,19 @@ final class ParserTest extends TestCase
         $this->assertEquals(2, $hour->getPower());
     }
 
+    public function test_parses_multiplies_powers()
+    {
+        $result = $this->parser->parse('liter^2');
+
+        $this->assertCount(1, $result->getParts());
+
+        [$l] = $result->getParts();
+
+        $this->assertEquals(Dimension::LENGTH, $l->getDimension());
+        $this->assertEquals(0.001, $l->getRatio());
+        $this->assertEquals(6, $l->getPower());
+    }
+
     public function test_ignores_whitespace()
     {
         $result = $this->parser->parse('   kilometer ^ 3   /   hour   ');
