@@ -1,4 +1,6 @@
 {
+    "type": "library",
+    "name": "tomhooijenga/units",
     "autoload": {
         "psr-4": {
             "Conversion\\": "src/"
