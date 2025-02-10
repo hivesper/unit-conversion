@@ -99,7 +99,7 @@ class RegistryBuilder
     protected static function initVolume(Registry $registry): void
     {
         $registry->register('liter', [
-            new UnitPart(0.001, Dimension::LENGTH, 3),
+            new UnitPart(0.1, Dimension::LENGTH, 3),
         ]);
     }
 }

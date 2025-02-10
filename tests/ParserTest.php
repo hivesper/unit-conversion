@@ -118,7 +118,7 @@ final class ParserTest extends TestCase
         [$l] = $result->getParts();
 
         $this->assertEquals(Dimension::LENGTH, $l->getDimension());
-        $this->assertEquals(0.001, $l->getRatio());
+        $this->assertEquals(0.1, $l->getRatio());
         $this->assertEquals(6, $l->getPower());
     }
 
