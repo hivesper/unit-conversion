@@ -61,7 +61,7 @@ class Unit
         $dimensions = array_filter($this->getDimensions());
 
         $parts = array_map(function(string $dimension, int $power) {
-            $name = Dimension::{$dimension}->getUnitName();
+            $name = constant(Dimension::class . '::' . $dimension)->getUnitName();
             return $power === 1 ? $name : "$name^$power";
         }, array_keys($dimensions), $dimensions);
 
