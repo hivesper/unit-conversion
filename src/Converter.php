@@ -10,18 +10,7 @@ class Converter
             throw new \Exception("Cannot convert from [$from] to [$to]");
         }
 
-        return $value * $this->toBase($from) / $this->toBase($to);
-    }
-
-    protected function toBase(Unit $unit): float
-    {
-        $value = 1;
-
-        foreach ($unit->getParts() as $unitPart) {
-            $value *= $unitPart->getRatio() ** $unitPart->getPower();
-        }
-
-        return $value;
+        return $value * $from->getRatio() / $to->getRatio();
     }
 
     /**
