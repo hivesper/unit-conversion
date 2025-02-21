@@ -6,9 +6,22 @@ class Unit
 {
     protected array $parts;
 
+    protected float $ratio;
+
     public function __construct(UnitPart ...$parts)
     {
         $this->parts = $parts;
+
+        $this->ratio = array_reduce(
+            $parts,
+            fn (float $carry, UnitPart $part) => $carry * $part->getRatio() ** $part->getPower(),
+            1
+        );
+    }
+
+    public function getRatio(): float
+    {
+        return $this->ratio;
     }
 
     public function getParts(): array

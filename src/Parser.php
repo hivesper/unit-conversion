@@ -18,9 +18,9 @@ class Parser
             $prevToken = $tokens[$i - 1] ?? null;
 
             if ($token['type'] === 'unit') {
-                $unitParts = $this->registry->get($token['value']);
+                $unit = $this->registry->get($token['value']);
 
-                if ($unitParts === null) {
+                if ($unit === null) {
                     throw new \Exception("Unknown unit: {$token['value']}");
                 }
 
@@ -32,7 +32,7 @@ class Parser
                     $part->getRatio(),
                     $part->getDimension(),
                     $part->getPower() * $token['power'] * $powerSign,
-                ), $unitParts);
+                ), $unit->getParts());
             }
         }
 

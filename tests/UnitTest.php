@@ -27,6 +27,16 @@ final class UnitTest extends TestCase
         $this->assertEquals('meter^2', (string) $unit);
     }
 
+    public function test_get_ratio(): void
+    {
+        $unit = new Unit(
+            new UnitPart(2, Dimension::LENGTH, 2),
+            new UnitPart( 5, Dimension::LENGTH, 3),
+        );
+
+        $this->assertEquals(2 ** 2 * 5 ** 3, $unit->getRatio());
+    }
+
     public function test_get_dimensions()
     {
         $unit = new Unit(

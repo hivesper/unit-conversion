@@ -2,16 +2,12 @@
 
 namespace Conversion;
 
-class Registry {
+class Registry
+{
     protected array $registry = [];
 
-    /**
-     * @param string $name
-     * @param UnitPart[] $parts
-     * @return Registry
-     */
     public function register(string $name, array $parts): self {
-        $this->registry[$name] = $parts;
+        $this->registry[$name] = new Unit(...$parts);
 
         return $this;
     }
@@ -40,10 +36,7 @@ class Registry {
         return $this;
     }
 
-    /**
-     * @return UnitPart[]|null
-     */
-    public function get(string $key): ?array
+    public function get(string $key): ?Unit
     {
         return $this->registry[$key] ?? null;
     }

@@ -25,7 +25,7 @@ final class RegistryTest extends TestCase
 
     public function test_length_units()
     {
-        [$m] = $this->registry->get('meter');
+        [$m] = $this->registry->get('meter')->getParts();
 
         $this->assertEquals(1, $m->getRatio());
         $this->assertEquals(Dimension::LENGTH, $m->getDimension());
@@ -34,8 +34,8 @@ final class RegistryTest extends TestCase
 
     public function test_mass_units()
     {
-        [$g]= $this->registry->get('gram');
-        [$kg] = $this->registry->get('kilogram');
+        [$g]= $this->registry->get('gram')->getParts();
+        [$kg] = $this->registry->get('kilogram')->getParts();
 
         $this->assertEquals(0.001, $g->getRatio());
         $this->assertEquals('kilogram', $g->getName());
@@ -48,8 +48,8 @@ final class RegistryTest extends TestCase
 
     public function test_aliases_are_equal()
     {
-       [$gram] = $this->registry->get('gram');
-       [$gramAlias] = $this->registry->get('g');
+       [$gram] = $this->registry->get('gram')->getParts();
+       [$gramAlias] = $this->registry->get('g')->getParts();
 
         $this->assertNotNull($gram);
         $this->assertNotNull($gramAlias);
