@@ -39,6 +39,7 @@ class RegistryBuilder
         static::initMass($registry);
         static::initTime($registry);
         static::initVolume($registry);
+        static::initTemperature($registry);
 
         return $registry;
     }
@@ -98,8 +99,13 @@ class RegistryBuilder
 
     protected static function initVolume(Registry $registry): void
     {
-        $registry->register('liter', [
-            new UnitPart(0.1, Dimension::LENGTH, 3),
-        ]);
+        $registry->register('liter', [new UnitPart(0.1, Dimension::LENGTH, 3)]);
+    }
+
+    protected static function initTemperature(Registry $registry): void
+    {
+        $registry->register('kelvin', [new UnitPart(1, Dimension::TEMPERATURE, 1)]);
+        $registry->register('celsius', [new UnitPart(1, Dimension::TEMPERATURE, 1, 273.15)]);
+        $registry->register('fahrenheit', [new UnitPart(5 / 9, Dimension::TEMPERATURE, 1, 459.67)]);
     }
 }

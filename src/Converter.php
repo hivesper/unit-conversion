@@ -10,7 +10,14 @@ class Converter
             throw new \Exception("Cannot convert from [$from] to [$to]");
         }
 
-        return $value * $from->getRatio() / $to->getRatio();
+        $fromOffset = $from->getPart(0)->getRatio() * $from->getPart(0)->getOffset();
+        $toOffset = $to->getPart(0)->getRatio() * $to->getPart(0)->getOffset();
+
+        $value *= $from->getRatio();
+        $value += $fromOffset - $toOffset;
+        $value /= $to->getRatio();
+
+        return $value;
     }
 
     /**

@@ -4,8 +4,12 @@ namespace Conversion;
 
 class UnitPart
 {
-    public function __construct(protected float $ratio, protected Dimension $dimension, protected int $power)
-    {
+    public function __construct(
+        protected float $ratio,
+        protected Dimension $dimension,
+        protected int $power,
+        protected float $offset = 0
+    ) {
 
     }
 
@@ -27,6 +31,11 @@ class UnitPart
     public function getPower(): int
     {
         return $this->power;
+    }
+
+    public function getOffset(): float
+    {
+        return $this->offset;
     }
 
     public function __toString(): string
