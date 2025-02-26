@@ -67,7 +67,16 @@ class RegistryBuilder
 
     protected static function initArea(Registry $registry): void
     {
-        // todo: hectare, etc
+        $registry->register('square_meter', [new UnitPart(1, Dimension::AREA, 1)]);
+        $registry->register('square_inch', [new UnitPart(0.00064516, Dimension::AREA, 1)]);
+        $registry->register('square_foot', [new UnitPart(0.09290304, Dimension::AREA, 1)]);
+        $registry->register('square_yard', [new UnitPart(0.83612736, Dimension::AREA, 1)]);
+        $registry->register('square_mile', [new UnitPart(2589988.110336, Dimension::AREA, 1)]);
+        $registry->register('square_rod', [new UnitPart(25.29295, Dimension::AREA, 1)]);
+        $registry->register('square_chain', [new UnitPart(404.6873, Dimension::AREA, 1)]);
+        $registry->register('square_mil', [new UnitPart(6.4516e-10, Dimension::AREA, 1)]);
+        $registry->register('acre', [new UnitPart(4046.86, Dimension::AREA, 1)]);
+        $registry->register('hectare', [new UnitPart(10000, Dimension::AREA, 1)]);
     }
 
     protected static function initEnergy(Registry $registry): void
@@ -82,6 +91,31 @@ class RegistryBuilder
     protected static function initLength(Registry $registry): void
     {
         static::registerSiUnit($registry, 'meter', ['m'], 1, Dimension::LENGTH, 1);
+
+        $registry->register('inch', [new UnitPart(0.0254, Dimension::LENGTH, 1)]);
+        $registry->alias('inch', ['in']);
+
+        $registry->register('foot', [new UnitPart(0.3048, Dimension::LENGTH, 1)]);
+        $registry->alias('foot', ['fe']);
+
+        $registry->register('yard', [new UnitPart(0.9144, Dimension::LENGTH, 1)]);
+        $registry->alias('yard', ['yd']);
+
+        $registry->register('mile', [new UnitPart(1609.344, Dimension::LENGTH, 1)]);
+        $registry->alias('mile', ['mi']);
+
+        $registry->register('link', [new UnitPart(0.201168, Dimension::LENGTH, 1)]);
+        $registry->alias('link', ['li']);
+
+        $registry->register('rod', [new UnitPart(5.0292, Dimension::LENGTH, 1)]);
+        $registry->alias('rod', ['rd']);
+
+        $registry->register('chain', [new UnitPart(20.1168, Dimension::LENGTH, 1)]);
+        $registry->alias('chain', ['cn']);
+
+        $registry->register('angstrom', [new UnitPart(1e-10, Dimension::LENGTH, 1)]);
+
+        $registry->register('mil', [new UnitPart(0.0000254, Dimension::LENGTH, 1)]);
     }
 
     protected static function initMass(Registry $registry): void
