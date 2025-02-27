@@ -103,6 +103,12 @@ class RegistryBuilder
             new UnitPart(1, Dimension::LENGTH, 2),
             new UnitPart(1, Dimension::TIME, -2)
         ]);
+
+        $registry->register('watt', [
+            new UnitPart(1, Dimension::MASS, 1),
+            new UnitPart(1, Dimension::LENGTH, 2),
+            new UnitPart(1, Dimension::TIME, -3)
+        ]);
     }
 
     protected static function initLength(Registry $registry): void
