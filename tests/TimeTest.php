@@ -44,4 +44,22 @@ final class TimeTest extends TestCase
         $this->assertEqualsWithDelta(0.0000115741, $this->converter->convert($this->second, $this->day, 1), 0.0000000001);
         $this->assertEquals(86400, $this->converter->convert($this->day, $this->second, 1));
     }
+
+    public function test_time_convert()
+    {
+        $hour = new Unit(
+            new UnitPart(3600, Dimension::TIME, 1),
+        );
+        $minute = new Unit(
+            new UnitPart(60, Dimension::TIME, 1),
+        );
+        $second = new Unit(
+            new UnitPart(1, Dimension::TIME, 1),
+        );
+
+        $this->assertEquals(120, $this->converter->convert($hour, $minute, 2));
+        $this->assertEquals(2, $this->converter->convert($minute, $hour, 120));
+        $this->assertEquals(120, $this->converter->convert($minute, $second, 2));
+        $this->assertEquals(7200, $this->converter->convert($hour, $second, 2));
+    }
 }

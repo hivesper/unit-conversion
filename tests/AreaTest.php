@@ -92,4 +92,23 @@ final class AreaTest extends TestCase
         $this->assertEqualsWithDelta(1e-8, $this->converter->convert($this->squareMeter, $this->hectare, 1), 0.0001);
         $this->assertEquals(100_000_000, $this->converter->convert($this->hectare, $this->squareMeter, 1));
     }
+
+    public function test_area_convert()
+    {
+        $km2 = new Unit(
+            new UnitPart(1000, Dimension::LENGTH, 2),
+        );
+        $m2 = new Unit(
+            new UnitPart(1, Dimension::LENGTH, 2),
+        );
+        $cm2 = new Unit(
+            new UnitPart(0.01, Dimension::LENGTH, 2),
+        );
+
+        $this->assertEquals(2, $this->converter->convert($m2, $km2, 2_000_000));
+        $this->assertEquals(2_000_000, $this->converter->convert($km2, $m2, 2));
+
+        $this->assertEquals(20_000, $this->converter->convert($m2, $cm2, 2));
+        $this->assertEquals(0.0002, $this->converter->convert($cm2, $m2, 2));
+    }
 }

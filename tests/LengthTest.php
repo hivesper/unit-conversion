@@ -125,4 +125,23 @@ final class LengthTest extends TestCase
         $this->assertEqualsWithDelta(50.292, $this->converter->convert($this->rod, $this->meter, 10), 0.000001);
         $this->assertEquals(5.0292, $this->converter->convert($this->rod, $this->meter, 1));
     }
+
+    public function test_simple_convert()
+    {
+        $km = new Unit(
+            new UnitPart(1000, Dimension::LENGTH, 1),
+        );
+        $m = new Unit(
+            new UnitPart(1, Dimension::LENGTH, 1),
+        );
+        $hm = new Unit(
+            new UnitPart(100, Dimension::LENGTH, 1),
+        );
+
+        $this->assertEquals(2000, $this->converter->convert($km, $m, 2));
+        $this->assertEquals(0.002, $this->converter->convert($m, $km, 2));
+
+        $this->assertEquals(200, $this->converter->convert($hm, $m, 2));
+        $this->assertEquals(0.2, $this->converter->convert($hm, $km, 2));
+    }
 }
