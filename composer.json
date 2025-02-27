@@ -3,10 +3,27 @@
     "name": "tomhooijenga/units",
     "autoload": {
         "psr-4": {
-            "Conversion\\": "src/"
+            "Conversion\\": "src/",
+            "Conversion\\Providers\\": "src/Providers/",
+            "Conversion\\Facades\\": "src/Facades/"
         }
     },
     "require-dev": {
         "phpunit/phpunit": "^11"
+    },
+    "require": {
+        "illuminate/support": ">=11.0 <13.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Conversion\\Providers\\ConversionServiceProvider"
+            ],
+            "aliases": {
+                "Сonverter": "Conversion\\Facades\\ConverterFacade",
+                "Parser": "Conversion\\Facades\\ParserFacade",
+                "Registry": "Conversion\\Facades\\RegistryFacade"
+            }
+        }
     }
 }
