@@ -25,7 +25,10 @@ final class LengthTest extends TestCase
         $this->meter = new Unit(new UnitPart(1, Dimension::LENGTH, 1));
         $this->inch = new Unit(new UnitPart(0.0254, Dimension::LENGTH, 1));
         $this->foot = new Unit(new UnitPart(0.3048, Dimension::LENGTH, 1));
+        $this->yard = new Unit(new UnitPart(0.9144, Dimension::LENGTH, 1)); //
         $this->mile = new Unit(new UnitPart(1609.344, Dimension::LENGTH, 1));
+        $this->link = new Unit(new UnitPart(0.201168, Dimension::LENGTH, 1)); //
+        $this->rod = new Unit(new UnitPart(5.0292, Dimension::LENGTH, 1)); //
         $this->chain = new Unit(new UnitPart(20.1168, Dimension::LENGTH, 1));
         $this->angstrom = new Unit(new UnitPart(1e-10, Dimension::LENGTH, 1));
         $this->mil = new Unit(new UnitPart(0.0000254, Dimension::LENGTH, 1));
@@ -104,4 +107,23 @@ final class LengthTest extends TestCase
         $this->assertEqualsWithDelta(0.000254, $this->converter->convert($this->mil, $this->meter, 10), 0.000001);
         $this->assertEqualsWithDelta(393700.78740157, $this->converter->convert($this->meter, $this->mil, 10), 0.00000001);
     }
+
+    public function test_yard_meter(): void
+    {
+        $this->assertEqualsWithDelta(9.144, $this->converter->convert($this->yard, $this->meter, 10), 0.000001);
+        $this->assertEquals(0.9144, $this->converter->convert($this->yard, $this->meter, 1));
+    }
+
+    public function test_link_meter(): void
+    {
+        $this->assertEqualsWithDelta(2.01168, $this->converter->convert($this->link, $this->meter, 10), 0.000001);
+        $this->assertEquals(0.201168, $this->converter->convert($this->link, $this->meter, 1));
+    }
+
+    public function test_rod_meter(): void
+    {
+        $this->assertEqualsWithDelta(50.292, $this->converter->convert($this->rod, $this->meter, 10), 0.000001);
+        $this->assertEquals(5.0292, $this->converter->convert($this->rod, $this->meter, 1));
+    }
+
 }
