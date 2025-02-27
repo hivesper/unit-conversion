@@ -25,10 +25,10 @@ final class LengthTest extends TestCase
         $this->meter = new Unit(new UnitPart(1, Dimension::LENGTH, 1));
         $this->inch = new Unit(new UnitPart(0.0254, Dimension::LENGTH, 1));
         $this->foot = new Unit(new UnitPart(0.3048, Dimension::LENGTH, 1));
-        $this->yard = new Unit(new UnitPart(0.9144, Dimension::LENGTH, 1)); //
+        $this->yard = new Unit(new UnitPart(0.9144, Dimension::LENGTH, 1));
         $this->mile = new Unit(new UnitPart(1609.344, Dimension::LENGTH, 1));
-        $this->link = new Unit(new UnitPart(0.201168, Dimension::LENGTH, 1)); //
-        $this->rod = new Unit(new UnitPart(5.0292, Dimension::LENGTH, 1)); //
+        $this->link = new Unit(new UnitPart(0.201168, Dimension::LENGTH, 1));
+        $this->rod = new Unit(new UnitPart(5.0292, Dimension::LENGTH, 1));
         $this->chain = new Unit(new UnitPart(20.1168, Dimension::LENGTH, 1));
         $this->angstrom = new Unit(new UnitPart(1e-10, Dimension::LENGTH, 1));
         $this->mil = new Unit(new UnitPart(0.0000254, Dimension::LENGTH, 1));
@@ -125,5 +125,4 @@ final class LengthTest extends TestCase
         $this->assertEqualsWithDelta(50.292, $this->converter->convert($this->rod, $this->meter, 10), 0.000001);
         $this->assertEquals(5.0292, $this->converter->convert($this->rod, $this->meter, 1));
     }
-
 }
