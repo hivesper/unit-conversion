@@ -138,6 +138,30 @@ class RegistryBuilder
     protected static function initMass(Registry $registry): void
     {
         static::registerSiUnit($registry, 'gram', ['g'], 0.001, Dimension::MASS, 1);
+
+        $registry->register('ton', [new UnitPart(907.18474, Dimension::MASS, 1)]);
+
+        $registry->register('tonne', [new UnitPart(1000, Dimension::MASS, 1)]);
+        $registry->alias('tonne', ['t']);
+
+        $registry->register('grain', [new UnitPart(64.79891e-6, Dimension::MASS, 1)]);
+        $registry->alias('grain', ['gr']);
+
+        $registry->register('dram', [new UnitPart(1.7718451953125e-3, Dimension::MASS, 1)]);
+        $registry->alias('dram', ['dr']);
+
+        $registry->register('ounce', [new UnitPart(28.349523125e-3, Dimension::MASS, 1)]);
+        $registry->alias('ounce', ['oz']);
+
+        $registry->register('poundmass', [new UnitPart(453.59237e-3, Dimension::MASS, 1)]);
+        $registry->alias('poundmass', ['lbm']);
+
+        $registry->register('hundredweight', [new UnitPart(45.359237, Dimension::MASS, 1)]);
+        $registry->alias('hundredweight', ['cwt']);
+
+        $registry->register('stick', [new UnitPart(115e-3, Dimension::MASS, 1)]);
+
+        $registry->register('stone', [new UnitPart(6.35029318, Dimension::MASS, 1)]);
     }
 
     protected static function initTime(Registry $registry): void
