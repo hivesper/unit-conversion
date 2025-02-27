@@ -175,6 +175,9 @@ class RegistryBuilder
     protected static function initVolume(Registry $registry): void
     {
         $registry->register('liter', [new UnitPart(0.1, Dimension::LENGTH, 3)]);
+        $registry->alias('liter', ['l']);
+
+        $registry->register('m3', [new UnitPart(1, Dimension::LENGTH, 3)]);
     }
 
     protected static function initTemperature(Registry $registry): void
