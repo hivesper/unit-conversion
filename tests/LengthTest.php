@@ -51,7 +51,7 @@ final class LengthTest extends TestCase
     public function test_meter_mile(): void
     {
         $this->assertEqualsWithDelta(0.0062137, $this->converter->convert($this->meter, $this->mile, 10), 0.000001);
-        $this->assertEquals(16093.44, $this->converter->convert($this->mile, $this->meter, 10));
+        $this->assertEquals(16_093.44, $this->converter->convert($this->mile, $this->meter, 10));
     }
 
     public function test_meter_chain(): void
@@ -62,7 +62,7 @@ final class LengthTest extends TestCase
 
     public function test_meter_angstrom(): void
     {
-        $this->assertEquals(100000000000, $this->converter->convert($this->meter, $this->angstrom, 10));
+        $this->assertEquals(100_000_000_000, $this->converter->convert($this->meter, $this->angstrom, 10));
         $this->assertEquals(1e-9, $this->converter->convert($this->angstrom, $this->meter, 10));
     }
 
@@ -86,7 +86,7 @@ final class LengthTest extends TestCase
 
     public function test_mile_meter(): void
     {
-        $this->assertEquals(16093.44, $this->converter->convert($this->mile, $this->meter, 10));
+        $this->assertEquals(16_093.44, $this->converter->convert($this->mile, $this->meter, 10));
         $this->assertEqualsWithDelta(0.0062137, $this->converter->convert($this->meter, $this->mile, 10), 0.000001);
     }
 
@@ -99,13 +99,13 @@ final class LengthTest extends TestCase
     public function test_angstrom_meter(): void
     {
         $this->assertEquals(1.0E-9, $this->converter->convert($this->angstrom, $this->meter, 10));
-        $this->assertEquals(100000000000, $this->converter->convert($this->meter, $this->angstrom, 10));
+        $this->assertEquals(100_000_000_000, $this->converter->convert($this->meter, $this->angstrom, 10));
     }
 
     public function test_mil_meter(): void
     {
         $this->assertEqualsWithDelta(0.000254, $this->converter->convert($this->mil, $this->meter, 10), 0.000001);
-        $this->assertEqualsWithDelta(393700.78740157, $this->converter->convert($this->meter, $this->mil, 10), 0.00000001);
+        $this->assertEqualsWithDelta(393_700.78740157, $this->converter->convert($this->meter, $this->mil, 10), 0.00000001);
     }
 
     public function test_yard_meter(): void

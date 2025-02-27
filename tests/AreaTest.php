@@ -60,7 +60,7 @@ final class AreaTest extends TestCase
     public function test_squareMeter_squareMile(): void
     {
         $this->assertEqualsWithDelta(1.4909e-13, $this->converter->convert($this->squareMeter, $this->squareMile, 1), 0.0001);
-        $this->assertEqualsWithDelta(6708038411681.8, $this->converter->convert($this->squareMile, $this->squareMeter, 1), 0.1);
+        $this->assertEqualsWithDelta(6_708_038_411_681.8, $this->converter->convert($this->squareMile, $this->squareMeter, 1), 0.1);
     }
 
     public function test_squareMeter_squareRod(): void
@@ -72,7 +72,7 @@ final class AreaTest extends TestCase
     public function test_squareMeter_squareChain(): void
     {
         $this->assertEqualsWithDelta(6.1009e-6, $this->converter->convert($this->squareMeter, $this->squareChain, 1), 0.0001);
-        $this->assertEqualsWithDelta(163771.81078129, $this->converter->convert($this->squareChain, $this->squareMeter, 1), 0.00000001);
+        $this->assertEqualsWithDelta(163_771.81078129, $this->converter->convert($this->squareChain, $this->squareMeter, 1), 0.00000001);
     }
 
     public function test_squareMeter_squareMil(): void
@@ -84,12 +84,12 @@ final class AreaTest extends TestCase
     public function test_squareMeter_acre(): void
     {
         $this->assertEqualsWithDelta(6.1009e-8, $this->converter->convert($this->squareMeter, $this->acre, 1), 0.0001);
-        $this->assertEqualsWithDelta(16377075.8596, $this->converter->convert($this->acre, $this->squareMeter, 1), 0.0001);
+        $this->assertEqualsWithDelta(16_377_075.8596, $this->converter->convert($this->acre, $this->squareMeter, 1), 0.0001);
     }
 
     public function test_squareMeter_hectare(): void
     {
         $this->assertEqualsWithDelta(1e-8, $this->converter->convert($this->squareMeter, $this->hectare, 1), 0.0001);
-        $this->assertEquals(100000000, $this->converter->convert($this->hectare, $this->squareMeter, 1));
+        $this->assertEquals(100_000_000, $this->converter->convert($this->hectare, $this->squareMeter, 1));
     }
 }
