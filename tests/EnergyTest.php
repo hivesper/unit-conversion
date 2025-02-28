@@ -8,9 +8,9 @@ use PHPUnit\Framework\TestCase;
 
 final class EnergyTest extends TestCase
 {
-    protected Unit $watt;
+    protected Unit $cal;
     protected Unit $joule;
-    protected Unit $second;
+    protected Converter $converter;
 
     protected function setUp(): void
     {

@@ -67,33 +67,32 @@ class RegistryBuilder
 
     protected static function initArea(Registry $registry): void
     {
-        $registry->register('square_meter', [new UnitPart(1, Dimension::AREA, 2)]);
-        $registry->alias('square_meter', ['m2']);
+        static::registerSiUnit($registry, 'meter^2', ['m2'], 1, Dimension::LENGTH, 2);
 
-        $registry->register('square_inch', [new UnitPart(0.00064516, Dimension::AREA, 2)]);
-        $registry->alias('square_inch', ['sqin']);
+        $registry->register('inch^2', [new UnitPart(0.00064516, Dimension::LENGTH, 2)]);
+        $registry->alias('inch^2', ['in2']);
 
-        $registry->register('square_foot', [new UnitPart(0.09290304, Dimension::AREA, 2)]);
-        $registry->alias('square_foot', ['sqft']);
+        $registry->register('foot^2', [new UnitPart(0.09290304, Dimension::LENGTH, 2)]);
+        $registry->alias('foot^2', ['ft2']);
 
-        $registry->register('square_yard', [new UnitPart(0.83612736, Dimension::AREA, 2)]);
-        $registry->alias('square_yard', ['sqyd']);
+        $registry->register('yard^2', [new UnitPart(0.83612736, Dimension::LENGTH, 2)]);
+        $registry->alias('yard^2', ['yd2']);
 
-        $registry->register('square_mile', [new UnitPart(2589988.110336, Dimension::AREA, 2)]);
-        $registry->alias('square_mile', ['sqmi']);
+        $registry->register('mile^2', [new UnitPart(2589988.110336, Dimension::LENGTH, 2)]);
+        $registry->alias('mile^2', ['mi2']);
 
-        $registry->register('square_rod', [new UnitPart(25.29295, Dimension::AREA, 2)]);
-        $registry->alias('square_rod', ['sqrd']);
+        $registry->register('rod^2', [new UnitPart(25.29295, Dimension::LENGTH, 2)]);
+        $registry->alias('rod^2', ['rd2']);
 
-        $registry->register('square_chain', [new UnitPart(404.6873, Dimension::AREA, 2)]);
-        $registry->alias('square_chain', ['sqch']);
+        $registry->register('chain^2', [new UnitPart(404.6873, Dimension::LENGTH, 2)]);
+        $registry->alias('chain^2', ['ch2']);
 
-        $registry->register('square_mil', [new UnitPart(6.4516e-10, Dimension::AREA, 2)]);
-        $registry->alias('square_mil', ['sqmil']);
+        $registry->register('mil^2', [new UnitPart(6.4516e-10, Dimension::LENGTH, 2)]);
+        $registry->alias('mil^2', ['mil2']);
 
-        $registry->register('acre', [new UnitPart(4046.86, Dimension::AREA, 2)]);
+        $registry->register('acre', [new UnitPart(4046.86, Dimension::LENGTH, 2)]);
 
-        $registry->register('hectare', [new UnitPart(10000, Dimension::AREA, 2)]);
+        $registry->register('hectare', [new UnitPart(10000, Dimension::LENGTH, 2)]);
     }
 
     protected static function initEnergy(Registry $registry): void
@@ -180,10 +179,10 @@ class RegistryBuilder
 
     protected static function initVolume(Registry $registry): void
     {
+        static::registerSiUnit($registry, 'meter^3', ['m3'], 1, Dimension::LENGTH, 3);
+
         $registry->register('liter', [new UnitPart(0.1, Dimension::LENGTH, 3)]);
         $registry->alias('liter', ['l']);
-
-        $registry->register('m3', [new UnitPart(1, Dimension::LENGTH, 3)]);
     }
 
     protected static function initTemperature(Registry $registry): void

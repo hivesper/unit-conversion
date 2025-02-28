@@ -25,16 +25,16 @@ final class AreaTest extends TestCase
     {
         parent::setUp();
 
-        $this->squareMeter = new Unit(new UnitPart(1, Dimension::AREA, 2));
-        $this->squareInch = new Unit(new UnitPart(0.00064516, Dimension::AREA, 2));
-        $this->squareFoot = new Unit(new UnitPart(0.09290304, Dimension::AREA, 2));
-        $this->squareYard = new Unit(new UnitPart(0.83612736, Dimension::AREA, 2));
-        $this->squareMile = new Unit(new UnitPart(2589988.110336, Dimension::AREA, 2));
-        $this->squareRod = new Unit(new UnitPart(25.29295, Dimension::AREA, 2));
-        $this->squareChain = new Unit(new UnitPart(404.6873, Dimension::AREA, 2));
-        $this->squareMil = new Unit(new UnitPart(6.4516e-10, Dimension::AREA, 2));
-        $this->acre = new Unit(new UnitPart(4046.86, Dimension::AREA, 2));
-        $this->hectare = new Unit(new UnitPart(10000, Dimension::AREA, 2));
+        $this->squareMeter = new Unit(new UnitPart(1, Dimension::LENGTH, 2));
+        $this->squareInch = new Unit(new UnitPart(0.00064516, Dimension::LENGTH, 2));
+        $this->squareFoot = new Unit(new UnitPart(0.09290304, Dimension::LENGTH, 2));
+        $this->squareYard = new Unit(new UnitPart(0.83612736, Dimension::LENGTH, 2));
+        $this->squareMile = new Unit(new UnitPart(2589988.110336, Dimension::LENGTH, 2));
+        $this->squareRod = new Unit(new UnitPart(25.29295, Dimension::LENGTH, 2));
+        $this->squareChain = new Unit(new UnitPart(404.6873, Dimension::LENGTH, 2));
+        $this->squareMil = new Unit(new UnitPart(6.4516e-10, Dimension::LENGTH, 2));
+        $this->acre = new Unit(new UnitPart(4046.86, Dimension::LENGTH, 2));
+        $this->hectare = new Unit(new UnitPart(10000, Dimension::LENGTH, 2));
 
         $this->converter = new Converter();
     }

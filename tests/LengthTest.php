@@ -11,7 +11,10 @@ final class LengthTest extends TestCase
     protected Unit $meter;
     protected Unit $inch;
     protected Unit $foot;
+    protected Unit $yard;
     protected Unit $mile;
+    protected Unit $link;
+    protected Unit $rod;
     protected Unit $chain;
     protected Unit $angstrom;
     protected Unit $mil;

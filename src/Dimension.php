@@ -12,7 +12,6 @@ enum Dimension
     case LUMINOUS_INTENSITY;
     case AMOUNT_OF_SUBSTANCE;
     case ANGLE;
-    case AREA;
 
     public function getUnitName(): string
     {
@@ -25,7 +24,6 @@ enum Dimension
             self::LUMINOUS_INTENSITY => 'candela',
             self::AMOUNT_OF_SUBSTANCE => 'mole',
             self::ANGLE => 'radian',
-            self::AREA => 'square_meter',
         };
     }
 }
