@@ -8,5 +8,18 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^11"
+    },
+    "require": {
+        "illuminate/support": ">=11.0 <13.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Conversion\\Providers\\ConversionServiceProvider"
+            ],
+            "aliases": {
+                "Converter": "Conversion\\Facades\\Converter"
+            }
+        }
     }
 }
