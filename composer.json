@@ -3,9 +3,7 @@
     "name": "tomhooijenga/units",
     "autoload": {
         "psr-4": {
-            "Conversion\\": "src/",
-            "Conversion\\Providers\\": "src/Providers/",
-            "Conversion\\Facades\\": "src/Facades/"
+            "Conversion\\": "src/"
         }
     },
     "require-dev": {
@@ -20,9 +18,7 @@
                 "Conversion\\Providers\\ConversionServiceProvider"
             ],
             "aliases": {
-                "Сonverter": "Conversion\\Facades\\ConverterFacade",
-                "Parser": "Conversion\\Facades\\ParserFacade",
-                "Registry": "Conversion\\Facades\\RegistryFacade"
+                "Converter": "Conversion\\Facades\\Converter"
             }
         }
     }

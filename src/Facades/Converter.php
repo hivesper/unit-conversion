@@ -4,10 +4,10 @@ namespace Conversion\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class RegistryFacade extends Facade
+class Converter extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'registry';
+        return 'converter';
     }
 }
