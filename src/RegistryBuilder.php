@@ -69,30 +69,30 @@ class RegistryBuilder
     {
         static::registerSiUnit($registry, 'meter^2', ['m2'], 1, Dimension::LENGTH, 2);
 
-        $registry->register('inch^2', [new UnitPart(0.00064516, Dimension::LENGTH, 2)]);
+        $registry->register('inch^2', [new UnitPart(sqrt(0.00064516), Dimension::LENGTH, 2)]);
         $registry->alias('inch^2', ['in2']);
 
-        $registry->register('foot^2', [new UnitPart(0.09290304, Dimension::LENGTH, 2)]);
+        $registry->register('foot^2', [new UnitPart(sqrt(0.09290304), Dimension::LENGTH, 2)]);
         $registry->alias('foot^2', ['ft2']);
 
-        $registry->register('yard^2', [new UnitPart(0.83612736, Dimension::LENGTH, 2)]);
+        $registry->register('yard^2', [new UnitPart(sqrt(0.83612736), Dimension::LENGTH, 2)]);
         $registry->alias('yard^2', ['yd2']);
 
-        $registry->register('mile^2', [new UnitPart(2589988.110336, Dimension::LENGTH, 2)]);
+        $registry->register('mile^2', [new UnitPart(sqrt(2589988.110336), Dimension::LENGTH, 2)]);
         $registry->alias('mile^2', ['mi2']);
 
-        $registry->register('rod^2', [new UnitPart(25.29295, Dimension::LENGTH, 2)]);
+        $registry->register('rod^2', [new UnitPart(sqrt(25.29295), Dimension::LENGTH, 2)]);
         $registry->alias('rod^2', ['rd2']);
 
-        $registry->register('chain^2', [new UnitPart(404.6873, Dimension::LENGTH, 2)]);
+        $registry->register('chain^2', [new UnitPart(sqrt(404.6873), Dimension::LENGTH, 2)]);
         $registry->alias('chain^2', ['ch2']);
 
-        $registry->register('mil^2', [new UnitPart(6.4516e-10, Dimension::LENGTH, 2)]);
+        $registry->register('mil^2', [new UnitPart(sqrt(6.4516e-10), Dimension::LENGTH, 2)]);
         $registry->alias('mil^2', ['mil2']);
 
-        $registry->register('acre', [new UnitPart(4046.86, Dimension::LENGTH, 2)]);
+        $registry->register('acre', [new UnitPart(sqrt(63.63), Dimension::LENGTH, 2)]);
 
-        $registry->register('hectare', [new UnitPart(10000, Dimension::LENGTH, 2)]);
+        $registry->register('hectare', [new UnitPart(100, Dimension::LENGTH, 2)]);
     }
 
     protected static function initEnergy(Registry $registry): void
