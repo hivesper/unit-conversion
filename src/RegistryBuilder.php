@@ -67,7 +67,32 @@ class RegistryBuilder
 
     protected static function initArea(Registry $registry): void
     {
-        // todo: hectare, etc
+        static::registerSiUnit($registry, 'meter^2', ['m2'], 1, Dimension::LENGTH, 2);
+
+        $registry->register('inch^2', [new UnitPart(sqrt(0.00064516), Dimension::LENGTH, 2)]);
+        $registry->alias('inch^2', ['in2']);
+
+        $registry->register('foot^2', [new UnitPart(sqrt(0.09290304), Dimension::LENGTH, 2)]);
+        $registry->alias('foot^2', ['ft2']);
+
+        $registry->register('yard^2', [new UnitPart(sqrt(0.83612736), Dimension::LENGTH, 2)]);
+        $registry->alias('yard^2', ['yd2']);
+
+        $registry->register('mile^2', [new UnitPart(sqrt(2589988.110336), Dimension::LENGTH, 2)]);
+        $registry->alias('mile^2', ['mi2']);
+
+        $registry->register('rod^2', [new UnitPart(sqrt(25.29295), Dimension::LENGTH, 2)]);
+        $registry->alias('rod^2', ['rd2']);
+
+        $registry->register('chain^2', [new UnitPart(sqrt(404.6873), Dimension::LENGTH, 2)]);
+        $registry->alias('chain^2', ['ch2']);
+
+        $registry->register('mil^2', [new UnitPart(sqrt(6.4516e-10), Dimension::LENGTH, 2)]);
+        $registry->alias('mil^2', ['mil2']);
+
+        $registry->register('acre', [new UnitPart(sqrt(63.63), Dimension::LENGTH, 2)]);
+
+        $registry->register('hectare', [new UnitPart(100, Dimension::LENGTH, 2)]);
     }
 
     protected static function initEnergy(Registry $registry): void
@@ -77,16 +102,71 @@ class RegistryBuilder
             new UnitPart(1, Dimension::LENGTH, 2),
             new UnitPart(1, Dimension::TIME, -2)
         ]);
+
+        $registry->register('cal', [
+            new UnitPart(4.184, Dimension::MASS, 1),
+            new UnitPart(1, Dimension::LENGTH, 2),
+            new UnitPart(1, Dimension::TIME, -2)
+        ]);
     }
 
     protected static function initLength(Registry $registry): void
     {
         static::registerSiUnit($registry, 'meter', ['m'], 1, Dimension::LENGTH, 1);
+
+        $registry->register('inch', [new UnitPart(0.0254, Dimension::LENGTH, 1)]);
+        $registry->alias('inch', ['in']);
+
+        $registry->register('foot', [new UnitPart(0.3048, Dimension::LENGTH, 1)]);
+        $registry->alias('foot', ['fe']);
+
+        $registry->register('yard', [new UnitPart(0.9144, Dimension::LENGTH, 1)]);
+        $registry->alias('yard', ['yd']);
+
+        $registry->register('mile', [new UnitPart(1609.344, Dimension::LENGTH, 1)]);
+        $registry->alias('mile', ['mi']);
+
+        $registry->register('link', [new UnitPart(0.201168, Dimension::LENGTH, 1)]);
+        $registry->alias('link', ['li']);
+
+        $registry->register('rod', [new UnitPart(5.0292, Dimension::LENGTH, 1)]);
+        $registry->alias('rod', ['rd']);
+
+        $registry->register('chain', [new UnitPart(20.1168, Dimension::LENGTH, 1)]);
+        $registry->alias('chain', ['cn']);
+
+        $registry->register('angstrom', [new UnitPart(1e-10, Dimension::LENGTH, 1)]);
+
+        $registry->register('mil', [new UnitPart(0.0000254, Dimension::LENGTH, 1)]);
     }
 
     protected static function initMass(Registry $registry): void
     {
         static::registerSiUnit($registry, 'gram', ['g'], 0.001, Dimension::MASS, 1);
+
+        $registry->register('ton', [new UnitPart(907.18474, Dimension::MASS, 1)]);
+
+        $registry->register('tonne', [new UnitPart(1000, Dimension::MASS, 1)]);
+        $registry->alias('tonne', ['t']);
+
+        $registry->register('grain', [new UnitPart(64.79891e-6, Dimension::MASS, 1)]);
+        $registry->alias('grain', ['gr']);
+
+        $registry->register('dram', [new UnitPart(1.7718451953125e-3, Dimension::MASS, 1)]);
+        $registry->alias('dram', ['dr']);
+
+        $registry->register('ounce', [new UnitPart(28.349523125e-3, Dimension::MASS, 1)]);
+        $registry->alias('ounce', ['oz']);
+
+        $registry->register('poundmass', [new UnitPart(453.59237e-3, Dimension::MASS, 1)]);
+        $registry->alias('poundmass', ['lbm']);
+
+        $registry->register('hundredweight', [new UnitPart(45.359237, Dimension::MASS, 1)]);
+        $registry->alias('hundredweight', ['cwt']);
+
+        $registry->register('stick', [new UnitPart(115e-3, Dimension::MASS, 1)]);
+
+        $registry->register('stone', [new UnitPart(6.35029318, Dimension::MASS, 1)]);
     }
 
     protected static function initTime(Registry $registry): void
@@ -99,7 +179,10 @@ class RegistryBuilder
 
     protected static function initVolume(Registry $registry): void
     {
+        static::registerSiUnit($registry, 'meter^3', ['m3'], 1, Dimension::LENGTH, 3);
+
         $registry->register('liter', [new UnitPart(0.1, Dimension::LENGTH, 3)]);
+        $registry->alias('liter', ['l']);
     }
 
     protected static function initTemperature(Registry $registry): void
