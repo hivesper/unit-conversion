@@ -44,9 +44,9 @@ class RegistryBuilder
         return $registry;
     }
 
-    public static function registerSiUnit(Registry $registry, string $name, array $symbols, float $ratio, Dimension $dimension, int $power): void
+    public static function registerSiUnit(Registry $registry, string $name, array $symbols, Unit $unit): void
     {
-        $registry->register($name, new Unit(new UnitPart($ratio, $dimension, $power)));
+        $registry->register($name, $unit);
 
         if ($symbols) {
             $registry->alias($name, $symbols);
@@ -56,7 +56,7 @@ class RegistryBuilder
             $prefixedName = "{$prefix['name']}$name";
             $registry->register($prefixedName, new Unit(
                 new FactorUnitPart(10 ** $prefix['factor']),
-                new UnitPart($ratio, $dimension, $power)
+                ...$unit->getParts()
             ));
 
             $aliases = array_map(fn($symbol) => "{$prefix['short_name']}$symbol", $symbols);
@@ -66,7 +66,12 @@ class RegistryBuilder
 
     protected static function initArea(Registry $registry): void
     {
-        static::registerSiUnit($registry, 'meter^2', ['m2'], 1, Dimension::LENGTH, 2);
+        static::registerSiUnit(
+            $registry,
+            'meter^2',
+            ['m2'],
+            new Unit(new UnitPart(1, Dimension::LENGTH, 2))
+        );
 
         $registry->register('inch^2', new Unit(new UnitPart(sqrt(0.00064516), Dimension::LENGTH, 2)));
         $registry->alias('inch^2', ['in2']);
@@ -96,23 +101,38 @@ class RegistryBuilder
 
     protected static function initEnergy(Registry $registry): void
     {
-        $registry->register('joule', new Unit(
-            new UnitPart(1, Dimension::MASS, 1),
-            new UnitPart(1, Dimension::LENGTH, 2),
-            new UnitPart(1, Dimension::TIME, -2)
-        ));
+        static::registerSiUnit(
+            $registry,
+            'joule',
+            ['J'],
+            new Unit(
+                new UnitPart(1, Dimension::MASS, 1),
+                new UnitPart(1, Dimension::LENGTH, 2),
+                new UnitPart(1, Dimension::TIME, -2)
+            )
+        );
 
-        $registry->register('cal', new Unit(
-            new FactorUnitPart(4.184),
-            new UnitPart(1, Dimension::MASS, 1),
-            new UnitPart(1, Dimension::LENGTH, 2),
-            new UnitPart(1, Dimension::TIME, -2)
-        ));
+        static::registerSiUnit(
+            $registry,
+            'calorie',
+            ['cal'],
+            new Unit(
+                new FactorUnitPart(4.1868),
+                new UnitPart(1, Dimension::MASS, 1),
+                new UnitPart(1, Dimension::LENGTH, 2),
+                new UnitPart(1, Dimension::TIME, -2)
+            )
+        );
     }
 
     protected static function initLength(Registry $registry): void
     {
-        static::registerSiUnit($registry, 'meter', ['m'], 1, Dimension::LENGTH, 1);
+        static::registerSiUnit(
+            $registry,
+            'meter',
+            ['m'],
+            new Unit(new UnitPart(1, Dimension::LENGTH, 1))
+        );
 
         $registry->register('inch', new Unit(new UnitPart(0.0254, Dimension::LENGTH, 1)));
         $registry->alias('inch', ['in']);
@@ -142,7 +162,12 @@ class RegistryBuilder
 
     protected static function initMass(Registry $registry): void
     {
-        static::registerSiUnit($registry, 'gram', ['g'], 0.001, Dimension::MASS, 1);
+        static::registerSiUnit(
+            $registry,
+            'gram',
+            ['g'],
+            new Unit(new UnitPart(0.001, Dimension::MASS, 1))
+        );
 
         $registry->register('ton', new Unit(new UnitPart(907.18474, Dimension::MASS, 1)));
 
@@ -179,7 +204,12 @@ class RegistryBuilder
 
     protected static function initVolume(Registry $registry): void
     {
-        static::registerSiUnit($registry, 'meter^3', ['m3'], 1, Dimension::LENGTH, 3);
+        static::registerSiUnit(
+            $registry,
+            'meter^3',
+            ['m3'],
+            new Unit(new UnitPart(1, Dimension::LENGTH, 3))
+        );
 
         $registry->register('liter', new Unit(new UnitPart(0.1, Dimension::LENGTH, 3)));
         $registry->alias('liter', ['l']);
