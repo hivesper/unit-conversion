@@ -2,7 +2,7 @@
 
 namespace Conversion;
 
-class Unit
+readonly class Unit
 {
     protected array $parts;
 
