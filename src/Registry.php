@@ -6,8 +6,8 @@ class Registry
 {
     protected array $registry = [];
 
-    public function register(string $name, array $parts): self {
-        $this->registry[$name] = new Unit(...$parts);
+    public function register(string $name, Unit $unit): self {
+        $this->registry[$name] = $unit;
 
         return $this;
     }
