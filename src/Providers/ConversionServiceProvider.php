@@ -2,28 +2,33 @@
 
 namespace Conversion\Providers;
 
+use Conversion\Converter;
 use Conversion\Parser;
 use Conversion\Registry;
+use Conversion\RegistryBuilder;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use Conversion\Converter;
 
 class ConversionServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->singleton(Converter::class, function ($app) {
+        $this->app->singleton(Converter::class, function () {
             return new Converter();
         });
 
-        $this->app->singleton(Parser::class, function ($app) {
-            $registry = $app->make('registry');
+        $this->app->singleton(Parser::class, function (Application $app) {
+            $registry = $app->make(Registry::class);
 
             return new Parser($registry);
         });
 
-        $this->app->singleton(Registry::class, function ($app) {
-            return new Registry();
+        $this->app->singleton(Registry::class, function () {
+            $registry = new Registry();
+
+            RegistryBuilder::build($registry);
+
+            return $registry;
         });
     }
 }
-
