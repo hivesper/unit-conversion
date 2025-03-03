@@ -2,6 +2,7 @@
 
 use Conversion\Dimension;
 use Conversion\Registry;
+use Conversion\Unit;
 use Conversion\UnitPart;
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +16,7 @@ final class RegistryTest extends TestCase
 
         $this->registry = new Registry();
 
-        $this->registry->register('gram', [new UnitPart(1, Dimension::MASS, 1)]);
+        $this->registry->register('gram', new Unit(new UnitPart(1, Dimension::MASS, 1)));
     }
 
     public function test_unknown_unit()
