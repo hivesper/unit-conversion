@@ -53,7 +53,13 @@ readonly class Unit
         ];
 
         foreach ($this->getParts() as $part) {
-            $dimensions[$part->getDimension()->name] += $part->getPower();
+            $dimension = $part->getDimension();
+
+            if (is_null($dimension)) {
+                continue;
+            }
+
+            $dimensions[$dimension->name] += $part->getPower();
         }
 
         return $dimensions;

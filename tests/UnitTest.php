@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use Conversion\Dimension;
+use Conversion\FactorUnitPart;
 use Conversion\Unit;
 use Conversion\UnitPart;
 use PHPUnit\Framework\TestCase;
@@ -11,27 +12,37 @@ final class UnitTest extends TestCase
     {
         $unit = new Unit(
             new UnitPart(1, Dimension::MASS, 1),
-            new UnitPart( 1, Dimension::LENGTH, -2),
+            new UnitPart(1, Dimension::LENGTH, -2),
         );
 
-        $this->assertEquals('kilogram*meter^-2', (string) $unit);
+        $this->assertEquals('kilogram*meter^-2', (string)$unit);
     }
 
     public function test_stringifies_simplifies()
     {
         $unit = new Unit(
             new UnitPart(1, Dimension::LENGTH, 1),
-            new UnitPart( 1, Dimension::LENGTH, 1),
+            new UnitPart(1, Dimension::LENGTH, 1),
         );
 
-        $this->assertEquals('meter^2', (string) $unit);
+        $this->assertEquals('meter^2', (string)$unit);
+    }
+
+    public function test_stringifies_with_factor()
+    {
+        $unit = new Unit(
+            new FactorUnitPart(100),
+            new UnitPart(1, Dimension::LENGTH, 2),
+        );
+
+        $this->assertEquals('meter^2', (string)$unit);
     }
 
     public function test_get_ratio(): void
     {
         $unit = new Unit(
             new UnitPart(2, Dimension::LENGTH, 2),
-            new UnitPart( 5, Dimension::LENGTH, 3),
+            new UnitPart(5, Dimension::LENGTH, 3),
         );
 
         $this->assertEquals(2 ** 2 * 5 ** 3, $unit->getRatio());

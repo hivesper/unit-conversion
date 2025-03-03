@@ -54,11 +54,14 @@ class RegistryBuilder
 
         foreach (static::$siPrefixes as $prefix) {
             $prefixedName = "{$prefix['name']}$name";
-            $registry->register($prefixedName, [new UnitPart(
-                $ratio * 10 ** $prefix['factor'],
-                $dimension,
-                $power
-            )]);
+            $registry->register($prefixedName, [
+                new FactorUnitPart(10 ** $prefix['factor']),
+                new UnitPart(
+                    $ratio,
+                    $dimension,
+                    $power
+                )
+            ]);
 
             $aliases = array_map(fn($symbol) => "{$prefix['short_name']}$symbol", $symbols);
             $registry->alias($prefixedName, $aliases);
@@ -104,7 +107,8 @@ class RegistryBuilder
         ]);
 
         $registry->register('cal', [
-            new UnitPart(4.184, Dimension::MASS, 1),
+            new FactorUnitPart(4.184),
+            new UnitPart(1, Dimension::MASS, 1),
             new UnitPart(1, Dimension::LENGTH, 2),
             new UnitPart(1, Dimension::TIME, -2)
         ]);

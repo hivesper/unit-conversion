@@ -6,7 +6,7 @@ readonly class UnitPart
 {
     public function __construct(
         protected float $ratio,
-        protected Dimension $dimension,
+        protected ?Dimension $dimension,
         protected int $power,
         protected float $offset = 0
     ) {
@@ -23,7 +23,7 @@ readonly class UnitPart
         return $this->ratio;
     }
 
-    public function getDimension(): Dimension
+    public function getDimension(): ?Dimension
     {
         return $this->dimension;
     }
@@ -57,6 +57,6 @@ readonly class UnitPart
 
     public function invert(): self
     {
-        return new self($this->ratio, $this->dimension, -$this->power);
+        return new self($this->getRatio(), $this->getDimension(), -$this->getPower());
     }
 }

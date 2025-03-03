@@ -28,11 +28,17 @@ class Parser
                     ? -1
                     : 1;
 
-                $parts[] = array_map(fn (UnitPart $part) => new UnitPart(
-                    $part->getRatio(),
-                    $part->getDimension(),
-                    $part->getPower() * $token['power'] * $powerSign,
-                ), $unit->getParts());
+                $parts[] = array_map(function (UnitPart|FactorUnitPart $part) use ($token, $powerSign) {
+                    if ($part instanceof FactorUnitPart) {
+                        return new FactorUnitPart($part->getRatio());
+                    }
+
+                    return new UnitPart(
+                        $part->getRatio(),
+                        $part->getDimension(),
+                        $part->getPower() * $token['power'] * $powerSign,
+                    );
+                }, $unit->getParts());
             }
         }
 

@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use Conversion\Dimension;
+use Conversion\FactorUnitPart;
 use Conversion\Parser;
 use Conversion\Registry;
 use Conversion\RegistryBuilder;
@@ -23,26 +24,34 @@ final class ParserTest extends TestCase
     {
         $result = $this->parser->parse('kilometer');
 
-        $this->assertCount(1, $result->getParts());
+        $this->assertCount(2, $result->getParts());
 
-        [$km] = $result->getParts();
+        [$k, $m] = $result->getParts();
 
-        $this->assertEquals(Dimension::LENGTH, $km->getDimension());
-        $this->assertEquals(1000, $km->getRatio());
-        $this->assertEquals(1, $km->getPower());
+        $this->assertNull($k->getDimension());
+        $this->assertEquals(1000, $k->getRatio());
+        $this->assertEquals(1, $k->getPower());
+
+        $this->assertEquals(Dimension::LENGTH, $m->getDimension());
+        $this->assertEquals(1, $m->getRatio());
+        $this->assertEquals(1, $m->getPower());
     }
 
     public function test_parses_compound_division()
     {
         $result = $this->parser->parse('kilometer/hour');
 
-        $this->assertCount(2, $result->getParts());
+        $this->assertCount(3, $result->getParts());
 
-        [$km, $hour] = $result->getParts();
+        [$k, $m, $hour] = $result->getParts();
 
-        $this->assertEquals(Dimension::LENGTH, $km->getDimension());
-        $this->assertEquals(1000, $km->getRatio());
-        $this->assertEquals(1, $km->getPower());
+        $this->assertNull($k->getDimension());
+        $this->assertEquals(1000, $k->getRatio());
+        $this->assertEquals(1, $k->getPower());
+
+        $this->assertEquals(Dimension::LENGTH, $m->getDimension());
+        $this->assertEquals(1, $m->getRatio());
+        $this->assertEquals(1, $m->getPower());
 
         $this->assertEquals(Dimension::TIME, $hour->getDimension());
         $this->assertEquals(3600, $hour->getRatio());
@@ -53,13 +62,17 @@ final class ParserTest extends TestCase
     {
         $result = $this->parser->parse('kilometer*hour');
 
-        $this->assertCount(2, $result->getParts());
+        $this->assertCount(3, $result->getParts());
 
-        [$km, $hour] = $result->getParts();
+        [$k, $m, $hour] = $result->getParts();
 
-        $this->assertEquals(Dimension::LENGTH, $km->getDimension());
-        $this->assertEquals(1000, $km->getRatio());
-        $this->assertEquals(1, $km->getPower());
+        $this->assertNull($k->getDimension());
+        $this->assertEquals(1000, $k->getRatio());
+        $this->assertEquals(1, $k->getPower());
+
+        $this->assertEquals(Dimension::LENGTH, $m->getDimension());
+        $this->assertEquals(1, $m->getRatio());
+        $this->assertEquals(1, $m->getPower());
 
         $this->assertEquals(Dimension::TIME, $hour->getDimension());
         $this->assertEquals(3600, $hour->getRatio());
@@ -70,39 +83,51 @@ final class ParserTest extends TestCase
     {
         $result = $this->parser->parse('kilometer^3');
 
-        $this->assertCount(1, $result->getParts());
+        $this->assertCount(2, $result->getParts());
 
-        [$km3] = $result->getParts();
+        [$k, $m3] = $result->getParts();
 
-        $this->assertEquals(Dimension::LENGTH, $km3->getDimension());
-        $this->assertEquals(1000, $km3->getRatio());
-        $this->assertEquals(3, $km3->getPower());
+        $this->assertNull($k->getDimension());
+        $this->assertEquals(1000, $k->getRatio());
+        $this->assertEquals(1, $k->getPower());
+
+        $this->assertEquals(Dimension::LENGTH, $m3->getDimension());
+        $this->assertEquals(1, $m3->getRatio());
+        $this->assertEquals(3, $m3->getPower());
     }
 
     public function test_parses_negative_powers()
     {
         $result = $this->parser->parse('kilometer^-3');
 
-        $this->assertCount(1, $result->getParts());
+        $this->assertCount(2, $result->getParts());
 
-        [$km3] = $result->getParts();
+        [$k, $m3] = $result->getParts();
 
-        $this->assertEquals(Dimension::LENGTH, $km3->getDimension());
-        $this->assertEquals(1000, $km3->getRatio());
-        $this->assertEquals(-3, $km3->getPower());
+        $this->assertNull($k->getDimension());
+        $this->assertEquals(1000, $k->getRatio());
+        $this->assertEquals(1, $k->getPower());
+
+        $this->assertEquals(Dimension::LENGTH, $m3->getDimension());
+        $this->assertEquals(1, $m3->getRatio());
+        $this->assertEquals(-3, $m3->getPower());
     }
 
     public function test_parses_compound_division_negative_powers()
     {
         $result = $this->parser->parse('kilometer/hour^-2');
 
-        $this->assertCount(2, $result->getParts());
+        $this->assertCount(3, $result->getParts());
 
-        [$km, $hour] = $result->getParts();
+        [$k, $m, $hour] = $result->getParts();
 
-        $this->assertEquals(Dimension::LENGTH, $km->getDimension());
-        $this->assertEquals(1000, $km->getRatio());
-        $this->assertEquals(1, $km->getPower());
+        $this->assertNull($k->getDimension());
+        $this->assertEquals(1000, $k->getRatio());
+        $this->assertEquals(1, $k->getPower());
+
+        $this->assertEquals(Dimension::LENGTH, $m->getDimension());
+        $this->assertEquals(1, $m->getRatio());
+        $this->assertEquals(1, $m->getPower());
 
         $this->assertEquals(Dimension::TIME, $hour->getDimension());
         $this->assertEquals(3600, $hour->getRatio());
@@ -126,13 +151,17 @@ final class ParserTest extends TestCase
     {
         $result = $this->parser->parse('   kilometer ^ 3   /   hour   ');
 
-        $this->assertCount(2, $result->getParts());
+        $this->assertCount(3, $result->getParts());
 
-        [$km3, $hour] = $result->getParts();
+        [$k, $m3, $hour] = $result->getParts();
 
-        $this->assertEquals(Dimension::LENGTH, $km3->getDimension());
-        $this->assertEquals(1000, $km3->getRatio());
-        $this->assertEquals(3, $km3->getPower());
+        $this->assertNull($k->getDimension());
+        $this->assertEquals(1000, $k->getRatio());
+        $this->assertEquals(1, $k->getPower());
+
+        $this->assertEquals(Dimension::LENGTH, $m3->getDimension());
+        $this->assertEquals(1, $m3->getRatio());
+        $this->assertEquals(3, $m3->getPower());
 
         $this->assertEquals(Dimension::TIME, $hour->getDimension());
         $this->assertEquals(3600, $hour->getRatio());
