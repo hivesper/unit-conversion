@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Vesper\Conversion;
+namespace Vesper\UnitConversion;
 
 readonly class Unit
 {

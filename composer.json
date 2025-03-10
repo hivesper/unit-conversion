@@ -1,9 +1,9 @@
 {
     "type": "library",
-    "name": "vesper/conversion",
+    "name": "vesper/unit-conversion",
     "autoload": {
         "psr-4": {
-            "Vesper\\Conversion\\": "src/"
+            "Vesper\\UnitConversion\\": "src/"
         }
     },
     "require-dev": {
@@ -16,10 +16,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Vesper\\Conversion\\Providers\\ConversionServiceProvider"
+                "Vesper\\UnitConversion\\Providers\\ConversionServiceProvider"
             ],
             "aliases": {
-                "Converter": "Vesper\\Conversion\\Facades\\Converter"
+                "Converter": "Vesper\\UnitConversion\\Facades\\Converter"
             }
         }
     }

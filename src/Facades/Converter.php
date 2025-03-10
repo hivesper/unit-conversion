@@ -3,7 +3,7 @@
 namespace Conversion\Facades;
 
 use Illuminate\Support\Facades\Facade;
-Use Vesper\Conversion\Converter as VesperConverter;
+Use Vesper\UnitConversion\Converter as VesperConverter;
 
 class Converter extends Facade
 {

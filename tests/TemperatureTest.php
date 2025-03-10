@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-Use Vesper\Conversion\Converter;
-Use Vesper\Conversion\Dimension;
-Use Vesper\Conversion\Unit;
-Use Vesper\Conversion\UnitPart;
+Use Vesper\UnitConversion\Converter;
+Use Vesper\UnitConversion\Dimension;
+Use Vesper\UnitConversion\Unit;
+Use Vesper\UnitConversion\UnitPart;
 use PHPUnit\Framework\TestCase;
 
 final class TemperatureTest extends TestCase

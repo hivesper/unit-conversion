@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-Use Vesper\Conversion\Dimension;
-Use Vesper\Conversion\FactorUnitPart;
-Use Vesper\Conversion\Registry;
-Use Vesper\Conversion\RegistryBuilder;
-Use Vesper\Conversion\Unit;
-Use Vesper\Conversion\UnitPart;
+Use Vesper\UnitConversion\Dimension;
+Use Vesper\UnitConversion\FactorUnitPart;
+Use Vesper\UnitConversion\Registry;
+Use Vesper\UnitConversion\RegistryBuilder;
+Use Vesper\UnitConversion\Unit;
+Use Vesper\UnitConversion\UnitPart;
 use PHPUnit\Framework\TestCase;
 
 final class RegistryBuilderTest extends TestCase

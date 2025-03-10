@@ -7,11 +7,11 @@
 ```php
 <?php
 
-Use Vesper\Conversion\Converter;
-Use Vesper\Conversion\Dimension;
-Use Vesper\Conversion\Parser;
-Use Vesper\Conversion\Registry;
-Use Vesper\Conversion\RegistryBuilder;
+Use Vesper\UnitConversion\Converter;
+Use Vesper\UnitConversion\Dimension;
+Use Vesper\UnitConversion\Parser;
+Use Vesper\UnitConversion\Registry;
+Use Vesper\UnitConversion\RegistryBuilder;
 
 $registry = new Registry();
 

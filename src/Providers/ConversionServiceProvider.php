@@ -2,10 +2,10 @@
 
 namespace Conversion\Providers;
 
-Use Vesper\Conversion\Converter;
-Use Vesper\Conversion\Parser;
-Use Vesper\Conversion\Registry;
-Use Vesper\Conversion\RegistryBuilder;
+Use Vesper\UnitConversion\Converter;
+Use Vesper\UnitConversion\Parser;
+Use Vesper\UnitConversion\Registry;
+Use Vesper\UnitConversion\RegistryBuilder;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-Use Vesper\Conversion\FactorUnitPart;
+Use Vesper\UnitConversion\FactorUnitPart;
 use PHPUnit\Framework\TestCase;
 
 final class FactorUnitPartTest extends TestCase

@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-Use Vesper\Conversion\Dimension;
-Use Vesper\Conversion\FactorUnitPart;
-Use Vesper\Conversion\Parser;
-Use Vesper\Conversion\Registry;
-Use Vesper\Conversion\RegistryBuilder;
+Use Vesper\UnitConversion\Dimension;
+Use Vesper\UnitConversion\FactorUnitPart;
+Use Vesper\UnitConversion\Parser;
+Use Vesper\UnitConversion\Registry;
+Use Vesper\UnitConversion\RegistryBuilder;
 use PHPUnit\Framework\TestCase;
 
 final class ParserTest extends TestCase
