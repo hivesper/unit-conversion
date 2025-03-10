@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Conversion\Providers;
+namespace Vesper\UnitConversion\Providers;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;

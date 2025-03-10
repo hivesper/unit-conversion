@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Conversion\Facades;
+namespace Vesper\UnitConversion\Facades;
 
 use Illuminate\Support\Facades\Facade;
 use Vesper\UnitConversion\Converter as VesperConverter;
