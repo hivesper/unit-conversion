@@ -38,7 +38,8 @@ final class RegistryTest extends TestCase
         $this->assertTrue($gram === $gramAlias);
     }
 
-    public function test_alias_unknown_throws() {
+    public function test_alias_unknown_throws()
+    {
         $this->assertNull($this->registry->get('yeet'));
 
         $this->expectException(Exception::class);
