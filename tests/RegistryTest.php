@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-use Conversion\Dimension;
-use Conversion\Registry;
-use Conversion\Unit;
-use Conversion\UnitPart;
+Use Vesper\Conversion\Dimension;
+Use Vesper\Conversion\Registry;
+Use Vesper\Conversion\Unit;
+Use Vesper\Conversion\UnitPart;
 use PHPUnit\Framework\TestCase;
 
 final class RegistryTest extends TestCase

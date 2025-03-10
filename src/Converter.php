@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Conversion;
+namespace Vesper\Conversion;
 
 class Converter
 {

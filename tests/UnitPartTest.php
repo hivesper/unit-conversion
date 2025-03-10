@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
-use Conversion\Dimension;
-use Conversion\UnitPart;
+Use Vesper\Conversion\Dimension;
+Use Vesper\Conversion\UnitPart;
 use PHPUnit\Framework\TestCase;
 
 final class UnitPartTest extends TestCase

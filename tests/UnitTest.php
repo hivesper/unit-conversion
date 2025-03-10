@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-use Conversion\Dimension;
-use Conversion\FactorUnitPart;
-use Conversion\Unit;
-use Conversion\UnitPart;
+Use Vesper\Conversion\Dimension;
+Use Vesper\Conversion\FactorUnitPart;
+Use Vesper\Conversion\Unit;
+Use Vesper\Conversion\UnitPart;
 use PHPUnit\Framework\TestCase;
 
 final class UnitTest extends TestCase

@@ -1,9 +1,9 @@
 {
     "type": "library",
-    "name": "tomhooijenga/units",
+    "name": "vesper/conversion",
     "autoload": {
         "psr-4": {
-            "Conversion\\": "src/"
+            "Vesper\\Conversion\\": "src/"
         }
     },
     "require-dev": {
@@ -16,10 +16,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Conversion\\Providers\\ConversionServiceProvider"
+                "Vesper\\Conversion\\Providers\\ConversionServiceProvider"
             ],
             "aliases": {
-                "Converter": "Conversion\\Facades\\Converter"
+                "Converter": "Vesper\\Conversion\\Facades\\Converter"
             }
         }
     }

@@ -3,12 +3,12 @@
 namespace Conversion\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Conversion\Converter as ConversionConverter;
+Use Vesper\Conversion\Converter as VesperConverter;
 
 class Converter extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
-        return ConversionConverter::class;
+        return VesperConverter::class;
     }
 }
