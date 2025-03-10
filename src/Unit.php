@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Conversion;
+namespace Vesper\UnitConversion;
 
 readonly class Unit
 {
@@ -14,7 +14,7 @@ readonly class Unit
 
         $this->ratio = array_reduce(
             $parts,
-            fn (float $carry, UnitPart $part) => $carry * $part->getRatio() ** $part->getPower(),
+            fn(float $carry, UnitPart $part) => $carry * $part->getRatio() ** $part->getPower(),
             1
         );
     }
@@ -79,7 +79,7 @@ readonly class Unit
     {
         $dimensions = array_filter($this->getDimensions());
 
-        $parts = array_map(function(string $dimension, int $power) {
+        $parts = array_map(function (string $dimension, int $power) {
             $name = constant(Dimension::class . '::' . $dimension)->getUnitName();
             return $power === 1 ? $name : "$name^$power";
         }, array_keys($dimensions), $dimensions);
@@ -99,6 +99,6 @@ readonly class Unit
 
     public function invert(): self
     {
-        return new self(...array_map(fn (UnitPart $part) => $part->invert(), $this->getParts()));
+        return new self(...array_map(fn(UnitPart $part) => $part->invert(), $this->getParts()));
     }
 }

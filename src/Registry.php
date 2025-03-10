@@ -1,12 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Conversion;
+namespace Vesper\UnitConversion;
 
 class Registry
 {
     protected array $registry = [];
 
-    public function register(string $name, Unit $unit): self {
+    public function register(string $name, Unit $unit): self
+    {
         $this->registry[$name] = $unit;
 
         return $this;

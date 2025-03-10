@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-use Conversion\Dimension;
-use Conversion\Registry;
-use Conversion\Unit;
-use Conversion\UnitPart;
 use PHPUnit\Framework\TestCase;
+use Vesper\UnitConversion\Dimension;
+use Vesper\UnitConversion\Registry;
+use Vesper\UnitConversion\Unit;
+use Vesper\UnitConversion\UnitPart;
 
 final class RegistryTest extends TestCase
 {
@@ -38,7 +38,8 @@ final class RegistryTest extends TestCase
         $this->assertTrue($gram === $gramAlias);
     }
 
-    public function test_alias_unknown_throws() {
+    public function test_alias_unknown_throws()
+    {
         $this->assertNull($this->registry->get('yeet'));
 
         $this->expectException(Exception::class);

@@ -1,10 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Conversion;
+namespace Vesper\UnitConversion;
 
 readonly class FactorUnitPart extends UnitPart
 {
-    public function __construct(float $ratio) {
+    public function __construct(float $ratio)
+    {
         parent::__construct($ratio, null, 1);
     }
 

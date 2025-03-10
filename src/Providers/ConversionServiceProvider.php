@@ -2,12 +2,12 @@
 
 namespace Conversion\Providers;
 
-use Conversion\Converter;
-use Conversion\Parser;
-use Conversion\Registry;
-use Conversion\RegistryBuilder;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
+use Vesper\UnitConversion\Converter;
+use Vesper\UnitConversion\Parser;
+use Vesper\UnitConversion\Registry;
+use Vesper\UnitConversion\RegistryBuilder;
 
 class ConversionServiceProvider extends ServiceProvider
 {

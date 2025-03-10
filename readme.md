@@ -1,17 +1,18 @@
-
 # Units in php
+
 ## to do:
+
 - [ ] Add more units
 - [ ] Add conversion ratios
 
 ```php
 <?php
 
-use Conversion\Converter;
-use Conversion\Dimension;
-use Conversion\Parser;
-use Conversion\Registry;
-use Conversion\RegistryBuilder;
+Use Vesper\UnitConversion\Converter;
+Use Vesper\UnitConversion\Dimension;
+Use Vesper\UnitConversion\Parser;
+Use Vesper\UnitConversion\Registry;
+Use Vesper\UnitConversion\RegistryBuilder;
 
 $registry = new Registry();
 

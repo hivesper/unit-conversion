@@ -1,18 +1,18 @@
 <?php declare(strict_types=1);
 
-use Conversion\Dimension;
-use Conversion\UnitPart;
 use PHPUnit\Framework\TestCase;
+use Vesper\UnitConversion\Dimension;
+use Vesper\UnitConversion\UnitPart;
 
 final class UnitPartTest extends TestCase
 {
     public function test_stringifies()
     {
-        $this->assertEquals('meter^-1', (string) new UnitPart(1, Dimension::LENGTH, -1));
-        $this->assertEquals('meter^0', (string) new UnitPart(1, Dimension::LENGTH, 0));
-        $this->assertEquals('meter', (string) new UnitPart(1, Dimension::LENGTH, 1));
-        $this->assertEquals('meter^2', (string) new UnitPart(1, Dimension::LENGTH, 2));
-        $this->assertEquals('meter^10', (string) new UnitPart(1, Dimension::LENGTH, 10));
+        $this->assertEquals('meter^-1', (string)new UnitPart(1, Dimension::LENGTH, -1));
+        $this->assertEquals('meter^0', (string)new UnitPart(1, Dimension::LENGTH, 0));
+        $this->assertEquals('meter', (string)new UnitPart(1, Dimension::LENGTH, 1));
+        $this->assertEquals('meter^2', (string)new UnitPart(1, Dimension::LENGTH, 2));
+        $this->assertEquals('meter^10', (string)new UnitPart(1, Dimension::LENGTH, 10));
     }
 
     public function test_get_dimensions()

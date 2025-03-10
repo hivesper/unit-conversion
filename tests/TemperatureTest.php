@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 
-use Conversion\Converter;
-use Conversion\Dimension;
-use Conversion\Unit;
-use Conversion\UnitPart;
 use PHPUnit\Framework\TestCase;
+use Vesper\UnitConversion\Converter;
+use Vesper\UnitConversion\Dimension;
+use Vesper\UnitConversion\Unit;
+use Vesper\UnitConversion\UnitPart;
 
 final class TemperatureTest extends TestCase
 {
     protected Unit $kelvin;
     protected Unit $celsius;
     protected Unit $fahrenheit;
-    
+
     protected Converter $converter;
 
     protected function setUp(): void
@@ -21,7 +21,7 @@ final class TemperatureTest extends TestCase
         $this->kelvin = new Unit(new UnitPart(1, Dimension::TEMPERATURE, 1));
         $this->celsius = new Unit(new UnitPart(1, Dimension::TEMPERATURE, 1, 273.15));
         $this->fahrenheit = new Unit(new UnitPart(5 / 9, Dimension::TEMPERATURE, 1, 459.67));
-        
+
         $this->converter = new Converter();
     }
 
@@ -57,6 +57,6 @@ final class TemperatureTest extends TestCase
         );
 
         $this->assertEqualsWithDelta(10, $this->converter->convert($mk, $mc, 10), 0.000001);
-        $this->assertEqualsWithDelta(2.7777777777778 , $this->converter->convert($mc, $mf, 5), 0.000001);
+        $this->assertEqualsWithDelta(2.7777777777778, $this->converter->convert($mc, $mf, 5), 0.000001);
     }
 }

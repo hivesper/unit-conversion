@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-use Conversion\Converter;
-use Conversion\Dimension;
-use Conversion\Unit;
-use Conversion\UnitPart;
 use PHPUnit\Framework\TestCase;
+use Vesper\UnitConversion\Converter;
+use Vesper\UnitConversion\Dimension;
+use Vesper\UnitConversion\Unit;
+use Vesper\UnitConversion\UnitPart;
 
 final class TimeTest extends TestCase
 {
