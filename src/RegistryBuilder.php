@@ -183,8 +183,8 @@ class RegistryBuilder
         $registry->register('ounce', new Unit(new UnitPart(28.349523125e-3, Dimension::MASS, 1)));
         $registry->alias('ounce', ['oz']);
 
-        $registry->register('poundmass', new Unit(new UnitPart(453.59237e-3, Dimension::MASS, 1)));
-        $registry->alias('poundmass', ['lbm']);
+        $registry->register('pound', new Unit(new UnitPart(0.45359237, Dimension::MASS, 1)));
+        $registry->alias('pound', ['lb', 'lbs', 'lbm', 'poundmass']);
 
         $registry->register('hundredweight', new Unit(new UnitPart(45.359237, Dimension::MASS, 1)));
         $registry->alias('hundredweight', ['cwt']);
