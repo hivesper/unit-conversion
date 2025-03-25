@@ -14,7 +14,7 @@ final class MassTest extends TestCase
     protected Unit $grain;
     protected Unit $dram;
     protected Unit $ounce;
-    protected Unit $poundmass;
+    protected Unit $pound;
     protected Unit $hundredweight;
     protected Unit $stick;
     protected Unit $stone;
@@ -31,7 +31,7 @@ final class MassTest extends TestCase
         $this->grain = new Unit(new UnitPart(64.79891e-6, Dimension::MASS, 1));
         $this->dram = new Unit(new UnitPart(1.7718451953125e-3, Dimension::MASS, 1));
         $this->ounce = new Unit(new UnitPart(28.349523125e-3, Dimension::MASS, 1));
-        $this->poundmass = new Unit(new UnitPart(453.59237e-3, Dimension::MASS, 1));
+        $this->pound = new Unit(new UnitPart(0.45359237, Dimension::MASS, 1));
         $this->hundredweight = new Unit(new UnitPart(45.359237, Dimension::MASS, 1));
         $this->stick = new Unit(new UnitPart(115e-3, Dimension::MASS, 1));
         $this->stone = new Unit(new UnitPart(6.35029318, Dimension::MASS, 1));
@@ -71,8 +71,8 @@ final class MassTest extends TestCase
 
     public function test_gram_to_poundmass(): void
     {
-        $this->assertEqualsWithDelta(0.00220462, $this->converter->convert($this->gram, $this->poundmass, 1), 0.0000001);
-        $this->assertEquals(453.59237, $this->converter->convert($this->poundmass, $this->gram, 1));
+        $this->assertEqualsWithDelta(0.00220462, $this->converter->convert($this->gram, $this->pound, 1), 0.0000001);
+        $this->assertEquals(453.59237, $this->converter->convert($this->pound, $this->gram, 1));
     }
 
     public function test_gram_to_hundredweight(): void
