@@ -212,7 +212,7 @@ class RegistryBuilder
         );
 
         $registry->register('liter', new Unit(new UnitPart(0.1, Dimension::LENGTH, 3)));
-        $registry->alias('liter', ['l']);
+        $registry->alias('liter', ['l', 'litre']);
     }
 
     protected static function initTemperature(Registry $registry): void
