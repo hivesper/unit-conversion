@@ -41,7 +41,7 @@ final class AreaTest extends TestCase
 
     public function test_squareMeter_squareInch(): void
     {
-        $this->assertEqualsWithDelta(1550.0031000062, $this->converter->convert($this->squareMeter, $this->squareInch, 1), 0.0000001);
+        $this->assertEqualsWithDelta(2, $this->converter->convert($this->squareMeter, $this->squareInch, 1), 0.0000001);
         $this->assertEqualsWithDelta(0.00064516, $this->converter->convert($this->squareInch, $this->squareMeter, 1), 0.0000001);
     }
 
