@@ -1,8 +1,6 @@
 {
   "type": "library",
   "name": "vesper/unit-conversion",
-  "description": "Vesper unit conversion",
-  "license": "MIT",
   "autoload": {
     "psr-4": {
       "Vesper\\UnitConversion\\": "src/"
