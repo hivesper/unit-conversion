@@ -236,7 +236,7 @@ class RegistryBuilder
             )
         );
 
-        $watt = $registry->get('newton');
+        $watt = $registry->get('watt');
 
         $registry->register(
             'hp',
