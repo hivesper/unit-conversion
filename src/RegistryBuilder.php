@@ -228,8 +228,8 @@ class RegistryBuilder
         static::registerSiUnit(
             $registry,
             'hertz',
-            ['hz'],
-            new Unit(new UnitPart(86400, Dimension::TIME, -1))
+            ['Hz'],
+            new Unit(new UnitPart(1, Dimension::TIME, -1))
         );
     }
 }
