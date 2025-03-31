@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "8f62a7d43af30c67649a20d75cabff07",
+  "content-hash": "dc30e242acebefccfff8c3d67f7fd692",
   "packages": [
     {
       "name": "carbonphp/carbon-doctrine-types",
@@ -168,16 +168,16 @@
     },
     {
       "name": "illuminate/collections",
-      "version": "v12.1.1",
+      "version": "v12.3.0",
       "source": {
         "type": "git",
         "url": "https://github.com/illuminate/collections.git",
-        "reference": "9720323b3b9c88732b459feacdfcf87b8770a5b7"
+        "reference": "0094b162fa505126c1391222f27fd98734d24525"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/illuminate/collections/zipball/9720323b3b9c88732b459feacdfcf87b8770a5b7",
-        "reference": "9720323b3b9c88732b459feacdfcf87b8770a5b7",
+        "url": "https://api.github.com/repos/illuminate/collections/zipball/0094b162fa505126c1391222f27fd98734d24525",
+        "reference": "0094b162fa505126c1391222f27fd98734d24525",
         "shasum": ""
       },
       "require": {
@@ -220,11 +220,11 @@
         "issues": "https://github.com/laravel/framework/issues",
         "source": "https://github.com/laravel/framework"
       },
-      "time": "2025-03-04T21:55:59+00:00"
+      "time": "2025-03-16T23:50:18+00:00"
     },
     {
       "name": "illuminate/conditionable",
-      "version": "v12.1.1",
+      "version": "v12.3.0",
       "source": {
         "type": "git",
         "url": "https://github.com/illuminate/conditionable.git",
@@ -270,16 +270,16 @@
     },
     {
       "name": "illuminate/contracts",
-      "version": "v12.1.1",
+      "version": "v12.3.0",
       "source": {
         "type": "git",
         "url": "https://github.com/illuminate/contracts.git",
-        "reference": "31561bda13936ddef88eaa22241a53965e001727"
+        "reference": "88962e0a73fb837e048ebdbbc67afd2f6b30e8e6"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/illuminate/contracts/zipball/31561bda13936ddef88eaa22241a53965e001727",
-        "reference": "31561bda13936ddef88eaa22241a53965e001727",
+        "url": "https://api.github.com/repos/illuminate/contracts/zipball/88962e0a73fb837e048ebdbbc67afd2f6b30e8e6",
+        "reference": "88962e0a73fb837e048ebdbbc67afd2f6b30e8e6",
         "shasum": ""
       },
       "require": {
@@ -314,11 +314,11 @@
         "issues": "https://github.com/laravel/framework/issues",
         "source": "https://github.com/laravel/framework"
       },
-      "time": "2025-03-04T15:55:02+00:00"
+      "time": "2025-03-16T23:56:53+00:00"
     },
     {
       "name": "illuminate/macroable",
-      "version": "v12.1.1",
+      "version": "v12.3.0",
       "source": {
         "type": "git",
         "url": "https://github.com/illuminate/macroable.git",
@@ -364,16 +364,16 @@
     },
     {
       "name": "illuminate/support",
-      "version": "v12.1.1",
+      "version": "v12.3.0",
       "source": {
         "type": "git",
         "url": "https://github.com/illuminate/support.git",
-        "reference": "285b2c5003ae96b1092cf5dd441584f4e9a4cc57"
+        "reference": "bcba98dcdbc758261b3b872a9b9dc789aed1eb57"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/illuminate/support/zipball/285b2c5003ae96b1092cf5dd441584f4e9a4cc57",
-        "reference": "285b2c5003ae96b1092cf5dd441584f4e9a4cc57",
+        "url": "https://api.github.com/repos/illuminate/support/zipball/bcba98dcdbc758261b3b872a9b9dc789aed1eb57",
+        "reference": "bcba98dcdbc758261b3b872a9b9dc789aed1eb57",
         "shasum": ""
       },
       "require": {
@@ -437,7 +437,7 @@
         "issues": "https://github.com/laravel/framework/issues",
         "source": "https://github.com/laravel/framework"
       },
-      "time": "2025-02-28T16:50:42+00:00"
+      "time": "2025-03-13T14:51:35+00:00"
     },
     {
       "name": "nesbot/carbon",
@@ -1804,16 +1804,16 @@
     },
     {
       "name": "phpunit/phpunit",
-      "version": "11.5.12",
+      "version": "11.5.15",
       "source": {
         "type": "git",
         "url": "https://github.com/sebastianbergmann/phpunit.git",
-        "reference": "d42785840519401ed2113292263795eb4c0f95da"
+        "reference": "4b6a4ee654e5e0c5e1f17e2f83c0f4c91dee1f9c"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/d42785840519401ed2113292263795eb4c0f95da",
-        "reference": "d42785840519401ed2113292263795eb4c0f95da",
+        "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/4b6a4ee654e5e0c5e1f17e2f83c0f4c91dee1f9c",
+        "reference": "4b6a4ee654e5e0c5e1f17e2f83c0f4c91dee1f9c",
         "shasum": ""
       },
       "require": {
@@ -1833,14 +1833,14 @@
         "phpunit/php-text-template": "^4.0.1",
         "phpunit/php-timer": "^7.0.1",
         "sebastian/cli-parser": "^3.0.2",
-        "sebastian/code-unit": "^3.0.2",
+        "sebastian/code-unit": "^3.0.3",
         "sebastian/comparator": "^6.3.1",
         "sebastian/diff": "^6.0.2",
         "sebastian/environment": "^7.2.0",
         "sebastian/exporter": "^6.3.0",
         "sebastian/global-state": "^7.0.2",
         "sebastian/object-enumerator": "^6.0.1",
-        "sebastian/type": "^5.1.0",
+        "sebastian/type": "^5.1.2",
         "sebastian/version": "^5.0.2",
         "staabm/side-effects-detector": "^1.0.5"
       },
@@ -1885,7 +1885,7 @@
       "support": {
         "issues": "https://github.com/sebastianbergmann/phpunit/issues",
         "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-        "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.12"
+        "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.15"
       },
       "funding": [
         {
@@ -1901,7 +1901,7 @@
           "type": "tidelift"
         }
       ],
-      "time": "2025-03-07T07:31:03+00:00"
+      "time": "2025-03-23T16:02:11+00:00"
     },
     {
       "name": "sebastian/cli-parser",
@@ -1962,16 +1962,16 @@
     },
     {
       "name": "sebastian/code-unit",
-      "version": "3.0.2",
+      "version": "3.0.3",
       "source": {
         "type": "git",
         "url": "https://github.com/sebastianbergmann/code-unit.git",
-        "reference": "ee88b0cdbe74cf8dd3b54940ff17643c0d6543ca"
+        "reference": "54391c61e4af8078e5b276ab082b6d3c54c9ad64"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/sebastianbergmann/code-unit/zipball/ee88b0cdbe74cf8dd3b54940ff17643c0d6543ca",
-        "reference": "ee88b0cdbe74cf8dd3b54940ff17643c0d6543ca",
+        "url": "https://api.github.com/repos/sebastianbergmann/code-unit/zipball/54391c61e4af8078e5b276ab082b6d3c54c9ad64",
+        "reference": "54391c61e4af8078e5b276ab082b6d3c54c9ad64",
         "shasum": ""
       },
       "require": {
@@ -2007,7 +2007,7 @@
       "support": {
         "issues": "https://github.com/sebastianbergmann/code-unit/issues",
         "security": "https://github.com/sebastianbergmann/code-unit/security/policy",
-        "source": "https://github.com/sebastianbergmann/code-unit/tree/3.0.2"
+        "source": "https://github.com/sebastianbergmann/code-unit/tree/3.0.3"
       },
       "funding": [
         {
@@ -2015,7 +2015,7 @@
           "type": "github"
         }
       ],
-      "time": "2024-12-12T09:59:06+00:00"
+      "time": "2025-03-19T07:56:08+00:00"
     },
     {
       "name": "sebastian/code-unit-reverse-lookup",
@@ -2720,16 +2720,16 @@
     },
     {
       "name": "sebastian/type",
-      "version": "5.1.0",
+      "version": "5.1.2",
       "source": {
         "type": "git",
         "url": "https://github.com/sebastianbergmann/type.git",
-        "reference": "461b9c5da241511a2a0e8f240814fb23ce5c0aac"
+        "reference": "a8a7e30534b0eb0c77cd9d07e82de1a114389f5e"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/461b9c5da241511a2a0e8f240814fb23ce5c0aac",
-        "reference": "461b9c5da241511a2a0e8f240814fb23ce5c0aac",
+        "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/a8a7e30534b0eb0c77cd9d07e82de1a114389f5e",
+        "reference": "a8a7e30534b0eb0c77cd9d07e82de1a114389f5e",
         "shasum": ""
       },
       "require": {
@@ -2765,7 +2765,7 @@
       "support": {
         "issues": "https://github.com/sebastianbergmann/type/issues",
         "security": "https://github.com/sebastianbergmann/type/security/policy",
-        "source": "https://github.com/sebastianbergmann/type/tree/5.1.0"
+        "source": "https://github.com/sebastianbergmann/type/tree/5.1.2"
       },
       "funding": [
         {
@@ -2773,7 +2773,7 @@
           "type": "github"
         }
       ],
-      "time": "2024-09-17T13:12:04+00:00"
+      "time": "2025-03-18T13:35:50+00:00"
     },
     {
       "name": "sebastian/version",
@@ -2934,12 +2934,12 @@
   ],
   "aliases": [],
   "minimum-stability": "stable",
-  "stability-flags": [],
+  "stability-flags": {},
   "prefer-stable": false,
   "prefer-lowest": false,
   "platform": {
     "php": "^8.3"
   },
-  "platform-dev": [],
+  "platform-dev": {},
   "plugin-api-version": "2.6.0"
 }
