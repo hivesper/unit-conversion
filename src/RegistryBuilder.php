@@ -41,6 +41,7 @@ class RegistryBuilder
         static::initVolume($registry);
         static::initTemperature($registry);
         static::initLuminousIntensity($registry);
+        static::amountOfSubstance($registry);
 
         return $registry;
     }
@@ -230,6 +231,16 @@ class RegistryBuilder
             'candela',
             ['cd'],
             new Unit(new UnitPart(1, Dimension::LUMINOUS_INTENSITY, 1))
+          );
+    }
+
+    protected static function amountOfSubstance(Registry $registry): void
+    {
+        static::registerSiUnit(
+            $registry,
+            'mole',
+            ['mol'],
+            new Unit(new UnitPart(1, Dimension::AMOUNT_OF_SUBSTANCE, 1))
         );
     }
 }
