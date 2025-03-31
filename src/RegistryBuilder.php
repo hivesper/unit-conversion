@@ -40,6 +40,7 @@ class RegistryBuilder
         static::initTime($registry);
         static::initVolume($registry);
         static::initTemperature($registry);
+        static::initForce($registry);
         static::initLuminousIntensity($registry);
         static::amountOfSubstance($registry);
 
@@ -222,6 +223,57 @@ class RegistryBuilder
         $registry->register('kelvin', new Unit(new UnitPart(1, Dimension::TEMPERATURE, 1)));
         $registry->register('celsius', new Unit(new UnitPart(1, Dimension::TEMPERATURE, 1, 273.15)));
         $registry->register('fahrenheit', new Unit(new UnitPart(5 / 9, Dimension::TEMPERATURE, 1, 459.67)));
+    }
+
+    protected static function initForce(Registry $registry): void
+    {
+        static::registerSiUnit(
+            $registry,
+            'newton',
+            ['N'],
+            new Unit(
+                new UnitPart(1, Dimension::MASS, 1),
+                new UnitPart(1, Dimension::LENGTH, 1),
+                new UnitPart(1, Dimension::TIME, -2)
+            )
+        );
+
+        $newton = $registry->get('newton');
+
+        $registry->register(
+            'dyne',
+            new Unit(
+                new FactorUnitPart(0.00001),
+                ...$newton->getParts()
+            )
+        );
+        $registry->alias('dyne', ['dyn']);
+
+        $registry->register(
+            'poundforce',
+            new Unit(
+                new FactorUnitPart(4.4482216152605),
+                ...$newton->getParts()
+            )
+        );
+        $registry->alias('poundforce', ['lbf']);
+
+        $registry->register(
+            'kip',
+            new Unit(
+                new FactorUnitPart(4448.2216),
+                ...$newton->getParts()
+            )
+        );
+
+        $registry->register(
+            'kilogramforce',
+            new Unit(
+                new FactorUnitPart(9.8066),
+                ...$newton->getParts()
+            )
+        );
+        $registry->alias('kilogramforce', ['kgf']);
     }
 
     protected static function initLuminousIntensity(Registry $registry): void
