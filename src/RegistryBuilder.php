@@ -236,25 +236,24 @@ class RegistryBuilder
 
         $radian = $registry->get('radian');
 
-        static::registerSiUnit(
-            $registry,
+        $registry->register(
             'degree',
-            ['deg'],
             new Unit(
                 new FactorUnitPart(M_PI/180),
                 ...$radian->getParts()
             )
         );
+        $registry->alias('degree', ['deg']);
 
-        static::registerSiUnit(
-            $registry,
+        $registry->register(
             'gradian',
-            ['grad'],
             new Unit(
                 new FactorUnitPart(M_PI/200),
                 ...$radian->getParts()
             )
         );
+        $registry->alias('gradian', ['grad']);
+
 
         $registry->register(
             'cycle',
