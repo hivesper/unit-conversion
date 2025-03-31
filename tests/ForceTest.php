@@ -13,6 +13,7 @@ final class ForceTest extends TestCase
     protected Unit $poundforce;
     protected Unit $kip;
     protected Unit $kilogramforce;
+    protected Converter $converter;
 
     protected function setUp(): void
     {
