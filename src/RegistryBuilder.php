@@ -40,6 +40,7 @@ class RegistryBuilder
         static::initTime($registry);
         static::initVolume($registry);
         static::initTemperature($registry);
+        static::initLuminousIntensity($registry);
         static::amountOfSubstance($registry);
 
         return $registry;
@@ -221,6 +222,16 @@ class RegistryBuilder
         $registry->register('kelvin', new Unit(new UnitPart(1, Dimension::TEMPERATURE, 1)));
         $registry->register('celsius', new Unit(new UnitPart(1, Dimension::TEMPERATURE, 1, 273.15)));
         $registry->register('fahrenheit', new Unit(new UnitPart(5 / 9, Dimension::TEMPERATURE, 1, 459.67)));
+    }
+
+    protected static function initLuminousIntensity(Registry $registry): void
+    {
+        static::registerSiUnit(
+            $registry,
+            'candela',
+            ['cd'],
+            new Unit(new UnitPart(1, Dimension::LUMINOUS_INTENSITY, 1))
+          );
     }
 
     protected static function amountOfSubstance(Registry $registry): void
