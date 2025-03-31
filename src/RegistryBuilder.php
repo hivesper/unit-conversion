@@ -41,6 +41,10 @@ class RegistryBuilder
         static::initVolume($registry);
         static::initTemperature($registry);
         static::initPressure($registry);
+        static::initPower($registry);
+        static::initForce($registry);
+        static::initLuminousIntensity($registry);
+        static::amountOfSubstance($registry);
 
         return $registry;
     }
@@ -275,9 +279,7 @@ class RegistryBuilder
             new Unit(
                 new FactorUnitPart(133.322),
                 ...$pa->getParts()
-            )
-        );
-
+              
         $registry->register(
             'mmH2O',
             new Unit(
@@ -292,6 +294,101 @@ class RegistryBuilder
                 new FactorUnitPart(98.0665),
                 ...$pa->getParts()
             )
+        );
+    }
+              
+    protected static function initPower(Registry $registry): void
+    {
+        static::registerSiUnit(
+            $registry,
+            'watt',
+            ['W'],
+            new Unit(
+                new UnitPart(1, Dimension::MASS, 1),
+                new UnitPart(1, Dimension::LENGTH, 2),
+                new UnitPart(1, Dimension::TIME, -3)
+            )
+        );
+
+        $watt = $registry->get('watt');
+
+        $registry->register(
+            'hp',
+            new Unit(
+                new FactorUnitPart(745.6998715386),
+                ...$watt->getParts()
+            )
+        );
+    }
+
+    protected static function initForce(Registry $registry): void
+    {
+        static::registerSiUnit(
+            $registry,
+            'newton',
+            ['N'],
+            new Unit(
+                new UnitPart(1, Dimension::MASS, 1),
+                new UnitPart(1, Dimension::LENGTH, 1),
+                new UnitPart(1, Dimension::TIME, -2)
+            )
+        );
+
+        $newton = $registry->get('newton');
+
+        $registry->register(
+            'dyne',
+            new Unit(
+                new FactorUnitPart(0.00001),
+                ...$newton->getParts()
+            )
+        );
+        $registry->alias('dyne', ['dyn']);
+
+        $registry->register(
+            'poundforce',
+            new Unit(
+                new FactorUnitPart(4.4482216152605),
+                ...$newton->getParts()
+            )
+        );
+        $registry->alias('poundforce', ['lbf']);
+
+        $registry->register(
+            'kip',
+            new Unit(
+                new FactorUnitPart(4448.2216),
+                ...$newton->getParts()
+            )
+        );
+
+        $registry->register(
+            'kilogramforce',
+            new Unit(
+                new FactorUnitPart(9.8066),
+                ...$newton->getParts()
+            )
+        );
+        $registry->alias('kilogramforce', ['kgf']);
+    }
+
+    protected static function initLuminousIntensity(Registry $registry): void
+    {
+        static::registerSiUnit(
+            $registry,
+            'candela',
+            ['cd'],
+            new Unit(new UnitPart(1, Dimension::LUMINOUS_INTENSITY, 1))
+          );
+    }
+
+    protected static function amountOfSubstance(Registry $registry): void
+    {
+        static::registerSiUnit(
+            $registry,
+            'mole',
+            ['mol'],
+            new Unit(new UnitPart(1, Dimension::AMOUNT_OF_SUBSTANCE, 1))
         );
     }
 }
