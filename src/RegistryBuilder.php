@@ -225,8 +225,10 @@ class RegistryBuilder
 
     protected static function initPressure(Registry $registry): void
     {
-        $registry->register(
-            'pa',
+        static::registerSiUnit(
+            $registry,
+            'pascal',
+            ['Pa'],
             new Unit(
                 new UnitPart(1, Dimension::MASS, 1),
                 new UnitPart(1, Dimension::LENGTH, -1),
@@ -234,7 +236,7 @@ class RegistryBuilder
             )
         );
 
-        $pa = $registry->get('pa');
+        $pa = $registry->get('Pa');
 
         $registry->register(
             'psi',

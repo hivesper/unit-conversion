@@ -2,16 +2,12 @@
 
 use PHPUnit\Framework\TestCase;
 use Vesper\UnitConversion\Converter;
-use Vesper\UnitConversion\Dimension;
-use Vesper\UnitConversion\FactorUnitPart;
 use Vesper\UnitConversion\RegistryBuilder;
 use Vesper\UnitConversion\Unit;
-use Vesper\UnitConversion\UnitPart;
 use Vesper\UnitConversion\Registry;
 
 final class PressureTest extends TestCase
 {
-    protected Registry $registry;
     protected Unit $pa;
     protected Unit $psi;
     protected Unit $atm;
@@ -20,58 +16,31 @@ final class PressureTest extends TestCase
     protected Unit $mmHg;
     protected Unit $mmH2O;
     protected Unit $cmH2O;
+    protected Converter $converter;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->registry = new Registry();
+        $registry = new Registry();
 
-        $this->registry->register(
-            'pa',
-            new Unit(
-                new UnitPart(1, Dimension::MASS, 1),
-                new UnitPart(1, Dimension::LENGTH, -1),
-                new UnitPart(1, Dimension::TIME, -2)
-            )
-        );
+        RegistryBuilder::build($registry);
 
-        $this->pa = $this->registry->get('pa');
+        $this->pa = $registry->get('Pa');
 
-        $this->psi = new Unit(
-            new FactorUnitPart(6894.75729276459),
-            ...$this->pa->getParts()
-        );
+        $this->psi = $registry->get('psi');
 
-        $this->atm = new Unit(
-            new FactorUnitPart(101325),
-            ...$this->pa->getParts()
-        );
+        $this->atm = $registry->get('atm');
 
-        $this->bar = new Unit(
-            new FactorUnitPart(100000),
-            ...$this->pa->getParts()
-        );
+        $this->bar = $registry->get('bar');
 
-        $this->torr = new Unit(
-            new FactorUnitPart(133.322),
-            ...$this->pa->getParts()
-        );
+        $this->torr = $registry->get('torr');
 
-        $this->mmHg = new Unit(
-            new FactorUnitPart(133.322),
-            ...$this->pa->getParts()
-        );
+        $this->mmHg = $registry->get('mmHg');
 
-        $this->mmH2O = new Unit(
-            new FactorUnitPart(9.80665),
-            ...$this->pa->getParts()
-        );
+        $this->mmH2O = $registry->get('mmH2O');
 
-        $this->cmH2O = new Unit(
-            new FactorUnitPart(98.0665),
-            ...$this->pa->getParts()
-        );
+        $this->cmH2O = $registry->get('cmH2O');
 
         $this->converter = new Converter();
     }
