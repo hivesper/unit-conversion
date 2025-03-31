@@ -238,25 +238,23 @@ class RegistryBuilder
 
         $newton = $registry->get('newton');
 
-        static::registerSiUnit(
-            $registry,
+        $registry->register(
             'dyne',
-            ['dyn'],
             new Unit(
                 new FactorUnitPart(0.00001),
                 ...$newton->getParts()
             )
         );
+        $registry->alias('dyne', ['dyn']);
 
-        static::registerSiUnit(
-            $registry,
+        $registry->register(
             'poundforce',
-            ['lbf'],
             new Unit(
                 new FactorUnitPart(4.4482216152605),
                 ...$newton->getParts()
             )
         );
+        $registry->alias('poundforce', ['lbf']);
 
         $registry->register(
             'kip',
@@ -273,5 +271,6 @@ class RegistryBuilder
                 ...$newton->getParts()
             )
         );
+        $registry->alias('kilogramforce', ['kgf']);
     }
 }

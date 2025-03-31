@@ -2,16 +2,12 @@
 
 use PHPUnit\Framework\TestCase;
 use Vesper\UnitConversion\Converter;
-use Vesper\UnitConversion\Dimension;
-use Vesper\UnitConversion\FactorUnitPart;
 use Vesper\UnitConversion\RegistryBuilder;
 use Vesper\UnitConversion\Unit;
-use Vesper\UnitConversion\UnitPart;
 use Vesper\UnitConversion\Registry;
 
 final class ForceTest extends TestCase
 {
-    protected Registry $registry;
     protected Unit $newton;
     protected Unit $dyne;
     protected Unit $poundforce;
@@ -22,40 +18,19 @@ final class ForceTest extends TestCase
     {
         parent::setUp();
 
-        $this->registry = new Registry();
+        $registry = new Registry();
 
-        RegistryBuilder::registerSiUnit(
-            $this->registry,
-            'newton',
-            ['n'],
-            new Unit(
-                new UnitPart(1, Dimension::MASS, 1),
-                new UnitPart(1, Dimension::LENGTH, 1),
-                new UnitPart(1, Dimension::TIME, -2)
-            )
-        );
+        RegistryBuilder::build($registry);
 
-        $this->newton = $this->registry->get('newton');
+        $this->newton = $registry->get('newton');
 
-        $this->dyne = new Unit(
-            new FactorUnitPart(0.00001),
-            ...$this->newton->getParts()
-        );
+        $this->dyne = $registry->get('dyne');
 
-        $this->poundforce = new Unit(
-            new FactorUnitPart(4.4482216152605),
-            ...$this->newton->getParts()
-        );
+        $this->poundforce = $registry->get('poundforce');
 
-        $this->kip = new Unit(
-            new FactorUnitPart(4448.2216),
-            ...$this->newton->getParts()
-        );
+        $this->kip = $registry->get('kip');
 
-        $this->kilogramforce = new Unit(
-            new FactorUnitPart(9.8066),
-            ...$this->newton->getParts()
-        );
+        $this->kilogramforce = $registry->get('kilogramforce');
 
         $this->converter = new Converter();
     }
