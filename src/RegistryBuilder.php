@@ -40,6 +40,7 @@ class RegistryBuilder
         static::initTime($registry);
         static::initVolume($registry);
         static::initTemperature($registry);
+        static::initAngle($registry);
 
         return $registry;
     }
@@ -220,5 +221,63 @@ class RegistryBuilder
         $registry->register('kelvin', new Unit(new UnitPart(1, Dimension::TEMPERATURE, 1)));
         $registry->register('celsius', new Unit(new UnitPart(1, Dimension::TEMPERATURE, 1, 273.15)));
         $registry->register('fahrenheit', new Unit(new UnitPart(5 / 9, Dimension::TEMPERATURE, 1, 459.67)));
+    }
+
+    protected static function initAngle(Registry $registry): void
+    {
+        static::registerSiUnit(
+            $registry,
+            'radian',
+            ['rad'],
+            new Unit(
+                new UnitPart(1, Dimension::ANGLE, 1),
+            )
+        );
+
+        $radian = $registry->get('radian');
+
+        static::registerSiUnit(
+            $registry,
+            'degree',
+            ['deg'],
+            new Unit(
+                new FactorUnitPart(M_PI/180),
+                ...$radian->getParts()
+            )
+        );
+
+        static::registerSiUnit(
+            $registry,
+            'gradian',
+            ['grad'],
+            new Unit(
+                new FactorUnitPart(M_PI/200),
+                ...$radian->getParts()
+            )
+        );
+
+        $registry->register(
+            'cycle',
+            new Unit(
+                new FactorUnitPart(M_PI*2),
+                ...$radian->getParts()
+            )
+        );
+
+        $registry->register(
+            'arcsec',
+            new Unit(
+                new FactorUnitPart(M_PI/(180*3600)),
+                ...$radian->getParts()
+            )
+        );
+
+        $registry->register(
+            'arcmin',
+            new Unit(
+                new FactorUnitPart(M_PI/(180*60)),
+                ...$radian->getParts()
+            )
+        );
     }
 }
