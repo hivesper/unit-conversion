@@ -53,7 +53,7 @@ final class AngleTest extends TestCase
 
     public function test_radian_cycle(): void
     {
-        $this->assertEqualsWithDelta(0.1592 , $this->converter->convert($this->radian, $this->cycle, 1), 0.001);
+        $this->assertEqualsWithDelta(0.1592, $this->converter->convert($this->radian, $this->cycle, 1), 0.001);
         $this->assertEquals(M_PI*2, $this->converter->convert($this->cycle, $this->radian, 1));
     }
 
