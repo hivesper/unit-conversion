@@ -279,7 +279,9 @@ class RegistryBuilder
             new Unit(
                 new FactorUnitPart(133.322),
                 ...$pa->getParts()
-              
+            )
+        );
+
         $registry->register(
             'mmH2O',
             new Unit(
