@@ -228,7 +228,7 @@ class RegistryBuilder
         static::registerSiUnit(
             $registry,
             'watt',
-            ['w'],
+            ['W'],
             new Unit(
                 new UnitPart(1, Dimension::MASS, 1),
                 new UnitPart(1, Dimension::LENGTH, 2),

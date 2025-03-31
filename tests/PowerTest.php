@@ -2,42 +2,27 @@
 
 use PHPUnit\Framework\TestCase;
 use Vesper\UnitConversion\Converter;
-use Vesper\UnitConversion\Dimension;
-use Vesper\UnitConversion\FactorUnitPart;
 use Vesper\UnitConversion\RegistryBuilder;
 use Vesper\UnitConversion\Unit;
-use Vesper\UnitConversion\UnitPart;
 use Vesper\UnitConversion\Registry;
 
 final class PowerTest extends TestCase
 {
-    protected Registry $registry;
     protected Unit $watt;
     protected Unit $hp;
+    protected Converter $converter;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->registry = new Registry();
+        $registry = new Registry();
 
-        RegistryBuilder::registerSiUnit(
-            $this->registry,
-            'watt',
-            ['w'],
-            new Unit(
-                new UnitPart(1, Dimension::MASS, 1),
-                new UnitPart(1, Dimension::LENGTH, 2),
-                new UnitPart(1, Dimension::TIME, -3)
-            )
-        );
+        RegistryBuilder::build($registry);
 
-        $this->watt = $this->registry->get('watt');
+        $this->watt = $registry->get('watt');
 
-        $this->hp = new Unit(
-            new FactorUnitPart(745.6998715386),
-            ...$this->watt->getParts()
-        );
+        $this->hp = $registry->get('hp');
 
         $this->converter = new Converter();
     }
