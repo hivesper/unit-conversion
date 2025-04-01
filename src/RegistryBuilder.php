@@ -40,6 +40,7 @@ class RegistryBuilder
         static::initTime($registry);
         static::initVolume($registry);
         static::initTemperature($registry);
+        static::initFrequency($registry);
         static::initPressure($registry);
         static::initPower($registry);
         static::initForce($registry);
@@ -225,6 +226,16 @@ class RegistryBuilder
         $registry->register('kelvin', new Unit(new UnitPart(1, Dimension::TEMPERATURE, 1)));
         $registry->register('celsius', new Unit(new UnitPart(1, Dimension::TEMPERATURE, 1, 273.15)));
         $registry->register('fahrenheit', new Unit(new UnitPart(5 / 9, Dimension::TEMPERATURE, 1, 459.67)));
+    }
+
+    protected static function initFrequency(Registry $registry): void
+    {
+        static::registerSiUnit(
+            $registry,
+            'hertz',
+            ['Hz'],
+            new Unit(new UnitPart(1, Dimension::TIME, -1))
+        );
     }
 
     protected static function initPressure(Registry $registry): void
