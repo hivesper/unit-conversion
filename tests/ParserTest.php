@@ -5,6 +5,7 @@ use Vesper\UnitConversion\Dimension;
 use Vesper\UnitConversion\Parser;
 use Vesper\UnitConversion\Registry;
 use Vesper\UnitConversion\RegistryBuilder;
+use Vesper\UnitConversion\Exceptions\UnknownUnitException;
 
 final class ParserTest extends TestCase
 {
@@ -169,7 +170,7 @@ final class ParserTest extends TestCase
 
     public function test_throws_on_unknown_token()
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(UnknownUnitException::class);
         $this->expectExceptionMessage('Unknown unit: yeet');
 
         $this->parser->parse('kilometer / yeet');
