@@ -40,6 +40,7 @@ class RegistryBuilder
         static::initTime($registry);
         static::initVolume($registry);
         static::initTemperature($registry);
+        static::initPressure($registry);
         static::initPower($registry);
         static::initForce($registry);
         static::initLuminousIntensity($registry);
@@ -226,6 +227,78 @@ class RegistryBuilder
         $registry->register('fahrenheit', new Unit(new UnitPart(5 / 9, Dimension::TEMPERATURE, 1, 459.67)));
     }
 
+    protected static function initPressure(Registry $registry): void
+    {
+        static::registerSiUnit(
+            $registry,
+            'pascal',
+            ['Pa'],
+            new Unit(
+                new UnitPart(1, Dimension::MASS, 1),
+                new UnitPart(1, Dimension::LENGTH, -1),
+                new UnitPart(1, Dimension::TIME, -2)
+            )
+        );
+
+        $pa = $registry->get('Pa');
+
+        $registry->register(
+            'psi',
+            new Unit(
+                new FactorUnitPart(6894.75729276459),
+                ...$pa->getParts()
+            )
+        );
+
+        $registry->register(
+            'atm',
+            new Unit(
+                new FactorUnitPart(101325),
+                ...$pa->getParts()
+            )
+        );
+
+        $registry->register(
+            'bar',
+            new Unit(
+                new FactorUnitPart(100000),
+                ...$pa->getParts()
+            )
+        );
+
+        $registry->register(
+            'torr',
+            new Unit(
+                new FactorUnitPart(133.322),
+                ...$pa->getParts()
+            )
+        );
+
+        $registry->register(
+            'mmHg',
+            new Unit(
+                new FactorUnitPart(133.322),
+                ...$pa->getParts()
+            )
+        );
+
+        $registry->register(
+            'mmH2O',
+            new Unit(
+                new FactorUnitPart(9.80665),
+                ...$pa->getParts()
+            )
+        );
+
+        $registry->register(
+            'cmH2O',
+            new Unit(
+                new FactorUnitPart(98.0665),
+                ...$pa->getParts()
+            )
+        );
+    }
+              
     protected static function initPower(Registry $registry): void
     {
         static::registerSiUnit(
