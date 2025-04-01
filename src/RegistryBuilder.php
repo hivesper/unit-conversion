@@ -260,7 +260,6 @@ class RegistryBuilder
         );
         $registry->alias('gradian', ['grad']);
 
-
         $registry->register(
             'cycle',
             new Unit(
@@ -268,6 +267,7 @@ class RegistryBuilder
                 ...$radian->getParts()
             )
         );
+        $registry->alias('cycle', ['cyc', 'turn', 'tr', 'rev']);
 
         $registry->register(
             'arcsec',
