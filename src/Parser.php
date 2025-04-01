@@ -2,7 +2,7 @@
 
 namespace Vesper\UnitConversion;
 
-use Vesper\UnitConversion\Exceptions\UnknownUnitException;
+use Vesper\UnitConversion\Exceptions\InvalidUnitException;
 
 class Parser
 {
@@ -23,7 +23,7 @@ class Parser
                 $unit = $this->registry->get($token['value']);
 
                 if ($unit === null) {
-                    throw new UnknownUnitException($token['value']);
+                    throw new InvalidUnitException("Unknown unit: {$token['value']}");
                 }
 
                 $powerSign = $prevToken && $prevToken['type'] === 'operator' && $prevToken['value'] === '/'

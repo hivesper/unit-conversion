@@ -5,8 +5,7 @@ use Vesper\UnitConversion\Dimension;
 use Vesper\UnitConversion\Registry;
 use Vesper\UnitConversion\Unit;
 use Vesper\UnitConversion\UnitPart;
-use Vesper\UnitConversion\Exceptions\UnitNameIsAlreadyRegisteredException;
-use Vesper\UnitConversion\Exceptions\CannotAliasUnknownUnitException;
+use Vesper\UnitConversion\Exceptions\InvalidUnitException;
 
 final class RegistryTest extends TestCase
 {
@@ -44,7 +43,7 @@ final class RegistryTest extends TestCase
     {
         $this->assertNull($this->registry->get('yeet'));
 
-        $this->expectException(CannotAliasUnknownUnitException::class);
+        $this->expectException(InvalidUnitException::class);
         $this->expectExceptionMessage('Cannot alias unknown unit [yeet]');
 
         $this->registry->alias('yeet', 'y');
@@ -52,7 +51,7 @@ final class RegistryTest extends TestCase
 
     public function test_alias_overwrite_throws()
     {
-        $this->expectException(UnitNameIsAlreadyRegisteredException::class);
+        $this->expectException(InvalidUnitException::class);
         $this->expectExceptionMessage('Name [gram] is already registered');
 
         $this->registry->alias('gram', 'gram');
