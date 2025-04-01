@@ -40,6 +40,7 @@ class RegistryBuilder
         static::initTime($registry);
         static::initVolume($registry);
         static::initTemperature($registry);
+        static::initAngle($registry);
         static::initFrequency($registry);
         static::initPressure($registry);
         static::initPower($registry);
@@ -226,6 +227,63 @@ class RegistryBuilder
         $registry->register('kelvin', new Unit(new UnitPart(1, Dimension::TEMPERATURE, 1)));
         $registry->register('celsius', new Unit(new UnitPart(1, Dimension::TEMPERATURE, 1, 273.15)));
         $registry->register('fahrenheit', new Unit(new UnitPart(5 / 9, Dimension::TEMPERATURE, 1, 459.67)));
+    }
+
+    protected static function initAngle(Registry $registry): void
+    {
+        static::registerSiUnit(
+            $registry,
+            'radian',
+            ['rad'],
+            new Unit(
+                new UnitPart(1, Dimension::ANGLE, 1),
+            )
+        );
+
+        $radian = $registry->get('radian');
+
+        $registry->register(
+            'degree',
+            new Unit(
+                new FactorUnitPart(M_PI/180),
+                ...$radian->getParts()
+            )
+        );
+        $registry->alias('degree', ['deg']);
+
+        $registry->register(
+            'gradian',
+            new Unit(
+                new FactorUnitPart(M_PI/200),
+                ...$radian->getParts()
+            )
+        );
+        $registry->alias('gradian', ['grad']);
+
+        $registry->register(
+            'cycle',
+            new Unit(
+                new FactorUnitPart(M_PI*2),
+                ...$radian->getParts()
+            )
+        );
+        $registry->alias('cycle', ['cyc', 'turn', 'tr', 'rev']);
+
+        $registry->register(
+            'arcsec',
+            new Unit(
+                new FactorUnitPart(M_PI/(180*3600)),
+                ...$radian->getParts()
+            )
+        );
+
+        $registry->register(
+            'arcmin',
+            new Unit(
+                new FactorUnitPart(M_PI/(180*60)),
+                ...$radian->getParts()
+            )
+        );
     }
 
     protected static function initFrequency(Registry $registry): void
