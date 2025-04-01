@@ -234,7 +234,7 @@ class RegistryBuilder
             $registry,
             'hertz',
             ['Hz'],
-            new Unit(new UnitPart(1, Dimension::TIME, -1)
+            new Unit(new UnitPart(1, Dimension::TIME, -1))
         );
     }
 
