@@ -5,7 +5,7 @@ use Vesper\UnitConversion\Converter;
 use Vesper\UnitConversion\Dimension;
 use Vesper\UnitConversion\Unit;
 use Vesper\UnitConversion\UnitPart;
-use Vesper\UnitConversion\Exceptions\InvalidUnitException;
+use Vesper\UnitConversion\Exceptions\CannotConvertUnitException;
 
 final class ConverterTest extends TestCase
 {
@@ -28,7 +28,7 @@ final class ConverterTest extends TestCase
             new UnitPart(1, Dimension::LENGTH, 1),
         );
 
-        $this->expectException(InvalidUnitException::class);
+        $this->expectException(CannotConvertUnitException::class);
         $this->expectExceptionMessage("Cannot convert from [$m] to [$m2]");
 
         $this->converter->convert($m, $m2);

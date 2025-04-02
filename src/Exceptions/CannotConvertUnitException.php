@@ -4,6 +4,6 @@ namespace Vesper\UnitConversion\Exceptions;
 
 use Exception;
 
-class InvalidUnitException extends Exception
+class CannotConvertUnitException extends Exception
 {
 }

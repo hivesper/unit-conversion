@@ -2,14 +2,14 @@
 
 namespace Vesper\UnitConversion;
 
-use Vesper\UnitConversion\Exceptions\InvalidUnitException;
+use Vesper\UnitConversion\Exceptions\CannotConvertUnitException;
 
 class Converter
 {
     public function convert(Unit $from, Unit $to, float $value = 1): float
     {
         if (!$from->canConvertTo($to)) {
-            throw new InvalidUnitException("Cannot convert from [$from] to [$to]");
+            throw new CannotConvertUnitException("Cannot convert from [$from] to [$to]");
         }
 
         $fromOffset = $from->getPart(0)->getRatio() * $from->getPart(0)->getOffset();
