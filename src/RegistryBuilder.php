@@ -144,7 +144,7 @@ class RegistryBuilder
         $registry->alias('inch', ['in']);
 
         $registry->register('foot', new Unit(new UnitPart(0.3048, Dimension::LENGTH, 1)));
-        $registry->alias('foot', ['fe']);
+        $registry->alias('foot', ['ft']);
 
         $registry->register('yard', new Unit(new UnitPart(0.9144, Dimension::LENGTH, 1)));
         $registry->alias('yard', ['yd']);

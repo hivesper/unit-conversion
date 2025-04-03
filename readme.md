@@ -4,6 +4,23 @@
 
 This package provides a powerful and flexible way to handle unit conversion in PHP. It supports parsing units from strings, performing conversions, and working with both simple and compound units.
 
+## Supported Conversions
+
+Our library supports a wide range of unit conversions, covering both fundamental and derived physical quantities.
+
+### 📏 **Length (Distance)**
+### 📐 **Area**
+### ⚖️ **Mass**
+### ⏳ **Time**
+### 🌡 **Temperature**
+### ⚡ **Energy**
+### 🔥 **Power**
+### 📊 **Pressure**
+### 📡 **Frequency**
+### 🏋️ **Force**
+### 🔆 **Luminous Intensity**
+### 🧪 **Amount of Substance**
+### 🥤 **Volume**
 ## Why Use This Library?
 
 - **Simple string-based unit parsing**
@@ -87,7 +104,7 @@ $registry = new Registry();
 
 $registry->register(
     'furlong',
-    new Unit(new UnitPart(1, Dimension::LENGTH, 1)
+    new Unit(new UnitPart(201.168, Dimension::LENGTH, 1) // 1 furlong = 201.168 meter
 );
 $registry->alias('furlong', ['fur']);
 ```
@@ -106,7 +123,7 @@ RegistryBuilder::registerSiUnit(
     $registry,
     'gram', // Base unit
     ['g'], // Aliases
-    new Unit(new UnitPart(1, Dimension::MASS, 1))
+    new Unit(new UnitPart(0.001, Dimension::MASS, 1)) // 1 gram = 0.001 kilogram
 );
 ```
 
@@ -115,29 +132,8 @@ This automatically registers `gram` and generates prefixed versions like `kilogr
 ### Using in Laravel
 
 This package provides a service provider, `ConversionServiceProvider`, which is auto-discovered by Laravel. This means you don’t need to manually register it.
+`ConversionServiceProvider` include `Converter`, `Parser` and `Registry` classes.
 
-```php
-public function register(): void
-{
-    $this->app->singleton(Converter::class, function () {
-        return new Converter();
-    });
-
-    $this->app->singleton(Parser::class, function (Application $app) {
-        $registry = $app->make(Registry::class);
-
-        return new Parser($registry);
-    });
-
-    $this->app->singleton(Registry::class, function () {
-        $registry = new Registry();
-
-        RegistryBuilder::build($registry);
-
-        return $registry;
-    });
-}
-```
 Additionally, a facade `Converter` is provided for easy access.
 
 #### Example Usage
