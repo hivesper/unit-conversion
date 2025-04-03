@@ -2,6 +2,8 @@
 
 namespace Vesper\UnitConversion;
 
+use Vesper\UnitConversion\Exceptions\InvalidUnitException;
+
 class Registry
 {
     protected array $registry = [];
@@ -23,12 +25,12 @@ class Registry
         $base = $this->get($name);
 
         if ($base === null) {
-            throw new \Exception("Cannot alias unknown unit [$name]");
+            throw new InvalidUnitException("Cannot alias unknown unit [$name]");
         }
 
         foreach ((array)$aliases as $alias) {
             if (isset($this->registry[$alias])) {
-                throw new \Exception("Name [$alias] is already registered");
+                throw new InvalidUnitException("Name [$alias] is already registered");
             }
 
             $this->registry[$alias] = $base;
