@@ -1,6 +1,10 @@
 {
   "type": "library",
   "name": "vesper/unit-conversion",
+  "description": "This package provides a powerful and flexible way to handle unit conversion in PHP. It supports parsing units from strings, performing conversions, and working with both simple and compound units.",
+  "keywords": ["unit", "conversion", "measurement"],
+  "homepage": "https://github.com/hivesper/unit-conversion",
+  "license": "MIT",
   "autoload": {
     "psr-4": {
       "Vesper\\UnitConversion\\": "src/"
