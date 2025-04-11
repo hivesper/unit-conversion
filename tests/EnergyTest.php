@@ -2,7 +2,8 @@
 
 use PHPUnit\Framework\TestCase;
 use Vesper\UnitConversion\Converter;
-use Vesper\UnitConversion\Dimension;
+use Vesper\UnitConversion\Registry;
+use Vesper\UnitConversion\RegistryBuilder;
 use Vesper\UnitConversion\Unit;
 use Vesper\UnitConversion\UnitPart;
 
@@ -16,23 +17,20 @@ final class EnergyTest extends TestCase
     {
         parent::setUp();
 
-        $this->cal = new Unit(
-            new UnitPart(4.184, Dimension::MASS, 1),
-            new UnitPart(1, Dimension::LENGTH, 2),
-            new UnitPart(1, Dimension::TIME, -2)
-        );
-        $this->joule = new Unit(
-            new UnitPart(1, Dimension::MASS, 1),
-            new UnitPart(1, Dimension::LENGTH, 2),
-            new UnitPart(1, Dimension::TIME, -2),
-        );
+        $registry = new Registry();
+
+        RegistryBuilder::build($registry);
+
+        $this->cal = $registry->get('calorie');
+
+        $this->joule = $registry->get('joule');
 
         $this->converter = new Converter();
     }
 
     public function test_cal_to_joule(): void
     {
-        $this->assertEqualsWithDelta(4.184, $this->converter->convert($this->cal, $this->joule, 1), 0.0000001);
+        $this->assertEqualsWithDelta(4.1868, $this->converter->convert($this->cal, $this->joule, 1), 0.0000001);
     }
 
     public function test_joule_to_cal(): void
