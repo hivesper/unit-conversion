@@ -13,6 +13,11 @@ class Parser
 
     public function parse(string $input): Unit
     {
+        $unit = $this->registry->get($input);
+        if ($unit) {
+            return $unit;
+        }
+
         $tokens = $this->tokenize($input);
         $parts = [];
 
