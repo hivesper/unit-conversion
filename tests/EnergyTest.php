@@ -5,12 +5,12 @@ use Vesper\UnitConversion\Converter;
 use Vesper\UnitConversion\Registry;
 use Vesper\UnitConversion\RegistryBuilder;
 use Vesper\UnitConversion\Unit;
-use Vesper\UnitConversion\UnitPart;
 
 final class EnergyTest extends TestCase
 {
     protected Unit $cal;
     protected Unit $joule;
+    protected Unit $watthour;
     protected Converter $converter;
 
     protected function setUp(): void
@@ -25,6 +25,8 @@ final class EnergyTest extends TestCase
 
         $this->joule = $registry->get('joule');
 
+        $this->watthour = $registry->get('watt-hour');
+
         $this->converter = new Converter();
     }
 
@@ -35,6 +37,11 @@ final class EnergyTest extends TestCase
 
     public function test_joule_to_cal(): void
     {
-        $this->assertEqualsWithDelta(1 / 4.184, $this->converter->convert($this->joule, $this->cal, 1), 0.0000001);
+        $this->assertEqualsWithDelta(1, $this->converter->convert($this->joule, $this->cal, 4.1868), 0.0000001);
+    }
+
+    public function test_joule_to_watt_hour(): void
+    {
+        $this->assertEqualsWithDelta(1, $this->converter->convert($this->joule, $this->watthour, 3600), 0.0000001);
     }
 }
