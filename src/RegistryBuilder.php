@@ -130,6 +130,20 @@ class RegistryBuilder
                 new UnitPart(1, Dimension::TIME, -2)
             )
         );
+
+        static::registerSiUnit(
+            $registry,
+            'watt-hour',
+            ['Wh'],
+            new Unit(
+                // watt
+                new UnitPart(1, Dimension::MASS, 1),
+                new UnitPart(1, Dimension::LENGTH, 2),
+                new UnitPart(1, Dimension::TIME, -3),
+                // hour
+                new UnitPart(3600, Dimension::TIME, 1)
+            )
+        );
     }
 
     protected static function initLength(Registry $registry): void
