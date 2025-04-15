@@ -216,72 +216,31 @@ final class ParserTest extends TestCase
 
     public function test_parses_dash_joined_single_unit_directly_if_registered()
     {
-        $this->registry->register('watt-hour', new Unit(
-            // Watt
-            new UnitPart(1, Dimension::MASS, 1),
-            new UnitPart(1, Dimension::LENGTH, 2),
-            new UnitPart(1, Dimension::TIME, -3),
-            // Hour
-            new UnitPart(3600, Dimension::TIME, 1)
-        ));
-
+        $wattHour = $this->registry->get('watt-hour');
         $result = $this->parser->parse('watt-hour');
         [$wattMass, $wattLength, $wattTime, $hour] = $result->getParts();
 
         $this->assertCount(4, $result->getParts());
 
-        // Watt
-        $this->assertEquals(Dimension::MASS, $wattMass->getDimension());
-        $this->assertEquals(1, $wattMass->getRatio());
-        $this->assertEquals(1, $wattMass->getPower());
-
-        $this->assertEquals(Dimension::LENGTH, $wattLength->getDimension());
-        $this->assertEquals(1, $wattLength->getRatio());
-        $this->assertEquals(2, $wattLength->getPower());
-
-        $this->assertEquals(Dimension::TIME, $wattTime->getDimension());
-        $this->assertEquals(1, $wattTime->getRatio());
-        $this->assertEquals(-3, $wattTime->getPower());
-
-        // Hour
-        $this->assertEquals(Dimension::TIME, $hour->getDimension());
-        $this->assertEquals(3600, $hour->getRatio());
-        $this->assertEquals(1, $hour->getPower());
+        $this->assertEquals($wattMass, $wattHour->getPart(0));
+        $this->assertEquals($wattLength, $wattHour->getPart(1));
+        $this->assertEquals($wattTime, $wattHour->getPart(2));
+        $this->assertEquals($hour, $wattHour->getPart(3));
     }
 
     public function test_parses_dash_joined_single_unit_with_operator()
     {
-        $this->registry->register('watt-hour', new Unit(
-            // Watt
-            new UnitPart(1, Dimension::MASS, 1),
-            new UnitPart(1, Dimension::LENGTH, 2),
-            new UnitPart(1, Dimension::TIME, -3),
-            // Hour
-            new UnitPart(3600, Dimension::TIME, 1)
-        ));
-
+        $wattHour = $this->registry->get('watt-hour');
         $result = $this->parser->parse('watt-hour/kg');
         [$wattMass, $wattLength, $wattTime, $hour, $kilo, $gram] = $result->getParts();
 
         $this->assertCount(6, $result->getParts());
 
-        // Watt
-        $this->assertEquals(Dimension::MASS, $wattMass->getDimension());
-        $this->assertEquals(1, $wattMass->getRatio());
-        $this->assertEquals(1, $wattMass->getPower());
-
-        $this->assertEquals(Dimension::LENGTH, $wattLength->getDimension());
-        $this->assertEquals(1, $wattLength->getRatio());
-        $this->assertEquals(2, $wattLength->getPower());
-
-        $this->assertEquals(Dimension::TIME, $wattTime->getDimension());
-        $this->assertEquals(1, $wattTime->getRatio());
-        $this->assertEquals(-3, $wattTime->getPower());
-
-        // Hour
-        $this->assertEquals(Dimension::TIME, $hour->getDimension());
-        $this->assertEquals(3600, $hour->getRatio());
-        $this->assertEquals(1, $hour->getPower());
+        // Watt-hour
+        $this->assertEquals($wattMass, $wattHour->getPart(0));
+        $this->assertEquals($wattLength, $wattHour->getPart(1));
+        $this->assertEquals($wattTime, $wattHour->getPart(2));
+        $this->assertEquals($hour, $wattHour->getPart(3));
 
         // Kilogram
         $this->assertNull($kilo->getDimension());
