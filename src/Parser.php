@@ -63,7 +63,7 @@ class Parser
         // - Dash-separated units (e.g., "watt-hour") should be treated as a single unit.
         // - For inputs with division operators (e.g., "watt-hour/kg"), units separated by "/"
         //   should be processed individually while still supporting dash-separated units.
-        $allowDash = str_contains($input, '/') || str_contains($input, '*');
+        $allowDash = str_contains($input, '/');
 
         $regex = $allowDash
             ? '/(?P<unit>[\w-]+)(?:\^(?P<power>-?\d))?|(?P<operator>[*\/])/'
