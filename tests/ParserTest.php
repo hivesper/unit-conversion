@@ -221,7 +221,6 @@ final class ParserTest extends TestCase
         [$wattMass, $wattLength, $wattTime, $hour] = $result->getParts();
 
         $this->assertCount(4, $result->getParts());
-
         $this->assertEquals($wattMass, $wattHour->getPart(0));
         $this->assertEquals($wattLength, $wattHour->getPart(1));
         $this->assertEquals($wattTime, $wattHour->getPart(2));

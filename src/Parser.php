@@ -13,9 +13,8 @@ class Parser
 
     public function parse(string $input): Unit
     {
-        $unit = $this->registry->get($input);
-        if ($unit) {
-            return $unit;
+        if ($this->registry->has($input)) {
+            return $this->registry->get($input);;
         }
 
         $tokens = $this->tokenize($input);
@@ -33,7 +32,6 @@ class Parser
             if ($unit === null) {
                 throw new InvalidUnitException("Unknown unit: {$token['value']}");
             }
-
             $powerSign = $prevToken && $prevToken['type'] === 'operator' && $prevToken['value'] === '/'
                 ? -1
                 : 1;
@@ -59,18 +57,8 @@ class Parser
         $matches = [];
         $tokens = [];
 
-        // Handle cases like "watt-hour" or "watt-hour/kg" with different regex logic:
-        // - Dash-separated units (e.g., "watt-hour") should be treated as a single unit.
-        // - For inputs with division operators (e.g., "watt-hour/kg"), units separated by "/"
-        //   should be processed individually while still supporting dash-separated units.
-        $allowDash = str_contains($input, '/');
-
-        $regex = $allowDash
-            ? '/(?P<unit>[\w-]+)(?:\^(?P<power>-?\d))?|(?P<operator>[*\/])/'
-            : '/(?P<unit>\w+)(?:\^(?P<power>-?\d))?|(?P<operator>[*\/])/';
-
         preg_match_all(
-            $regex,
+            '/(?P<unit>\w+)(?:\^(?P<power>-?\d))?|(?P<operator>[*\/])/',
             preg_replace('/\s+/', '', $input),
             $matches,
             PREG_SET_ORDER
@@ -78,25 +66,11 @@ class Parser
 
         foreach ($matches as $match) {
             if ($match['unit']) {
-                // If the unit contains a dash, check if it's a registered unit as a whole
-                if (str_contains($match['unit'], '-') && $this->registry->get($match['unit']) !== null) {
-                    // If the compound unit (e.g., "watt-hour") is in the registry, treat it as a single unit
-                    $tokens[] = [
-                        'type' => 'unit',
-                        'value' => $match['unit'],
-                        'power' => (int)($match['power'] ?? 1),
-                    ];
-                } else {
-                    // Otherwise, split the dash-separated units into individual tokens (e.g., "gram-liter" becomes "gram" and "liter")
-                    $units = explode('-', $match['unit']);
-                    foreach ($units as $unit) {
-                        $tokens[] = [
-                            'type' => 'unit',
-                            'value' => $unit,
-                            'power' => (int)($match['power'] ?? 1),
-                        ];
-                    }
-                }
+                $tokens[] = [
+                    'type' => 'unit',
+                    'value' => $match['unit'],
+                    'power' => (int)($match['power'] ?? 1),
+                ];
             } else if ($match['operator']) {
                 $tokens[] = [
                     'type' => 'operator',
