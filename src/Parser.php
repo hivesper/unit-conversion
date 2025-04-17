@@ -52,6 +52,7 @@ class Parser
 
         return new Unit(...array_merge([], ...$parts));
     }
+
     protected function tokenize(string $input): array
     {
         $matches = [];
