@@ -28,9 +28,6 @@ final class EnergyTest extends TestCase
         $this->watthour = $registry->get('watt-hour');
 
         $this->converter = new Converter();
-
-        // todo: remove
-        $this->x = 123;
     }
 
     public function test_cal_to_joule(): void
