@@ -13,35 +13,41 @@ class Parser
 
     public function parse(string $input): Unit
     {
+        if ($this->registry->has($input)) {
+            return $this->registry->get($input);;
+        }
+
         $tokens = $this->tokenize($input);
         $parts = [];
 
         foreach ($tokens as $i => $token) {
             $prevToken = $tokens[$i - 1] ?? null;
 
-            if ($token['type'] === 'unit') {
-                $unit = $this->registry->get($token['value']);
+            if ($token['type'] !== 'unit') {
+                continue;
+            }
 
-                if ($unit === null) {
-                    throw new InvalidUnitException("Unknown unit: {$token['value']}");
+            $unit = $this->registry->get($token['value']);
+
+            if ($unit === null) {
+                throw new InvalidUnitException("Unknown unit: {$token['value']}");
+            }
+            $powerSign = $prevToken && $prevToken['type'] === 'operator' && $prevToken['value'] === '/'
+                ? -1
+                : 1;
+            $power = $token['power'] * $powerSign;
+
+            $parts[] = array_map(function (UnitPart|FactorUnitPart $part) use ($power) {
+                if ($part instanceof FactorUnitPart) {
+                    return new FactorUnitPart($part->getRatio());
                 }
 
-                $powerSign = $prevToken && $prevToken['type'] === 'operator' && $prevToken['value'] === '/'
-                    ? -1
-                    : 1;
-
-                $parts[] = array_map(function (UnitPart|FactorUnitPart $part) use ($token, $powerSign) {
-                    if ($part instanceof FactorUnitPart) {
-                        return new FactorUnitPart($part->getRatio());
-                    }
-
-                    return new UnitPart(
-                        $part->getRatio(),
-                        $part->getDimension(),
-                        $part->getPower() * $token['power'] * $powerSign,
-                    );
-                }, $unit->getParts());
-            }
+                return new UnitPart(
+                    $part->getRatio(),
+                    $part->getDimension(),
+                    $part->getPower() * $power,
+                );
+            }, $unit->getParts());
         }
 
         return new Unit(...array_merge([], ...$parts));
@@ -58,7 +64,6 @@ class Parser
             $matches,
             PREG_SET_ORDER
         );
-
 
         foreach ($matches as $match) {
             if ($match['unit']) {
