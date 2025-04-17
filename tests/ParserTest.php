@@ -175,4 +175,77 @@ final class ParserTest extends TestCase
 
         $this->parser->parse('kilometer / yeet');
     }
+
+    public function test_parses_dash_separated_units()
+    {
+        $result = $this->parser->parse('gram-liter');
+        [$gram, $liter] = $result->getParts();
+
+        $this->assertCount(2, $result->getParts());
+
+        $this->assertEquals(Dimension::MASS, $gram->getDimension());
+        $this->assertEquals(0.001, $gram->getRatio());
+        $this->assertEquals(1, $gram->getPower());
+
+        $this->assertEquals(Dimension::LENGTH, $liter->getDimension());
+        $this->assertEquals(0.1, $liter->getRatio());
+        $this->assertEquals(3, $liter->getPower());
+    }
+
+    public function test_parses_dash_separated_unit_with_operator()
+    {
+        $result = $this->parser->parse('gram-liter/hour');
+        [$gram, $liter, $hour] = $result->getParts();
+
+        $this->assertCount(3, $result->getParts());
+
+        $this->assertEquals(Dimension::MASS, $gram->getDimension());
+        $this->assertEquals(0.001, $gram->getRatio());
+        $this->assertEquals(1, $gram->getPower());
+
+        $this->assertEquals(Dimension::LENGTH, $liter->getDimension());
+        $this->assertEquals(0.1, $liter->getRatio());
+        $this->assertEquals(3, $liter->getPower());
+
+        $this->assertEquals(Dimension::TIME, $hour->getDimension());
+        $this->assertEquals(3600, $hour->getRatio());
+        $this->assertEquals(-1, $hour->getPower());
+    }
+
+    public function test_parses_dash_joined_single_unit_directly_if_registered()
+    {
+        $wattHour = $this->registry->get('watt-hour');
+        $result = $this->parser->parse('watt-hour');
+        [$wattMass, $wattLength, $wattTime, $hour] = $result->getParts();
+
+        $this->assertCount(4, $result->getParts());
+        $this->assertEquals($wattMass, $wattHour->getPart(0));
+        $this->assertEquals($wattLength, $wattHour->getPart(1));
+        $this->assertEquals($wattTime, $wattHour->getPart(2));
+        $this->assertEquals($hour, $wattHour->getPart(3));
+    }
+
+    public function test_parses_dash_joined_single_unit_with_operator()
+    {
+        $wattHour = $this->registry->get('watt-hour');
+        $result = $this->parser->parse('watt-hour/kg');
+        [$wattMass, $wattLength, $wattTime, $hour, $kilo, $gram] = $result->getParts();
+
+        $this->assertCount(6, $result->getParts());
+
+        // Watt-hour
+        $this->assertEquals($wattMass, $wattHour->getPart(0));
+        $this->assertEquals($wattLength, $wattHour->getPart(1));
+        $this->assertEquals($wattTime, $wattHour->getPart(2));
+        $this->assertEquals($hour, $wattHour->getPart(3));
+
+        // Kilogram
+        $this->assertNull($kilo->getDimension());
+        $this->assertEquals(1000, $kilo->getRatio());
+        $this->assertEquals(1, $kilo->getPower());
+
+        $this->assertEquals(Dimension::MASS, $gram->getDimension());
+        $this->assertEquals(0.001, $gram->getRatio());
+        $this->assertEquals(-1, $gram->getPower());
+    }
 }
