@@ -9,8 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Notify Packagist
-        env:
-          PACKAGIST_TOKEN: ${{ secrets.PACKAGIST_TOKEN }}
         run: |
           curl -X POST "https://packagist.org/api/update-package?username=Vesper&apiToken=${{ secrets.PACKAGIST_TOKEN }}" \
           -H "Content-Type: application/json" \
