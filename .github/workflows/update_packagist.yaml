@@ -12,7 +12,6 @@ jobs:
         env:
           PACKAGIST_TOKEN: ${{ secrets.PACKAGIST_TOKEN }}
         run: |
-          curl -X POST -H
-          'content-type:application/json'
-          'https://packagist.org/api/update-package?username=Vesper&apiToken=${{ secrets.PACKAGIST_TOKEN }}' \
+          curl -X POST "https://packagist.org/api/update-package?username=Vesper&apiToken=${{ secrets.PACKAGIST_TOKEN }}" \
+          -H "Content-Type: application/json" \
           -d '{"repository":{"url":"https://packagist.org/packages/vesper/unit-conversion"}}'
