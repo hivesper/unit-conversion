@@ -171,4 +171,50 @@ final class UnitTest extends TestCase
 
         $this->assertEquals($ms->getDimensions(), $meterDividedBySeconds->getDimensions());
     }
+
+    public function test_invert()
+    {
+        $hundredSquareMeters = new Unit(
+            new FactorUnitPart(100),
+            new UnitPart(1, Dimension::LENGTH, 2),
+        );
+
+        $inverted = $hundredSquareMeters->invert();
+
+        $this->assertEquals(-2, $inverted->getDimensions()[Dimension::LENGTH->name]);
+        $this->assertEquals(0.01, $inverted->getRatio());
+    }
+
+    public function test_invert_twice()
+    {
+        $hundredSquareMeters = new Unit(
+            new FactorUnitPart(100),
+            new UnitPart(1, Dimension::LENGTH, 2),
+        );
+
+        $invertedTwice = $hundredSquareMeters->invert()->invert();
+
+        $this->assertEquals($invertedTwice->getRatio(), $hundredSquareMeters->getRatio());
+        $this->assertEquals($invertedTwice->getDimensions(), $hundredSquareMeters->getDimensions());
+    }
+
+    public function test_unit_and_factor_mix()
+    {
+        // 100m^2
+        $hundredSquareMeters = new Unit(
+            new FactorUnitPart(100),
+            new UnitPart(1, Dimension::LENGTH, 2),
+        );
+
+        // (10m)^2
+        $tenMetersSquared = new Unit(
+            new UnitPart(10, Dimension::LENGTH, 2),
+        );
+
+        $this->assertEquals($hundredSquareMeters->getRatio(), $tenMetersSquared->getRatio());
+        $this->assertEquals($hundredSquareMeters->getDimensions(), $tenMetersSquared->getDimensions());
+
+        $this->assertEquals($hundredSquareMeters->invert()->getRatio(), $tenMetersSquared->invert()->getRatio());
+        $this->assertEquals($hundredSquareMeters->invert()->getDimensions(), $tenMetersSquared->invert()->getDimensions());
+    }
 }
