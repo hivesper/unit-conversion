@@ -14,7 +14,7 @@ class Parser
     public function parse(string $input): Unit
     {
         if ($this->registry->has($input)) {
-            return $this->registry->get($input);;
+            return $this->registry->get($input);
         }
 
         $tokens = $this->tokenize($input);
@@ -39,7 +39,7 @@ class Parser
 
             $parts[] = array_map(function (UnitPart|FactorUnitPart $part) use ($power) {
                 if ($part instanceof FactorUnitPart) {
-                    return new FactorUnitPart($part->getRatio());
+                    return new FactorUnitPart($part->getRatio() ** $power);
                 }
 
                 return new UnitPart(
