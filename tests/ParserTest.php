@@ -2,10 +2,13 @@
 
 use PHPUnit\Framework\TestCase;
 use Vesper\UnitConversion\Dimension;
+use Vesper\UnitConversion\FactorUnitPart;
 use Vesper\UnitConversion\Parser;
 use Vesper\UnitConversion\Registry;
 use Vesper\UnitConversion\RegistryBuilder;
 use Vesper\UnitConversion\Exceptions\InvalidUnitException;
+use Vesper\UnitConversion\Unit;
+use Vesper\UnitConversion\UnitPart;
 
 final class ParserTest extends TestCase
 {
@@ -105,7 +108,7 @@ final class ParserTest extends TestCase
         [$k, $m3] = $result->getParts();
 
         $this->assertNull($k->getDimension());
-        $this->assertEquals(1000, $k->getRatio());
+        $this->assertEquals(1000 ** -3, $k->getRatio());
         $this->assertEquals(1, $k->getPower());
 
         $this->assertEquals(Dimension::LENGTH, $m3->getDimension());
@@ -156,7 +159,7 @@ final class ParserTest extends TestCase
         [$k, $m3, $hour] = $result->getParts();
 
         $this->assertNull($k->getDimension());
-        $this->assertEquals(1000, $k->getRatio());
+        $this->assertEquals(1000 ** 3, $k->getRatio());
         $this->assertEquals(1, $k->getPower());
 
         $this->assertEquals(Dimension::LENGTH, $m3->getDimension());
@@ -241,11 +244,60 @@ final class ParserTest extends TestCase
 
         // Kilogram
         $this->assertNull($kilo->getDimension());
-        $this->assertEquals(1000, $kilo->getRatio());
+        $this->assertEquals(0.001, $kilo->getRatio());
         $this->assertEquals(1, $kilo->getPower());
 
         $this->assertEquals(Dimension::MASS, $gram->getDimension());
         $this->assertEquals(0.001, $gram->getRatio());
         $this->assertEquals(-1, $gram->getPower());
+    }
+
+    public function test_parses_km_squared()
+    {
+        $result = $this->parser->parse('km^2');
+
+        $this->assertCount(2, $result->getParts());
+
+        [$k, $m] = $result->getParts();
+
+        $this->assertEquals(null, $k->getDimension());
+        $this->assertEquals(1000 ** 2, $k->getRatio());
+        $this->assertEquals(1, $k->getPower());
+
+        $this->assertEquals(Dimension::LENGTH, $m->getDimension());
+        $this->assertEquals(1, $m->getRatio());
+        $this->assertEquals(2, $m->getPower());
+
+        $this->assertEquals(1000000, $result->getRatio());
+    }
+
+    public function test_factor_unit_in_denominator()
+    {
+        $this->registry->register(
+            'thousandhectares',
+            new Unit(
+                new FactorUnitPart(1000),
+                new UnitPart(100, Dimension::LENGTH, 2)
+            )
+        );
+
+        $result = $this->parser->parse('hectare/thousandhectares');
+
+        $this->assertCount(3, $result->getParts());
+        [$hectare, $perThousand, $perHectare] = $result->getParts();
+
+        $this->assertEquals(Dimension::LENGTH, $hectare->getDimension());
+        $this->assertEquals(100, $hectare->getRatio());
+        $this->assertEquals(2, $hectare->getPower());
+
+        $this->assertEquals(0.001, $perThousand->getRatio());
+        $this->assertEquals(null, $perThousand->getDimension());
+        $this->assertEquals(1, $perThousand->getPower());
+
+        $this->assertEquals(Dimension::LENGTH, $perHectare->getDimension());
+        $this->assertEquals(100, $perHectare->getRatio());
+        $this->assertEquals(-2, $perHectare->getPower());
+
+        $this->assertEquals(0.001, $result->getRatio());
     }
 }

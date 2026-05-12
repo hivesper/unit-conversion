@@ -14,4 +14,12 @@ readonly class FactorUnitPart extends UnitPart
     {
         return "{$this->getRatio()}";
     }
+
+    #[\Override]
+    public function invert(): self
+    {
+        // A FactorUnitPart always has power = 1. So when inverting it,
+        // we calculate the reciprocal of the ratio instead of negating the power.
+        return new self(1 / $this->getRatio());
+    }
 }
